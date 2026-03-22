@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using LibraryManagementSystem.Console.Models;
+using LibraryManagementSystem.ConsoleApp.Models;
 
 HttpClient client = new HttpClient();
 

@@ -15,12 +15,12 @@ var app = builder.Build();
 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
 // TESTing Json Deserialization and swagger hosting
-string jsonFile = File.ReadAllText("./Resources/64KB.json");
-var jsonData = JsonSerializer.Deserialize<List<Person>>(jsonFile, options);
+string jsonFile = File.ReadAllText("./Resources/patrons.json");
+var jsonData = JsonSerializer.Deserialize<List<Patron>>(jsonFile, options);
 
-app.MapGet("/people", () => jsonData)
-    .WithName("GetPeople")
-    .Produces<List<Person>>(statusCode: StatusCodes.Status200OK);
+app.MapGet("/patrons", () => jsonData)
+    .WithName("GetPatrons")
+    .Produces<List<Patron>>(statusCode: StatusCodes.Status200OK);
 
 app.MapControllers();
 
