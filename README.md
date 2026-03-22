@@ -4,6 +4,7 @@ todo
 1. Web api is working now and will host patron data
 2. either create a json file with book and item data, or connect to an api
 3. connect the console app to the api again regarding patrons, list patrons and how old they are.
+    fix console app build error
 
 AI use
 maybe I'll use AI to gather information about the "patrons" to gather information such as:
