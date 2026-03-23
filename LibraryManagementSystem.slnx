@@ -1,7 +1,4 @@
 <Solution>
-  <Folder Name="/LibraryManagementSystem.ConsoleApp/">
-    <Project Path="LibraryManagementSystem.ConsoleApp/LibraryManagementSystem.Console.csproj" />
-  </Folder>
   <Project Path="LibraryManagementSystem.API/LibraryManagementSystem.API.csproj" />
   <Project Path="LibraryManagementSystem.ConsoleApp/LibraryManagementSystem.ConsoleApp.csproj" />
 </Solution>
