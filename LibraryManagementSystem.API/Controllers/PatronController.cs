@@ -21,11 +21,23 @@ namespace LibraryManagementSystem.API.Controllers
             }
         }
 
-        // GET: api/patrons
+        // GET: api/Patron
         [HttpGet]
         public ActionResult<List<Patron>> GetPatrons()
         {
             return Ok(Patrons);
+        }
+
+        // GET: api/Patron/{LastName}
+        [HttpGet("{LastName}")]
+        public ActionResult<Patron> GetPatron(string LastName)
+        {
+            var patron = Patrons.FirstOrDefault(p => p.LastName == LastName);
+            if (patron == null)
+            {
+                return NotFound($"Patron with last name: {LastName}, not found.");
+            }
+            return Ok(patron);
         }
     }
 }
