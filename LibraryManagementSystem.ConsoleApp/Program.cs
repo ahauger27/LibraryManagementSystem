@@ -1,6 +1,43 @@
 ﻿using System.Text.Json;
 using LibraryManagementSystem.ConsoleApp.Models;
+using LibraryManagementSystem.ConsoleApp.Services;
 
+
+Processor run = new Processor();
+run.Start();
+
+Console.WriteLine("Library Management System");
+
+while (run.RunStatus == true)
+{
+    Console.WriteLine("What would you like to do?");
+    Console.WriteLine("1. Look up patron(s) (WIP)");
+    Console.WriteLine("2. Search patrons by name (WIP)");
+    Console.WriteLine("3. Quit program (WIP)");
+    
+    string? userChoice = Console.ReadLine();
+
+    if (userChoice != null || userChoice != string.Empty)
+    {
+        switch (userChoice)
+        {
+            case "1":
+                ListAllPatrons(patrons);
+                break;
+            case "2":
+                Console.WriteLine("This feature is still in progress");
+                break;
+            case "3":
+                run.End();
+                Console.WriteLine("End program (Doesn't work yet)");
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+/*
 HttpClient client = new HttpClient();
 
 client.BaseAddress = new Uri("http://localhost:5126");
@@ -40,3 +77,16 @@ else
     Console.WriteLine($"Error: {singleResponse.StatusCode}");
     Console.WriteLine(await singleResponse.Content.ReadAsStringAsync());
 }
+*/
+
+static void ListAllPatrons(List<Patron> patronList)
+        {
+            Console.WriteLine($"{Environment.NewLine}Patrons:");
+            Console.WriteLine("\tNAME");
+            
+            int i = 0;
+            foreach (var patron in patronList)
+            {
+                Console.WriteLine($"{++i:D3} \t{patron.LastName}, {patron.FirstName}");
+            }
+        }
