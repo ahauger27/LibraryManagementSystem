@@ -13,10 +13,10 @@ todo
     update accounts
     delete accounts
 
-        
+Nice-to-haves
+7. Create a script that will create random patrons so as not to need ai for this
 
 The use of AI in this Project:
 
 I utilized Claude to create a json file containing dummy data for 200 library patron users. I opted to generate this file with AI rather than serializing this data by hand to save time.
 
-maybe I'll use AI to gather information about the "patrons" to gather information such as:
