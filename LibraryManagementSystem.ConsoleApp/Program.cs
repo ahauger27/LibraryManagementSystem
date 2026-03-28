@@ -8,87 +8,178 @@ run.Start();
 
 HttpClient client = new HttpClient();
 client.BaseAddress = new Uri("http://localhost:5126");
-HttpResponseMessage response = await client.GetAsync("/api/Patron");
 JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-var patrons = new List<Patron>();
-if (response.IsSuccessStatusCode)
-{
-    string jsonResponse = await response.Content.ReadAsStringAsync();
-
-    patrons = JsonSerializer.Deserialize<List<Patron>>(jsonResponse, options);
-}
-else
-{
-    Console.WriteLine($"Error: {response.StatusCode}");
-    Console.WriteLine(await response.Content.ReadAsStringAsync());
-}
-
-Console.WriteLine("Library Management System");
+Console.WriteLine($"{Environment.NewLine}LIBRARY MANAGEMENT SYSTEM");
 Console.WriteLine("=========================");
+
 
 while (run.RunStatus == true)
 {
-    Console.WriteLine($"{Environment.NewLine}What would you like to do?");
-    Console.WriteLine("1. Look up patron(s)");
-    Console.WriteLine("2. Search patrons by name (WIP)");
-    Console.WriteLine("3. Quit program (WIP)");
+    Console.WriteLine($"{Environment.NewLine}OPTIONS MENU");
+    Console.WriteLine($"============{Environment.NewLine}");
+    Console.WriteLine("1. Patron Search (WIP)");
+    Console.WriteLine("2. Item Search (WIP)");
+    Console.WriteLine("3. Add New Patron (WIP)");
+    Console.WriteLine("4. Quit program (WIP)");
     
     string? userChoice = Console.ReadLine();
 
-    if (userChoice != null || userChoice != string.Empty)
+    try
     {
-        switch (userChoice)
+        if (userChoice != null || userChoice != string.Empty)
         {
-            case "1":
-                ListAllPatrons(patrons);
-                break;
-            case "2":
-                Console.WriteLine("This feature is still in progress");
-                break;
-            case "3":
-                run.End();
-                Console.WriteLine("End program");
-                break;
-            default:
-                break;
+            switch (userChoice)
+            {
+                case "1":
+                    Console.WriteLine($"{Environment.NewLine}PATRON OPTIONS{Environment.NewLine}==============");
+                    Console.WriteLine("1. List All Patrons");
+                    Console.WriteLine("2. Search Patrons By ID (WIP)");
+
+                    string? userChoice2 = Console.ReadLine();
+                    if (userChoice2 != null || userChoice2 != string.Empty)
+                    {
+                        switch (userChoice2)
+                        {
+                            case "1":
+                                await ListAllPatrons();
+                                // Console.WriteLine("This feature is still in progress");
+                                break;
+                            case "2":
+                                Console.WriteLine("Enter patron's ID: ");
+                                string? idInput = Console.ReadLine();
+                                if (idInput != null || idInput != string.Empty)
+                                {
+                                    if (int.TryParse(idInput, out int id))
+                                    {
+                                        await SearchPatronsByID(id);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid ID format.");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid input, returning to main menu.");
+                                }
+                                break;
+                            default:
+                                Console.WriteLine("Invalid option, returning to main menu.");
+                                break;
+                        }
+                    }
+                    break;
+                case "2":
+                    Console.WriteLine("This feature is still in progress");
+                    break;
+                case "3":
+                    Console.WriteLine("This feature is still in progress");
+                    await 
+
+                    break;
+                case "4":
+                    run.End();
+                    Console.WriteLine("Shutting down program...");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option. Please choose a valid option.");
+                    break;
+            }
+        
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Invalid input");
+        Console.WriteLine(ex.Message);
+    }
+    Console.WriteLine("Press \"Enter\" to continue...");
+    Console.ReadLine();
+}
+
+
+async Task ListAllPatrons()
+{
+    HttpResponseMessage response = await client.GetAsync("/patrons");
+
+    var patrons = new List<Patron>();
+    if (response.IsSuccessStatusCode)
+    {
+        string jsonResponse = await response.Content.ReadAsStringAsync();
+
+        patrons = JsonSerializer.Deserialize<List<Patron>>(jsonResponse, options);
+    }
+    else
+    {
+        Console.WriteLine($"Error: {response.StatusCode}");
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
+    }
+
+    if (patrons.Count == 0)
+    {
+        Console.WriteLine("No patrons found.");   
+    }
+    else
+    {
+        Console.WriteLine($"{Environment.NewLine}Patrons:");
+        Console.WriteLine("ID\t\tNAME");
+        Console.WriteLine("=================================");
+        
+        foreach (var patron in patrons)
+        {
+            Console.WriteLine($"{patron.PatronID}\t{patron.LastName}, {patron.FirstName}");
         }
     }
 }
 
-/*
-HttpResponseMessage singleResponse = await client.GetAsync("/api/Patron/Smith");
 
-if (singleResponse.IsSuccessStatusCode)
+async Task SearchPatronsByID(int id)
 {
-    string jsonResponse = await singleResponse.Content.ReadAsStringAsync();
+    HttpResponseMessage singleResponse = await client.GetAsync($"/patrons/{id}");
 
-    var patron = JsonSerializer.Deserialize<Patron>(jsonResponse, options);
+    if (singleResponse.IsSuccessStatusCode)
+    {
+        string jsonResponse = await singleResponse.Content.ReadAsStringAsync();
+        var patron = JsonSerializer.Deserialize<Patron>(jsonResponse, options);
 
-    Console.WriteLine($"{patron.PrintPatronName()} is {patron.DisplayAge()} years old.");
+        Console.WriteLine($"{Environment.NewLine}Search results for ID: {id}");
+        Console.WriteLine($"{patron.FullName()}");
+    }
+    else
+    {
+        Console.WriteLine($"Error: {singleResponse.StatusCode}");
+        Console.WriteLine(await singleResponse.Content.ReadAsStringAsync());
+    }
 }
-else
+
+/*
+async Task AddNewPatron()
 {
-    Console.WriteLine($"Error: {singleResponse.StatusCode}");
-    Console.WriteLine(await singleResponse.Content.ReadAsStringAsync());
+    Console.WriteLine("Enter new patron's first name: ");
+    string? firstName = Console.ReadLine();
+    Console.WriteLine("Enter new patron's last name: ");
+    string? lastName = Console.ReadLine();
+
+    if (firstName != null && lastName != null)
+    {
+        Patron newPatron = new Patron { FirstName = firstName, LastName = lastName, DateOfBirth = new DateTime(2000, 1, 1) };
+
+        HttpResponseMessage response = await client.PostAsJsonAsync("/patrons", newPatron);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine($"Successfully added new patron: {newPatron.FullName()}");
+        }
+        else
+        {
+            Console.WriteLine($"Error: {response.StatusCode}");
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid input, returning to main menu.");
+    }
 }
 */
-
-static void ListAllPatrons(List<Patron> patronList)
-        {
-            if (patronList.Count == 0)
-            {
-                Console.WriteLine("No patrons found.");   
-            }
-            else
-            {
-                Console.WriteLine($"{Environment.NewLine}Patrons:");
-                Console.WriteLine("\tNAME");
-                
-                int i = 0;
-                foreach (var patron in patronList)
-                {
-                    Console.WriteLine($"{++i:D3} \t{patron.LastName}, {patron.FirstName}");
-                }
-            }
-        }
