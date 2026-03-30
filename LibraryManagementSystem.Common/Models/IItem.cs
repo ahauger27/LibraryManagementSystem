@@ -1,6 +1,7 @@
-using System;
+using LibraryManagementSystem.Common.Resources;
+using LibraryManagementSystem.Common.Models;
 
-namespace LibraryManagementSystem.ConsoleApp.Models;
+namespace LibraryManagementSystem.Common.Models;
 
 public interface IItem
 {

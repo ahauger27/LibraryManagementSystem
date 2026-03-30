@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
-using LibraryManagementSystem.ConsoleApp.Models;
-using LibraryManagementSystem.ConsoleApp.Services;
+using LibraryManagementSystem.Common.Models;
+using LibraryManagementSystem.Common.Services;
 
 
 Processor run = new Processor();
@@ -75,7 +75,7 @@ while (run.RunStatus == true)
                     break;
                 case "3":
                     Console.WriteLine("This feature is still in progress");
-                    await 
+                    // await AddNewPatron(new Patron(""));
 
                     break;
                 case "4":
@@ -153,19 +153,33 @@ async Task SearchPatronsByID(int id)
     }
 }
 
-/*
-async Task AddNewPatron()
+
+async Task AddNewPatron(Patron patron)
 {
+    Patron newPatron;
+
     Console.WriteLine("Enter new patron's first name: ");
     string? firstName = Console.ReadLine();
     Console.WriteLine("Enter new patron's last name: ");
     string? lastName = Console.ReadLine();
+    Console.WriteLine("Enter new patron's date of birth (YYYY, MM, DD)");
+    string? dateOfBirth = Console.ReadLine();
 
-    if (firstName != null && lastName != null)
+    if (firstName != null && lastName != null && dateOfBirth != null)
     {
-        Patron newPatron = new Patron { FirstName = firstName, LastName = lastName, DateOfBirth = new DateTime(2000, 1, 1) };
+        if (DateTime.TryParse(dateOfBirth, out DateTime parsedDate))
+        {
+            newPatron = new Patron(firstName, lastName, parsedDate, "");
+        }
+        else
+        {
+            Console.WriteLine("Invalid date format, returning to main menu.");
+            return;
+        }
+        string newPatronJson = JsonSerializer.Serialize(newPatron);
+        var content = new StringContent(newPatronJson, System.Text.Encoding.UTF8, "application/json");
 
-        HttpResponseMessage response = await client.PostAsJsonAsync("/patrons", newPatron);
+        HttpResponseMessage response = await client.PostAsync($"/patrons/{patron.PatronID}", content);
 
         if (response.IsSuccessStatusCode)
         {
@@ -182,4 +196,3 @@ async Task AddNewPatron()
         Console.WriteLine("Invalid input, returning to main menu.");
     }
 }
-*/
