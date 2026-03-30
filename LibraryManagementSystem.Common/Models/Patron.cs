@@ -1,14 +1,12 @@
-using System;
-
-namespace LibraryManagementSystem.ConsoleApp.Models;
+﻿namespace LibraryManagementSystem.Common.Models;
 
 public class Patron
 {
     private static int _nextPatronID;
     public int PatronID { get; set; }
-    public string FirstName { get; private set; } = string.Empty;
-    public string LastName { get; private set; } = string.Empty;
-    public string MiddleInitial { get; private set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string MiddleInitial { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string? Address { get; set; }
     public string? Email { get; set; }

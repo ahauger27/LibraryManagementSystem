@@ -1,6 +1,7 @@
-using System;
+using LibraryManagementSystem.Common.Resources;
+using LibraryManagementSystem.Common.Models;
 
-namespace LibraryManagementSystem.API.Models;
+namespace LibraryManagementSystem.Common.Models;
 
 public class Book : IItem
 {
@@ -8,20 +9,20 @@ public class Book : IItem
     public int ItemNumber { get; set; }
     public string Title { get; set; } = string.Empty;
     public string AuthorName { get; set; } = string.Empty;
-    // public Collection Genre { get ; set;}
-    // public Format Format { get; set; }
+    public Collection Genre { get ; set;}
+    public Format Format { get; set; }
     public Patron? CurrentBorrower { get; set; }
-    // public CircStatus CircStatus { get; set; } = CircStatus.In;
+    public CircStatus CircStatus { get; set; } = CircStatus.In;
     public DateTime LastCirculation { get; set; }
     public DateTime DueDate { get; set; }
 
-    /*public Book(string title, string author, Collection genre, Format format)
+    public Book(string title, string author, Collection genre, Format format)
     {
         Title = title;
         AuthorName = author;
         Genre = genre;
         Format = format;
-    }*/
+    }
 
     public void DisplayTitle()
     {

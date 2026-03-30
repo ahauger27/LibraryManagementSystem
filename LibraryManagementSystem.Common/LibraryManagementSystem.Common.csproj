@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>LibraryManagementSystem.Common</RootNamespace> 
+    <RootNamespace>LibraryManagementSystem.Common.Models</RootNamespace>
+    <RootNamespace>LibraryManagementSystem.Common.Services</RootNamespace> 
+ 
+  </PropertyGroup>
+
+</Project>

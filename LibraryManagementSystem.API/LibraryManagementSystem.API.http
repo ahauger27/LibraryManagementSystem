@@ -1,6 +1,39 @@
 @LibraryManagementSystem.API_HostAddress = http://localhost:5126
+###
 
-GET {{LibraryManagementSystem.API_HostAddress}}/weatherforecast/
+GET http://localhost:5126/patrons
+Accept: application/json
+
+###
+
+GET http://localhost:5126/patrons/10516417
+Accept: application/json
+
+###
+
+POST http://localhost:5126/patrons
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com"
+}
+
+###
+
+PUT http://localhost:5126/patrons/10516417
+Content-Type: application/json
+
+{
+    "firstName": "Austin",
+    "lastName": "Hauger",
+    "dateOfBirth": "1996-09-28T00:00:00",
+}
+
+###
+
+DELETE http://localhost:5126/patrons/15868262
 Accept: application/json
 
 ###
