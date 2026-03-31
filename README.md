@@ -2,12 +2,12 @@ This app simulates a Library Management System, with Patron accounts, Item Recor
 
 todo
 
+* HTTP Get isn't working now...
+* HTTP Put, get it figured out, be able to update accounts
 * Find a better way to generate PatronId, because the way it works now doesn't generate ids, or they are not properly stored in the json, so can't search by id
     going to start ID at 1 and increment, with leading 0's
-* Make class library that is shared between all projects
 * Creating menu loop for users to:
     create accounts
-    look up accounts
     update accounts
     delete accounts
 * Patron.AddPatron (http post)

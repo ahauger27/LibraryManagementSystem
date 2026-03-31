@@ -6,7 +6,7 @@ Accept: application/json
 
 ###
 
-GET http://localhost:5126/patrons/10516417
+GET http://localhost:5126/patrons/14869599
 Accept: application/json
 
 ###
@@ -22,13 +22,13 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:5126/patrons/10516417
+PUT http://localhost:5126/patrons/16406393
 Content-Type: application/json
 
 {
     "firstName": "Austin",
     "lastName": "Hauger",
-    "dateOfBirth": "1996-09-28T00:00:00",
+    "dateOfBirth": "1996-09-28T00:00:00"
 }
 
 ###

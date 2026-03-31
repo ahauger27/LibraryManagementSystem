@@ -1,6 +1,7 @@
 using System.Text.Json;
 using LibraryManagementSystem.Common.Services;
 using LibraryManagementSystem.Common.Models;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,7 @@ var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 string jsonFile = File.ReadAllText("./Resources/patrons.json");
 var patrons = JsonSerializer.Deserialize<List<Patron>>(jsonFile, options);
 
-app.MapGet("/patrons", () => patrons)
+app.MapGet("/patrons", async () => patrons)
     .WithName("GetPatrons")
     .Produces<List<Patron>>(statusCode: StatusCodes.Status200OK);
 
@@ -53,36 +54,38 @@ app.MapPost("/patrons", (Patron newPatron) =>
     return Results.Created($"/patrons/{newPatron.LastName}", newPatron);
 });
 
-/*app.MapPut("/patrons/{PatronID}", (int PatronID, Patron updatedPatron) =>{
-    var patronToUpdate = patrons?.FirstOrDefault(p => p.PatronID == PatronID);
-
-    if (patronToUpdate != null)
-    {
-        patronToUpdate.FirstName = updatedPatron.FirstName;
-        patronToUpdate.LastName = updatedPatron.LastName;
-        patronToUpdate.Email = updatedPatron.Email;
-        patronToUpdate.PhoneNumber = updatedPatron.PhoneNumber;
-
-        return Results.Ok($"Patron with ID: {PatronID}, updated successfully.");
-    }
-    else
-    {
-        return Results.NotFound($"Patron with ID: {PatronID}, not found.");
-    }
-});
-*/
-app.MapDelete("/patrons/{PatronID}", (int PatronID) =>
+app.MapPut("/patrons/{id}", ([FromRoute]int id,[FromBody] Patron inputPatron) =>
 {
-    var patronToDelete = patrons?.FirstOrDefault(p => p.PatronID == PatronID);
+    var existingPatron = patrons?.FirstOrDefault(p => p.PatronID == id);
+
+    if (existingPatron == null)
+    {
+        return Results.NotFound($"Patron with ID: {id}, not found.");
+    }
+    
+    existingPatron.FirstName = inputPatron.FirstName;
+    existingPatron.LastName = inputPatron.LastName;
+    existingPatron.MiddleInitial = inputPatron.MiddleInitial;
+    existingPatron.DateOfBirth = inputPatron.DateOfBirth;
+    existingPatron.Address = inputPatron.Address;
+    existingPatron.Email = inputPatron.Email;
+    existingPatron.PhoneNumber = inputPatron.PhoneNumber;  
+
+    return Results.Ok($"Patron with ID: {id}, updated successfully.");
+});
+
+app.MapDelete("/patrons/{id}", (int id) =>
+{
+    var patronToDelete = patrons?.FirstOrDefault(p => p.PatronID == id);
 
     if (patronToDelete != null)
     {
         patrons?.Remove(patronToDelete);
-        return Results.Ok($"Patron with ID: {PatronID}, deleted successfully.");
+        return Results.Ok($"Patron with ID: {id}, deleted successfully.");
     }
     else
     {
-        return Results.NotFound($"Patron with ID: {PatronID}, not found.");
+        return Results.NotFound($"Patron with ID: {id}, not found.");
     }
 });
 

@@ -19,13 +19,23 @@ public class Patron
         _nextPatronID = random.Next(10000000, 20000000);
     }
 
-    public Patron(string FirstName, string LastName, DateTime DateOfBirth, string MiddleInitial = "")
+    public Patron
+        (string FirstName, 
+        string LastName, 
+        DateTime DateOfBirth, 
+        string MiddleInitial = "",
+        string? Address = null,
+        string? Email = null,
+        string? PhoneNumber = null)
     {
         PatronID = _nextPatronID++;
         this.FirstName = FirstName;
         this.MiddleInitial = MiddleInitial;
         this.LastName = LastName;
         this.DateOfBirth = DateOfBirth;
+        this.Address = Address;
+        this.Email = Email;
+        this.PhoneNumber = PhoneNumber;
     }
 
     public string FullName()
