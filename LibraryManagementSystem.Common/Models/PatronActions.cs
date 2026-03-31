@@ -90,6 +90,8 @@ public static class PatronActions
             var patron = JsonSerializer.Deserialize<Patron>(jsonResponse, options);
 
             Console.WriteLine($"{Environment.NewLine}Search results for ID: {id}");
+    
+            //DisplayPatronAccountInformation();
             Console.WriteLine($"{patron.FullName()}");
         }
         else
