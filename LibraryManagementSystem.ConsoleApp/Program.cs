@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
 using LibraryManagementSystem.Common.Models;
 using LibraryManagementSystem.Common.Services;
+using LibraryManagementSystem.Common.Resources;
+
 
 /*
 CATEGOREIS:
@@ -19,7 +21,6 @@ JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInse
 
 Console.WriteLine($"{Environment.NewLine}LIBRARY MANAGEMENT SYSTEM");
 Console.WriteLine("=========================");
-
 
 while (run.RunStatus == true)
 {
@@ -52,16 +53,17 @@ while (run.RunStatus == true)
                         switch (userChoice2)
                         {
                             case "1": 
-                                await ListAllPatrons();
+                                await PatronActions.ListAllPatrons(client, options);
                                 break;
                             case "2": // Search by patron method name // MORE READABLE
+                                // Move this into a method
                                 Console.WriteLine("Enter patron's ID: ");
                                 string? idInput = Console.ReadLine();
                                 if (idInput != null || idInput != string.Empty)
                                 {
                                     if (int.TryParse(idInput, out int id))
                                     {
-                                        await SearchPatronsByID(id);
+                                        await PatronActions.SearchPatronsByID(client, options, id);
                                     }
                                     else
                                     {
@@ -85,8 +87,8 @@ while (run.RunStatus == true)
                 case "3": // 3. Add New Patron (WIP)
                     Console.WriteLine("MENU TO ADD A NEW PATRON");
 
-                    Patron newPatron = CreateNewPatron();
-                    await PostNewPatron(newPatron, client);
+                    Patron newPatron = PatronActions.CreateNewPatron();
+                    await PatronActions.PostNewPatron(newPatron, client);
                     //
                     //
                     //
@@ -113,118 +115,4 @@ while (run.RunStatus == true)
     }
     Console.WriteLine("Press \"Enter\" to continue...");
     Console.ReadLine();
-}
-
-
-async Task ListAllPatrons()
-{
-    HttpResponseMessage response = await client.GetAsync("/patrons");
-
-    var patrons = new List<Patron>();
-    if (response.IsSuccessStatusCode)
-    {
-        string jsonResponse = await response.Content.ReadAsStringAsync();
-
-        patrons = JsonSerializer.Deserialize<List<Patron>>(jsonResponse, options);
-    }
-    else
-    {
-        Console.WriteLine($"Error: {response.StatusCode}");
-        Console.WriteLine(await response.Content.ReadAsStringAsync());
-    }
-
-    if (patrons.Count == 0)
-    {
-        Console.WriteLine("No patrons found.");   
-    }
-    else
-    {
-        Console.WriteLine($"{Environment.NewLine}Patrons:");
-        Console.WriteLine("ID\t\tNAME");
-        Console.WriteLine("=================================");
-        
-        foreach (var patron in patrons)
-        {
-            Console.WriteLine($"{patron.PatronID}\t{patron.LastName}, {patron.FirstName}");
-        }
-    }
-}
-
-
-async Task SearchPatronsByID(int id)
-{
-    HttpResponseMessage singleResponse = await client.GetAsync($"/patrons/{id}");
-
-    if (singleResponse.IsSuccessStatusCode)
-    {
-        string jsonResponse = await singleResponse.Content.ReadAsStringAsync();
-        var patron = JsonSerializer.Deserialize<Patron>(jsonResponse, options);
-
-        Console.WriteLine($"{Environment.NewLine}Search results for ID: {id}");
-        Console.WriteLine($"{patron.FullName()}");
-    }
-    else
-    {
-        Console.WriteLine($"Error: {singleResponse.StatusCode}");
-        Console.WriteLine(await singleResponse.Content.ReadAsStringAsync());
-    }
-}
-
-Patron CreateNewPatron()
-{
-    /*
-    // TELL THE USER WHICH ARE REQUIRED?
-    Console.WriteLine("Enter the patron's FIRST NAME: ");
-    string? firstName = Console.ReadLine();
-
-    Console.WriteLine("Enter the patron's LAST NAME: ");
-    string? lastName = Console.ReadLine();
-
-    Console.WriteLine("Enter the patron's DATE OF BIRTH (YYYY-MM-DD): ");
-    string? middleName = Console.ReadLine();
-
-    Console.WriteLine("Enter the patron's MIDDLE NAME: ");
-    string? dateOfBirth = Console.ReadLine();
-
-    // CHECKDATEFUNCTION(); while loop so user can't go further until correct : 
-    // CAT 3
-    if (DateTime.TryParse(dateOfBirth, out DateTime parsedDOB)) { }
-    else
-    {
-        Console.WriteLine("Invalid date format, returning to main menu.");
-    }
-
-    Console.WriteLine("Enter the patron's ADDRESS: ");
-    string? address = Console.ReadLine();
-
-    Console.WriteLine("Enter the patron's EMAIL: ");
-    // PROPER EMAIL CHECKER?
-    string? email = Console.ReadLine();
-
-    Console.WriteLine("Enter the patron's PHONE NUMBER: ");
-    string? phoneNumber = Console.ReadLine();
-    */
-
-    Patron newPatron = new("jIM", "bO", new DateTime());
-    return newPatron;
-}
-
-async Task PostNewPatron(Patron newPatron, HttpClient client)
-{
-    string newPatronJson = JsonSerializer.Serialize(newPatron);
-    StringContent content = new(newPatronJson, System.Text.Encoding.UTF8, "application/json");
-
-    HttpResponseMessage response = await client.PostAsync($"/patrons", content);
-
-    if (response.IsSuccessStatusCode)
-    {
-        Console.WriteLine($"Successfully added new patron: {newPatron.FullName()}");
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"{jsonResponse}{Environment.NewLine}");
-    }
-    else
-    {
-        Console.WriteLine($"Error: {response.StatusCode}");
-        Console.WriteLine(await response.Content.ReadAsStringAsync());
-    }
 }
