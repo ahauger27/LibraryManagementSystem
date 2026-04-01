@@ -32,6 +32,7 @@ while (run.RunStatus == true)
     Console.WriteLine("1. Patron Search (WIP)");
     Console.WriteLine("2. Item Search (WIP)");
     Console.WriteLine("3. Add New Patron (WIP)");
+    Console.WriteLine("D. Delete Patron (WIP)");
     Console.WriteLine("4. Quit program (WIP)");
     
     string? userChoice = Console.ReadLine();
@@ -58,12 +59,12 @@ while (run.RunStatus == true)
                             case "2": // Search by patron method name // MORE READABLE
                                 // Move this into a method
                                 Console.WriteLine("Enter patron's ID: ");
-                                string? idInput = Console.ReadLine();
-                                if (idInput != null || idInput != string.Empty)
+                                string? idToSearchString = Console.ReadLine();
+                                if (idToSearchString != null || idToSearchString != string.Empty)
                                 {
-                                    if (int.TryParse(idInput, out int id))
+                                    if (int.TryParse(idToSearchString, out int idToSearch))
                                     {
-                                        await PatronActions.SearchPatronsByID(client, options, id);
+                                        await PatronActions.SearchPatronsByID(client, options, idToSearch);
                                     }
                                     else
                                     {
@@ -96,6 +97,15 @@ while (run.RunStatus == true)
                     //
                     //
                     //
+                    break;
+                case "D":
+                    Console.WriteLine("MENU TO DELETE A PATRON");
+                    Console.Write("Enter the ID of the patron you want to delete: ");
+                    string? idToDeleteString = Console.ReadLine();
+                    if (int.TryParse(idToDeleteString, out int idToDelete))
+                    {
+                        await PatronActions.DeletePatron(idToDelete, client);
+                    }
                     break;
                 case "4":
                     run.End();

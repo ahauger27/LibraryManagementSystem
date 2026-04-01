@@ -121,4 +121,30 @@ public static class PatronActions
             Console.WriteLine(await response.Content.ReadAsStringAsync());
         }
     }
+
+    // PUT
+
+
+    // DELETE
+    public static async Task DeletePatron(int id, HttpClient client)
+    {
+        try
+        {
+            HttpResponseMessage response = await client.DeleteAsync($"/patrons/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Successfully delete patron with ID: {id}");
+            }
+            else
+            {
+                Console.WriteLine($"Error: {response.StatusCode}");
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            } 
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
 }
