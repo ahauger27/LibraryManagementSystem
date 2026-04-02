@@ -1,16 +1,13 @@
 using System.Text.Json;
-using LibraryManagementSystem.Common.Services;
 using LibraryManagementSystem.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -52,7 +49,7 @@ app.MapGet("/patrons/{id}", (int id) =>
 app.MapPost("/patrons", (Patron newPatron) =>
 {
     patrons?.Add(newPatron);
-    return Results.Created($"/patrons/{newPatron.LastName}", newPatron);
+    return Results.Created($"/patrons/{newPatron.PatronID}", newPatron);
 });
 
 app.MapPut("/patrons/{id}", ([FromRoute]int id,[FromBody] Patron inputPatron) =>
@@ -90,9 +87,6 @@ app.MapDelete("/patrons/{id}", (int id) =>
     }
 });
 
-// app.MapControllers();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -102,6 +96,5 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
-
 
 app.Run();

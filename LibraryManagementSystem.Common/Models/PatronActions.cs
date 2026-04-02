@@ -45,7 +45,7 @@ public static class PatronActions
     }
     
     // GET ALL
-    public static async Task ListAllPatrons(HttpClient client, JsonSerializerOptions options)
+    public static async Task GetPatrons(HttpClient client, JsonSerializerOptions options)
     {
         HttpResponseMessage response = await client.GetAsync("/patrons");
 
@@ -80,7 +80,7 @@ public static class PatronActions
     }
 
     // GET BY ID
-    public static async Task SearchPatronsByID(HttpClient client, JsonSerializerOptions options, int id)
+    public static async Task<Patron> GetPatronByID(HttpClient client, JsonSerializerOptions options, int id)
     {
         HttpResponseMessage singleResponse = await client.GetAsync($"/patrons/{id}");
 
@@ -89,15 +89,13 @@ public static class PatronActions
             string jsonResponse = await singleResponse.Content.ReadAsStringAsync();
             var patron = JsonSerializer.Deserialize<Patron>(jsonResponse, options);
 
-            Console.WriteLine($"{Environment.NewLine}Search results for ID: {id}");
-    
-            //DisplayPatronAccountInformation();
-            Console.WriteLine($"{patron.FullName()}");
+            return patron;
         }
         else
         {
             Console.WriteLine($"Error: {singleResponse.StatusCode}");
             Console.WriteLine(await singleResponse.Content.ReadAsStringAsync());
+            return null;
         }
     }
 
@@ -123,7 +121,33 @@ public static class PatronActions
     }
 
     // PUT
+    public static async Task UpdatePatron(int id, HttpClient client, JsonSerializerOptions options)
+    {
+        Patron patron = await GetPatronByID(client, options, id);
 
+        Console.WriteLine($"Updating patron record for {patron.FullName()}");
+
+        Console.Write("Enter new FIRSTNAME: ");
+        string? UpdatedFirstName = Console.ReadLine();
+        patron.FirstName = UpdatedFirstName;
+
+        string patronJson = JsonSerializer.Serialize(patron, options);
+        StringContent content = new(patronJson, System.Text.Encoding.UTF8, "application/json");
+
+        HttpResponseMessage response = await client.PutAsync($"/patrons/{id}", content);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine($"Successfully added new patron: {patron.FullName()}");
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"{jsonResponse}{Environment.NewLine}");
+        }
+        else
+        {
+            Console.WriteLine($"Error: {response.StatusCode}");
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+        }
+    }
 
     // DELETE
     public static async Task DeletePatron(int id, HttpClient client)

@@ -4,7 +4,19 @@ Updates:
 * Http get, and post work in the web api and in the console app!
 * Http DELETE by id now works!
 
+===================================
+CATEGOREIS:
+CAT 4: OF HIGHEST IMPORTANCE
+CAT 3: OF SECOND HIGHEST IMPORTANCE
+CAT 2: OF THIRD HIGHEST IMPORTANCE
+CAT 1: OF LEAST IMPORTANCE
+===================================
+
 Next TODOS
+* Fix GetPatronByID();
+* Check if Patron exists when Putting/Updating
+* Fix wording on patron update message
+* Fix typo in delete message
 * Add put console operations with user inputs
     going to start ID at 1 and increment, with leading 0's
 * Creating nice menu loop for users to:
