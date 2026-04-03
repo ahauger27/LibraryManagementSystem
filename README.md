@@ -1,20 +1,33 @@
 This app simulates a Library Management System, with Patron accounts, Item Records, and Circulation Services.
 
 Updates:
-* Http get, and post work in the web api and in the console app! adding POST with user input next!
-* 
+* Http get, and post work in the web api and in the console app!
+* Http DELETE by id now works!
+* Got SearchByPatronID() working again!
 
-todo
+===================================
+CATEGOREIS:
+CAT 4: OF HIGHEST IMPORTANCE
+CAT 3: OF SECOND HIGHEST IMPORTANCE
+CAT 2: OF THIRD HIGHEST IMPORTANCE
+CAT 1: OF LEAST IMPORTANCE
+===================================
 
-* Add basic delete and put console operations
-* HTTP Put, get it figured out, be able to update accounts
+Next TODOS
+* Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
+* Implement XUnit testing project
+* Add PUT console operations with user inputs
+* Add CreatePatron with user inputs, not jIM bO
+* going to start ID at "00001" and increment
+* Creating nice menu loop for users to:
+    get patron accounts
+    create patron accounts
+    update patron accounts
+    delete patron accounts
 * Find a better way to generate PatronId, because the way it works now doesn't generate ids, or they are not properly stored in the json, so can't search by id
-    going to start ID at 1 and increment, with leading 0's
-* Creating menu loop for users to:
-    create accounts
-    update accounts
-    delete accounts
+* Fix warnings CAT 1
 
+Future TODOS
 * need books
     . either create a json file with book and item data, or connect to an api
 * need to add circulation service classes
