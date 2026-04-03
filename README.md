@@ -14,7 +14,7 @@ CAT 1: OF LEAST IMPORTANCE
 ===================================
 
 Next TODOS
-* Check if Patron exists when Putting/Updating  CAT 3
+* Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
 * Implement XUnit testing project
 * Add PUT console operations with user inputs
 * Add CreatePatron with user inputs, not jIM bO
@@ -25,6 +25,7 @@ Next TODOS
     update patron accounts
     delete patron accounts
 * Find a better way to generate PatronId, because the way it works now doesn't generate ids, or they are not properly stored in the json, so can't search by id
+* Fix warnings CAT 1
 
 Future TODOS
 * need books

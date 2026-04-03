@@ -34,7 +34,7 @@ public class Program
             Console.WriteLine($"============{Environment.NewLine}");
             Console.WriteLine("1. Patron Search (WIP)");
             Console.WriteLine("2. Item Search (WIP)");
-            Console.WriteLine("3. Add New Patron (WIP)");
+            Console.WriteLine("3. Create New Patron (WIP)");
             Console.WriteLine("D. Delete Patron (WIP)");
             Console.WriteLine("U. Update Patron Account (WIP)");
             Console.WriteLine("4. Quit program (WIP)");

@@ -4,49 +4,39 @@ namespace LibraryManagementSystem.Common.Models;
 
 public static class PatronActions
 {    
-    
     public static Patron CreateNewPatron()
     {
-        /*
-        // TELL THE USER WHICH ARE REQUIRED?
-        Console.WriteLine("Enter the patron's FIRST NAME (REQUIRED): ");
-        string? firstName = Console.ReadLine();
+        Console.Write($"{Environment.NewLine}Enter the patron's FIRST NAME (REQUIRED): ");
+        string firstName = UserActions.StringInput();
 
-        Console.WriteLine("Enter the patron's LAST NAME (REQUIRED): ");
-        string? lastName = Console.ReadLine();
+        Console.Write($"{Environment.NewLine}Enter the patron's LAST NAME (REQUIRED): ");
+        string lastName = UserActions.StringInput();
 
-        Console.WriteLine("Enter the patron's MIDDLE NAME: ");
-        string? middleName = Console.ReadLine();
+        DateTime dateOfBirth = DateOfBirth.DateInput();
 
-        Console.WriteLine("Enter the patron's DATE OF BIRTH (MM/DD/YYYY) (REQUIRED): ");
-        string? dateOfBirth = Console.ReadLine();
-        bool validDOB = false;
+        // MiddleNameInput();
+        // AddressInput();
+        // EmailInput();
+        // PhoneNumberInput();
+            
+            /*
+            Console.WriteLine("Enter the patron's MIDDLE NAME: ");
+            string? middleName = Console.ReadLine();
 
-        // CHECKDATEFUNCTION(); while loop so user can't go further until correct : 
-        // CAT 3
-        while (!validDOB)
-        {
-            if (DateTime.TryParse(dateOfBirth, out DateTime parsedDOB)) { }
-            else
-            {
-                Console.WriteLine("Invalid date format (YYYY-MM-DD).");
-            } 
-            validDOB = true;
-        }
+            Console.WriteLine("Enter the patron's ADDRESS: ");
+            string? address = Console.ReadLine();
 
-        Console.WriteLine("Enter the patron's ADDRESS: ");
-        string? address = Console.ReadLine();
+            Console.WriteLine("Enter the patron's EMAIL: ");
+            // PROPER EMAIL CHECKER?
+            string? email = Console.ReadLine();
 
-        Console.WriteLine("Enter the patron's EMAIL: ");
-        // PROPER EMAIL CHECKER?
-        string? email = Console.ReadLine();
-
-        Console.WriteLine("Enter the patron's PHONE NUMBER: ");
-        string? phoneNumber = Console.ReadLine();
-        
-        */
-        Patron newPatron = new("jIM", "bO", new DateTime());
-        return newPatron;
+            Console.WriteLine("Enter the patron's PHONE NUMBER: ");
+            string? phoneNumber = Console.ReadLine();
+            
+            */
+            Patron newPatron = new(firstName, lastName, dateOfBirth);
+            return newPatron;
+        // Double check with user that information looks correct
     }
     
     // GET ALL
@@ -93,7 +83,7 @@ public static class PatronActions
         {
             string jsonResponse = await singleResponse.Content.ReadAsStringAsync();
             var patron = JsonSerializer.Deserialize<Patron>(jsonResponse, options);
-
+            
             return patron;
         }
         else
