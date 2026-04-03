@@ -14,10 +14,16 @@ CAT 1: OF LEAST IMPORTANCE
 ===================================
 
 Next TODOS
+* Add CreatePatron with user inputs
+    IN PROGRESS, just need to finish the verification process of user inputs
 * Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
-* Implement XUnit testing project
+* Flesh out XUnit testing project
 * Add PUT console operations with user inputs
-* Add CreatePatron with user inputs, not jIM bO
+    probaly do  1. first name
+                2 last name
+                3. etc
+                and so on
+
 * going to start ID at "00001" and increment
 * Creating nice menu loop for users to:
     get patron accounts

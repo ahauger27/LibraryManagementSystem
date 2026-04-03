@@ -2,9 +2,9 @@ namespace LibraryManagementSystem.Common.Models;
 
 public class DateOfBirth
 {
-    public static DateTime DateInput()
+    public static DateOnly DateInput()
     {
-        Console.Write($"{Environment.NewLine}Enter the patron's DATE OF BIRTH (MM/DD/YYYY): ");
+        Console.Write($"{Environment.NewLine}Enter the patron's DATE OF BIRTH: ");
 
         do
         {
@@ -15,7 +15,7 @@ public class DateOfBirth
             }
             else
             {
-                DateTime dateOfBirth = DateTime.Parse(input);
+                DateOnly dateOfBirth = DateOnly.Parse(input);
                 return dateOfBirth;
             }
         } while (true);
@@ -23,8 +23,13 @@ public class DateOfBirth
 
     public static bool IsValid(string date)
     {
-        DateTime.TryParse(date, out DateTime tempObject);
-        if (tempObject > DateTime.Now || tempObject == default)
+        DateOnly.TryParse
+        (
+            date, 
+            out DateOnly tempObject
+        );
+
+        if (tempObject > DateOnly.FromDateTime(DateTime.Now) || tempObject == default)
         {
             return false;
         }

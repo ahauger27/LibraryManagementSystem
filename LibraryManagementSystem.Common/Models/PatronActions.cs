@@ -4,39 +4,67 @@ namespace LibraryManagementSystem.Common.Models;
 
 public static class PatronActions
 {    
+    public static bool VerifyNewPatronInfo(Patron newPatron)
+    {
+        Console.WriteLine($"{Environment.NewLine}DO YOU WANT TO CONTINUE WITH THIS INFORMATION?");
+        Console.WriteLine($"FIRST NAME: {newPatron.FirstName}");
+        Console.WriteLine($"MIDDLE INITIAL: {newPatron.MiddleInitial}");
+        Console.WriteLine($"LAST NAME: {newPatron.LastName}");
+        Console.WriteLine($"DATE OF BIRTH: {newPatron.DateOfBirth}");
+        Console.WriteLine($"ADDRESS: {newPatron.Address}");
+        Console.WriteLine($"EMAIL: {newPatron.Email}");
+        Console.WriteLine($"PHONE NUMBER: {newPatron.PhoneNumber}");
+        Console.Write("Y/N: "); //can't say no right now
+
+        string? input = UserActions.StringInput();
+
+        if (!UserActions.IsInputValid(input))
+        {
+            Console.WriteLine("Please ");
+            return false;
+        }
+
+        return true;
+    }
     public static Patron CreateNewPatron()
     {
-        Console.Write($"{Environment.NewLine}Enter the patron's FIRST NAME (REQUIRED): ");
+        Patron newPatron = InputNewPatronInfo();
+
+        if (!VerifyNewPatronInfo(newPatron))
+        {
+            throw new Exception();
+        }
+        else
+        {
+            return newPatron;
+        }
+    }
+
+    public static Patron InputNewPatronInfo()
+    {
+
+        Console.Write($"{Environment.NewLine}Enter the patron's FIRST NAME: ");
         string firstName = UserActions.StringInput();
 
-        Console.Write($"{Environment.NewLine}Enter the patron's LAST NAME (REQUIRED): ");
+        Console.Write($"{Environment.NewLine}Enter the patron's MIDDLE INITIAL: ");
+        string middleName = UserActions.StringInput();
+
+        Console.Write($"{Environment.NewLine}Enter the patron's LAST NAME: ");
         string lastName = UserActions.StringInput();
 
-        DateTime dateOfBirth = DateOfBirth.DateInput();
+        DateOnly dateOfBirth = DateOfBirth.DateInput();
 
-        // MiddleNameInput();
-        // AddressInput();
-        // EmailInput();
-        // PhoneNumberInput();
+        Console.Write($"{Environment.NewLine}Enter the patron's ADDRESS: ");
+        string address = UserActions.StringInput();
+
+        Console.Write($"{Environment.NewLine}Enter the patron's EMAIL: ");
+        string email = UserActions.StringInput();
+
+        Console.Write($"{Environment.NewLine}Enter the patron's PHONE NUMBER: ");
+        string phoneNumber = UserActions.StringInput();
             
-            /*
-            Console.WriteLine("Enter the patron's MIDDLE NAME: ");
-            string? middleName = Console.ReadLine();
-
-            Console.WriteLine("Enter the patron's ADDRESS: ");
-            string? address = Console.ReadLine();
-
-            Console.WriteLine("Enter the patron's EMAIL: ");
-            // PROPER EMAIL CHECKER?
-            string? email = Console.ReadLine();
-
-            Console.WriteLine("Enter the patron's PHONE NUMBER: ");
-            string? phoneNumber = Console.ReadLine();
-            
-            */
-            Patron newPatron = new(firstName, lastName, dateOfBirth);
-            return newPatron;
-        // Double check with user that information looks correct
+        Patron newPatron = new(firstName, lastName, dateOfBirth, middleName, address, email, phoneNumber);
+        return newPatron;
     }
     
     // GET ALL

@@ -7,7 +7,7 @@ public class Patron
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string MiddleInitial { get; set; }
-    public DateTime DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
     public string? Address { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
@@ -22,7 +22,7 @@ public class Patron
     public Patron
         (string FirstName, 
         string LastName, 
-        DateTime DateOfBirth, 
+        DateOnly DateOfBirth, 
         string MiddleInitial = "",
         string? Address = null,
         string? Email = null,
