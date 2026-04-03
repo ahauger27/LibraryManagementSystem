@@ -9,24 +9,29 @@ public static class PatronActions
     {
         /*
         // TELL THE USER WHICH ARE REQUIRED?
-        Console.WriteLine("Enter the patron's FIRST NAME: ");
+        Console.WriteLine("Enter the patron's FIRST NAME (REQUIRED): ");
         string? firstName = Console.ReadLine();
 
-        Console.WriteLine("Enter the patron's LAST NAME: ");
+        Console.WriteLine("Enter the patron's LAST NAME (REQUIRED): ");
         string? lastName = Console.ReadLine();
 
-        Console.WriteLine("Enter the patron's DATE OF BIRTH (YYYY-MM-DD): ");
+        Console.WriteLine("Enter the patron's MIDDLE NAME: ");
         string? middleName = Console.ReadLine();
 
-        Console.WriteLine("Enter the patron's MIDDLE NAME: ");
+        Console.WriteLine("Enter the patron's DATE OF BIRTH (MM/DD/YYYY) (REQUIRED): ");
         string? dateOfBirth = Console.ReadLine();
+        bool validDOB = false;
 
         // CHECKDATEFUNCTION(); while loop so user can't go further until correct : 
         // CAT 3
-        if (DateTime.TryParse(dateOfBirth, out DateTime parsedDOB)) { }
-        else
+        while (!validDOB)
         {
-            Console.WriteLine("Invalid date format, returning to main menu.");
+            if (DateTime.TryParse(dateOfBirth, out DateTime parsedDOB)) { }
+            else
+            {
+                Console.WriteLine("Invalid date format (YYYY-MM-DD).");
+            } 
+            validDOB = true;
         }
 
         Console.WriteLine("Enter the patron's ADDRESS: ");
@@ -38,8 +43,8 @@ public static class PatronActions
 
         Console.WriteLine("Enter the patron's PHONE NUMBER: ");
         string? phoneNumber = Console.ReadLine();
+        
         */
-
         Patron newPatron = new("jIM", "bO", new DateTime());
         return newPatron;
     }
@@ -80,7 +85,7 @@ public static class PatronActions
     }
 
     // GET BY ID
-    public static async Task<Patron> GetPatronByID(HttpClient client, JsonSerializerOptions options, int id)
+    public static async Task<Patron> GetPatronByID(int id,HttpClient client, JsonSerializerOptions options)
     {
         HttpResponseMessage singleResponse = await client.GetAsync($"/patrons/{id}");
 
@@ -123,29 +128,32 @@ public static class PatronActions
     // PUT
     public static async Task UpdatePatron(int id, HttpClient client, JsonSerializerOptions options)
     {
-        Patron patron = await GetPatronByID(client, options, id);
-
-        Console.WriteLine($"Updating patron record for {patron.FullName()}");
-
-        Console.Write("Enter new FIRSTNAME: ");
-        string? UpdatedFirstName = Console.ReadLine();
-        patron.FirstName = UpdatedFirstName;
-
-        string patronJson = JsonSerializer.Serialize(patron, options);
-        StringContent content = new(patronJson, System.Text.Encoding.UTF8, "application/json");
-
-        HttpResponseMessage response = await client.PutAsync($"/patrons/{id}", content);
-
-        if (response.IsSuccessStatusCode)
+        Patron patron = await GetPatronByID(id,client, options);
+        
+        if (patron != null)
         {
-            Console.WriteLine($"Successfully added new patron: {patron.FullName()}");
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"{jsonResponse}{Environment.NewLine}");
-        }
-        else
-        {
-            Console.WriteLine($"Error: {response.StatusCode}");
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            Console.WriteLine($"Updating patron record for {patron.FullName()}");
+
+            Console.Write("Enter new FIRSTNAME: ");
+            string? UpdatedFirstName = Console.ReadLine();
+            patron.FirstName = UpdatedFirstName;
+
+            string patronJson = JsonSerializer.Serialize(patron, options);
+            StringContent content = new(patronJson, System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PutAsync($"/patrons/{id}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Successfully update patron: {patron.FullName()}");
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"{jsonResponse}{Environment.NewLine}");
+            }
+            else
+            {
+                Console.WriteLine($"Error: {response.StatusCode}");
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
         }
     }
 
@@ -158,7 +166,7 @@ public static class PatronActions
 
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Successfully delete patron with ID: {id}");
+                Console.WriteLine($"Successfully deleted patron with ID: {id}");
             }
             else
             {

@@ -20,6 +20,7 @@ public class Program
             PropertyNameCaseInsensitive = true 
         };
 
+        //MainMenu();
         Console.WriteLine("=========================");
         Console.WriteLine("LIBRARY MANAGEMENT SYSTEM");
         Console.WriteLine("=========================");
@@ -61,15 +62,23 @@ public class Program
                                     case "1": 
                                         await PatronActions.GetPatrons(client, options);
                                         break;
+
                                     case "2": // Search by patron method name // MORE READABLE
                                         // Move this into a method
-                                        Console.WriteLine("Enter patron's ID: ");
+
+                                        Console.Write("Enter patron's ID: ");
                                         string? idToSearchString = Console.ReadLine();
                                         if (idToSearchString != null || idToSearchString != string.Empty)
                                         {
                                             if (int.TryParse(idToSearchString, out int idToSearch))
-                                            {
-                                                await PatronActions.GetPatronByID(client, options, idToSearch);
+                                            {   
+                                                Console.WriteLine("Finding patron...");
+                                                Patron patron = await PatronActions.GetPatronByID(idToSearch, client, options);
+                                                
+                                                if (patron != null)
+                                                {
+                                                    Console.WriteLine(patron.FullName());
+                                                }
                                             }
                                             else
                                             {

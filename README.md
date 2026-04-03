@@ -3,6 +3,7 @@ This app simulates a Library Management System, with Patron accounts, Item Recor
 Updates:
 * Http get, and post work in the web api and in the console app!
 * Http DELETE by id now works!
+* Got SearchByPatronID() working again!
 
 ===================================
 CATEGOREIS:
@@ -13,12 +14,11 @@ CAT 1: OF LEAST IMPORTANCE
 ===================================
 
 Next TODOS
-* Fix GetPatronByID();
-* Check if Patron exists when Putting/Updating
-* Fix wording on patron update message
-* Fix typo in delete message
-* Add put console operations with user inputs
-    going to start ID at 1 and increment, with leading 0's
+* Check if Patron exists when Putting/Updating  CAT 3
+* Implement XUnit testing project
+* Add PUT console operations with user inputs
+* Add CreatePatron with user inputs, not jIM bO
+* going to start ID at "00001" and increment
 * Creating nice menu loop for users to:
     get patron accounts
     create patron accounts
