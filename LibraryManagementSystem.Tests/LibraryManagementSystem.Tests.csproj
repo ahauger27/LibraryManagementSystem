@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../LibraryManagementSystem.API/LibraryManagementSystem.API.csproj" />
     <ProjectReference Include="../LibraryManagementSystem.ConsoleApp/LibraryManagementSystem.ConsoleApp.csproj" />
   </ItemGroup>
 

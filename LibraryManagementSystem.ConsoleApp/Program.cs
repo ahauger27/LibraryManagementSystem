@@ -10,12 +10,12 @@ public class Program
         Processor run = new Processor();
         run.Start();
 
-        HttpClient client = new HttpClient
+        HttpClient client = new()
         {
             BaseAddress = new Uri("http://localhost:5126")
         };
 
-        JsonSerializerOptions options = new JsonSerializerOptions 
+        JsonSerializerOptions options = new() 
         { 
             PropertyNameCaseInsensitive = true 
         };
@@ -41,7 +41,7 @@ public class Program
 
             Console.WriteLine("");
             Console.Write("Please select an option: ");
-            string? userChoice = Console.ReadLine();
+            string? userChoice = UserActions.StringInput();
 
             try
             {
@@ -63,7 +63,7 @@ public class Program
                                 switch (userChoice2)
                                 {
                                     case "1": 
-                                        await PatronActions.GetPatrons(client, options);
+                                        await PatronHttpActions.GetPatrons(client, options);
                                         break;
 
                                     case "2": // Search by patron method name // MORE READABLE
@@ -76,7 +76,7 @@ public class Program
                                             if (int.TryParse(idToSearchString, out int idToSearch))
                                             {   
                                                 Console.WriteLine("Finding patron...");
-                                                Patron patron = await PatronActions.GetPatronByID(idToSearch, client, options);
+                                                Patron patron = await PatronHttpActions.GetPatronByID(idToSearch, client, options);
                                                 
                                                 if (patron != null)
                                                 {
@@ -112,7 +112,7 @@ public class Program
                             if (newPatron != null)
                             {
                                 Console.WriteLine("Patron account created!");
-                                await PatronActions.PostNewPatron(newPatron, client);
+                                await PatronHttpActions.PostNewPatron(newPatron, client);
                             }
                             else
                             {
@@ -127,7 +127,7 @@ public class Program
                             string? idToDeleteString = Console.ReadLine();
                             if (int.TryParse(idToDeleteString, out int idToDelete))
                             {
-                                await PatronActions.DeletePatron(idToDelete, client);
+                                await PatronHttpActions.DeletePatron(idToDelete, client);
                             }
                             break;
 
@@ -138,7 +138,7 @@ public class Program
                             string? idToUpdateString = Console.ReadLine();
                             if (int.TryParse(idToUpdateString, out int idToUpdate))
                             {
-                                await PatronActions.PutPatron(idToUpdate, client, options);
+                                await PatronHttpActions.PutPatron(idToUpdate, client, options);
                             }
                             break;
 

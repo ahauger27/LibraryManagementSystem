@@ -2,7 +2,7 @@
 using LibraryManagementSystem.ConsoleApp.Models;
 using LibraryManagementSystem.ConsoleApp.Services;
 
-namespace LibraryManagementSystem.Testing;
+namespace LibraryManagementSystem.Tests;
 
 public class UnitTest1
 {
@@ -20,10 +20,12 @@ public class UnitTest1
     [Fact]
     public void Date_of_birth_should_be_valid()
     {
-        string? date;
-        date = "09/28/1996";
-        if (!DateOfBirth.IsValid(date))
-            throw new Exception($"{date} is not a valid Date of Birth.");
+        string?[] dates = {"09/28/1996", "9/28/1996", "September 28, 1996", "9-28-96"};
+
+        foreach (var date in dates)
+        {
+            Assert.True(DateOfBirth.IsValid(date));
+        }
     }
 
     [Fact]
@@ -32,7 +34,18 @@ public class UnitTest1
         bool result = UserActions.IsInputValid("123");
         if (!result)
         {
-            throw new Exception();
+            throw new Exception("Input cannot be empty");
         }
+    }
+
+    [Theory]
+    [InlineData()]
+    public void TestUser()
+    {
+        // Arrange
+
+        // Act
+        
+        // Assert
     }
 }
