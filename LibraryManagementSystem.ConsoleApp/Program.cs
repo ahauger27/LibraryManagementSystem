@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
-using LibraryManagementSystem.Common.Models;
-using LibraryManagementSystem.Common.Services;
+using LibraryManagementSystem.ConsoleApp.Models;
+using LibraryManagementSystem.ConsoleApp.Services;
 
 namespace LibraryManagementSystem.ConsoleApp;
 public class Program

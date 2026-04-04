@@ -1,4 +1,4 @@
-namespace LibraryManagementSystem.Common.Services;
+namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public class Processor
 {

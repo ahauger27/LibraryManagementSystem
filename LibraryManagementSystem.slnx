@@ -1,6 +1,5 @@
 <Solution>
   <Project Path="LibraryManagementSystem.API/LibraryManagementSystem.API.csproj" />
   <Project Path="LibraryManagementSystem.ConsoleApp/LibraryManagementSystem.ConsoleApp.csproj" />
-  <Project Path="LibraryManagementSystem.Common/LibraryManagementSystem.Common.csproj" />
   <Project Path="LibraryManagementSystem.Testing/LibraryManagementSystem.Testing.csproj" />
 </Solution>

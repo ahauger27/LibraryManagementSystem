@@ -1,7 +1,6 @@
-using LibraryManagementSystem.Common.Resources;
-using LibraryManagementSystem.Common.Models;
+using LibraryManagementSystem.ConsoleApp.Resources;
 
-namespace LibraryManagementSystem.Common.Models;
+namespace LibraryManagementSystem.ConsoleApp.Models;
 
 public class Book : IItem
 {

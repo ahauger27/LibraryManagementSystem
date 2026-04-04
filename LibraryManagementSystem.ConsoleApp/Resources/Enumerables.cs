@@ -1,4 +1,4 @@
-namespace LibraryManagementSystem.Common.Resources;
+namespace LibraryManagementSystem.ConsoleApp.Resources;
 
 public enum Collection
 {

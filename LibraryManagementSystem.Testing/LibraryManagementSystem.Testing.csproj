@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../LibraryManagementSystem.Common/LibraryManagementSystem.Common.csproj" />
+    <ProjectReference Include="../LibraryManagementSystem.ConsoleApp/LibraryManagementSystem.ConsoleApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

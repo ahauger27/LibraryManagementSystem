@@ -1,4 +1,4 @@
-namespace LibraryManagementSystem.Common.Models;
+namespace LibraryManagementSystem.ConsoleApp.Models;
 
 public class DateOfBirth
 {
