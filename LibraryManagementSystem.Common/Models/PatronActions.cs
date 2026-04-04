@@ -6,67 +6,177 @@ public static class PatronActions
 {    
     public static bool VerifyNewPatronInfo(Patron newPatron)
     {
-        Console.WriteLine($"{Environment.NewLine}DO YOU WANT TO CONTINUE WITH THIS INFORMATION?");
-        Console.WriteLine($"FIRST NAME: {newPatron.FirstName}");
-        Console.WriteLine($"MIDDLE INITIAL: {newPatron.MiddleInitial}");
-        Console.WriteLine($"LAST NAME: {newPatron.LastName}");
-        Console.WriteLine($"DATE OF BIRTH: {newPatron.DateOfBirth}");
-        Console.WriteLine($"ADDRESS: {newPatron.Address}");
-        Console.WriteLine($"EMAIL: {newPatron.Email}");
-        Console.WriteLine($"PHONE NUMBER: {newPatron.PhoneNumber}");
-        Console.Write("Y/N: "); //can't say no right now
+        string? response;
 
+        do
+        { 
+            Console.WriteLine($"{Environment.NewLine}DO YOU WANT TO CONTINUE WITH THIS INFORMATION?");
+            Console.WriteLine($"FIRST NAME: {newPatron.FirstName}");
+            Console.WriteLine($"MIDDLE INITIAL: {newPatron.MiddleInitial}");
+            Console.WriteLine($"LAST NAME: {newPatron.LastName}");
+            Console.WriteLine($"DATE OF BIRTH: {newPatron.DateOfBirth}");
+            Console.WriteLine($"ADDRESS: {newPatron.Address}");
+            Console.WriteLine($"EMAIL: {newPatron.Email}");
+            Console.WriteLine($"PHONE NUMBER: {newPatron.PhoneNumber}");
+            Console.Write("Y/N: "); //can't say no right now
+
+            response = UserActions.StringInput().ToUpper();
+            if (response == "N")
+            {
+                UpdatePatronInfo(newPatron);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        } while (response != "Y");
+    }
+
+    public static void UpdatePatronInfo(Patron patron)
+    {
+        Console.WriteLine(
+        $"""
+
+        CHOOSE WHICH FIELD TO CHANGE:
+        1. FIRST NAME: {patron.FirstName}
+        2. MIDDLE INITIAL: {patron.MiddleInitial}
+        3. LAST NAME: {patron.LastName}
+        4. DATE OF BIRTH: {patron.DateOfBirth}
+        5. ADDRESS: {patron.Address}
+        6. EMAIL: {patron.Email}
+        7. PHONE NUMBER: {patron.PhoneNumber}
+        8. Quit Editing
+        """
+        );
+
+        Console.Write("Which field do you want to update?: ");
         string? input = UserActions.StringInput();
 
-        if (!UserActions.IsInputValid(input))
+        switch (input)
         {
-            Console.WriteLine("Please ");
-            return false;
-        }
+            case "1":
+                patron.FirstName = InputPatronFirstName();
+                break;
 
-        return true;
+            case "2":
+                patron.MiddleInitial = InputPatronMiddleInitial();
+                break;
+
+            case "3":
+                patron.LastName = InputPatronLastName();
+                break;
+
+            case "4":
+                patron.DateOfBirth = DateOfBirth.DateInput();
+                break;
+
+            case "5":
+                patron.Address = InputPatronAdress();
+                break;
+
+            case "6":
+                patron.Email = InputPatronEmail();
+                break;
+
+            case "7":
+                patron.PhoneNumber = InputPatronPhoneNumber();
+                break;
+            
+            case "8":
+                Console.WriteLine("Done");
+                break;
+                 
+            default:
+                break;
+        }        
     }
+
     public static Patron CreateNewPatron()
     {
-        Patron newPatron = InputNewPatronInfo();
+        return InputNewPatronInfo();
+        
+        // bool patronCreationSuccess = false;
+        
+        // while (!patronCreationSuccess)
+        // {
 
-        if (!VerifyNewPatronInfo(newPatron))
-        {
-            throw new Exception();
-        }
-        else
-        {
-            return newPatron;
-        }
+        //     if (!VerifyNewPatronInfo(newPatron))
+        //     {
+        //         continue;
+        //     }
+        //     else
+        //     {
+        //         patronCreationSuccess = true;
+        //         return newPatron;
+        //     }
+        // }
     }
 
     public static Patron InputNewPatronInfo()
     {
+        string firstName = InputPatronFirstName();
 
-        Console.Write($"{Environment.NewLine}Enter the patron's FIRST NAME: ");
-        string firstName = UserActions.StringInput();
-
-        Console.Write($"{Environment.NewLine}Enter the patron's MIDDLE INITIAL: ");
-        string middleName = UserActions.StringInput();
-
-        Console.Write($"{Environment.NewLine}Enter the patron's LAST NAME: ");
-        string lastName = UserActions.StringInput();
+        string middleInitial = InputPatronMiddleInitial();
+        
+        string lastName = InputPatronLastName();
 
         DateOnly dateOfBirth = DateOfBirth.DateInput();
 
-        Console.Write($"{Environment.NewLine}Enter the patron's ADDRESS: ");
-        string address = UserActions.StringInput();
+        string address = InputPatronAdress();
 
-        Console.Write($"{Environment.NewLine}Enter the patron's EMAIL: ");
-        string email = UserActions.StringInput();
+        string email = InputPatronEmail();
 
-        Console.Write($"{Environment.NewLine}Enter the patron's PHONE NUMBER: ");
-        string phoneNumber = UserActions.StringInput();
+        string phoneNumber = InputPatronPhoneNumber();
             
-        Patron newPatron = new(firstName, lastName, dateOfBirth, middleName, address, email, phoneNumber);
+        Patron newPatron = new(firstName, lastName, dateOfBirth, middleInitial, address, email, phoneNumber);
         return newPatron;
     }
-    
+
+    public static string InputPatronFirstName()
+    {
+        Console.Write($"{Environment.NewLine}Enter the patron's FIRST NAME: ");
+        return UserActions.StringInput();
+    }
+
+    public static string InputPatronMiddleInitial()
+    {
+        string? middleInitial = "";
+        while (middleInitial.Length != 1)
+        {
+            Console.Write($"{Environment.NewLine}Enter the patron's MIDDLE INITIAL: ");
+            middleInitial = UserActions.StringInput();
+            
+        }
+        return middleInitial; 
+    }
+
+    public static string InputPatronLastName()
+    {
+
+        Console.Write($"{Environment.NewLine}Enter the patron's LAST NAME: ");
+        return UserActions.StringInput();
+    }
+
+    public static string InputPatronAdress()
+    {
+        Console.Write($"{Environment.NewLine}Enter the patron's ADDRESS: ");
+        return UserActions.StringInput();   
+    }
+
+    public static string InputPatronEmail()
+    {
+        Console.Write($"{Environment.NewLine}Enter the patron's EMAIL: ");
+        return UserActions.StringInput();    
+    }
+
+    public static string InputPatronPhoneNumber()
+    {
+        Console.Write($"{Environment.NewLine}Enter the patron's PHONE NUMBER: ");
+        return UserActions.StringInput();    
+    }
+
     // GET ALL
     public static async Task GetPatrons(HttpClient client, JsonSerializerOptions options)
     {
@@ -144,7 +254,7 @@ public static class PatronActions
     }
 
     // PUT
-    public static async Task UpdatePatron(int id, HttpClient client, JsonSerializerOptions options)
+    public static async Task PutPatron(int id, HttpClient client, JsonSerializerOptions options)
     {
         Patron patron = await GetPatronByID(id,client, options);
         
@@ -152,10 +262,7 @@ public static class PatronActions
         {
             Console.WriteLine($"Updating patron record for {patron.FullName()}");
 
-            Console.Write("Enter new FIRSTNAME: ");
-            string? UpdatedFirstName = Console.ReadLine();
-            patron.FirstName = UpdatedFirstName;
-
+            UpdatePatronInfo(patron);
             string patronJson = JsonSerializer.Serialize(patron, options);
             StringContent content = new(patronJson, System.Text.Encoding.UTF8, "application/json");
 
@@ -163,7 +270,7 @@ public static class PatronActions
 
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Successfully update patron: {patron.FullName()}");
+                Console.WriteLine($"Successfully updated patron: {patron.PatronID}");
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 Console.WriteLine($"{jsonResponse}{Environment.NewLine}");
             }

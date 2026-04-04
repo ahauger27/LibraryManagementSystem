@@ -30,10 +30,10 @@ public class Program
             // Make this section of Console.WriteLines more modular
             // As in, make sure that I could easily swap these out later,
             // CAT 2, would make life easier, but not crucial to program atm.
-            Console.WriteLine($"{Environment.NewLine}OPTIONS MENU");
-            Console.WriteLine($"============{Environment.NewLine}");
+            Console.WriteLine($"{Environment.NewLine}MAIN MENU");
+            Console.WriteLine($"========={Environment.NewLine}");
             Console.WriteLine("1. Patron Search (WIP)");
-            Console.WriteLine("2. Item Search (WIP)");
+            Console.WriteLine("2. View Catalog (WIP)");
             Console.WriteLine("3. Create New Patron (WIP)");
             Console.WriteLine("D. Delete Patron (WIP)");
             Console.WriteLine("U. Update Patron Account (WIP)");
@@ -50,9 +50,12 @@ public class Program
                     switch (userChoice)
                     {
                         case "1": // 1. Patron Search (WIP)
-                            Console.WriteLine($"{Environment.NewLine}PATRON OPTIONS{Environment.NewLine}==============");
+                            Console.WriteLine($"{Environment.NewLine}PATRON SEARCH{Environment.NewLine}=============");
                             Console.WriteLine("1. List All Patrons");
                             Console.WriteLine("2. Search Patrons By ID (WIP)");
+
+                            Console.WriteLine("");
+                            Console.Write("Please select an option: ");
 
                             string? userChoice2 = Console.ReadLine();
                             if (userChoice2 != null || userChoice2 != string.Empty)
@@ -103,12 +106,23 @@ public class Program
 
                         case "3": // 3. Add New Patron (WIP)
                             Console.WriteLine("MENU TO ADD A NEW PATRON");
+
                             Patron newPatron = PatronActions.CreateNewPatron();
-                            await PatronActions.PostNewPatron(newPatron, client);
+                            
+                            if (newPatron != null)
+                            {
+                                Console.WriteLine("Patron account created!");
+                                await PatronActions.PostNewPatron(newPatron, client);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Unable to create patron account. Returning to main menu...");
+                            }
                             break;
 
                         case "D":
                             Console.WriteLine("MENU TO DELETE A PATRON");
+
                             Console.Write("Enter the ID of the patron you want to delete: ");
                             string? idToDeleteString = Console.ReadLine();
                             if (int.TryParse(idToDeleteString, out int idToDelete))
@@ -119,13 +133,12 @@ public class Program
 
                         case "U":
                             Console.WriteLine("MENU TO UPDATE A PATRON");
-                            Console.WriteLine("This feature is still in progress");
                             
                             Console.Write("Enter the ID of the patron to update: ");
                             string? idToUpdateString = Console.ReadLine();
                             if (int.TryParse(idToUpdateString, out int idToUpdate))
                             {
-                                await PatronActions.UpdatePatron(idToUpdate, client, options);
+                                await PatronActions.PutPatron(idToUpdate, client, options);
                             }
                             break;
 

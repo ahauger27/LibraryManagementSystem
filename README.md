@@ -14,6 +14,7 @@ CAT 1: OF LEAST IMPORTANCE
 ===================================
 
 Next TODOS
+* Remove LibraryManagementSystem.Common and integrate into console app
 * Add CreatePatron with user inputs
     IN PROGRESS, just need to finish the verification process of user inputs
 * Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
@@ -32,6 +33,14 @@ Next TODOS
     delete patron accounts
 * Find a better way to generate PatronId, because the way it works now doesn't generate ids, or they are not properly stored in the json, so can't search by id
 * Fix warnings CAT 1
+* Method that generates == based on lenght of previous line
+* Say why string input is invalid.
+    Empty
+    Wrong type of characters
+    etc
+* When Updating Patron Information, ask if user wants to continue making changes or if they're done after changing something
+    right now, it is done after one change
+* Confirm that the user wants to actually delete the patron first before deleting
 
 Future TODOS
 * need books
