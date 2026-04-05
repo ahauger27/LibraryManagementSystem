@@ -46,14 +46,15 @@ public class Patron
         }
         else
         {
-            return $"{FirstName} {MiddleInitial} {LastName}";
+            return $"{FirstName} {MiddleInitial}. {LastName}";
         }
     }
-    public int DisplayAge()
-    {
-        DateTime dateNow = DateTime.Now;
-        return dateNow.Year - DateOfBirth.Year;
-    }
+
+    // public int DisplayAge()
+    // {
+    //     DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+    //     int today - DateOfBirth;
+    // }
 
     public string PrintPatronName()
     {

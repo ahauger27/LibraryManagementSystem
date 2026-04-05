@@ -1,13 +1,13 @@
-﻿using System.Text.Json;
-using LibraryManagementSystem.ConsoleApp.Services;
+﻿using LibraryManagementSystem.ConsoleApp.Services;
 
 namespace LibraryManagementSystem.ConsoleApp;
+
 public class Program
 {
     public static async Task Main()
     {
-        Processes run = new Processes();
-        run.Start();
+        Processes session = new Processes();
+        session.Start();
 
         Console.WriteLine("""
 
@@ -23,11 +23,6 @@ public class Program
             BaseAddress = new Uri("http://localhost:5126")
         };
 
-        JsonSerializerOptions options = new() 
-        { 
-            PropertyNameCaseInsensitive = true 
-        };
-
-        await MainMenu.MenuLoop(run, client);                          
+        await MainMenu.MenuLoop(session, client);                          
     }
 }

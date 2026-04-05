@@ -13,7 +13,7 @@ public class PatronActionsTests
     [InlineData("9-28-96")]
     public void IsValidDOB_ShouldSucceedWhenValid(string date)
     {
-        Assert.True(PatronActions.IsValidDOB(date!));
+        Assert.True(PatronPostActions.IsValidDOB(date!));
     }
 
     [Theory]
@@ -22,7 +22,7 @@ public class PatronActionsTests
     [InlineData("2/30/2005")]
     public void IsValidDOB_ShouldFailWhenInvalid(string date)
     {
-        Assert.False(PatronActions.IsValidDOB(date));
+        Assert.False(PatronPostActions.IsValidDOB(date));
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class PatronActionsTests
         string fieldNumber = "1";
         string input = "Test Name";
 
-        PatronActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
+        PatronPostActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
 
         Assert.True(testPatron.FirstName == input);
     }
@@ -44,7 +44,7 @@ public class PatronActionsTests
         string fieldNumber = "2";
         string input = "T";
 
-        PatronActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
+        PatronPostActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
         
         Assert.True(testPatron.MiddleInitial == input);
     }
@@ -56,7 +56,7 @@ public class PatronActionsTests
         string fieldNumber = "3";
         string input = "Test Name";
 
-        PatronActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
+        PatronPostActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
         
         Assert.True(testPatron.LastName == input);
     }
@@ -68,7 +68,7 @@ public class PatronActionsTests
         string fieldNumber = "4";
         string input = "01/01/1900";
 
-        PatronActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
+        PatronPostActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
         
         Assert.True(testPatron.DateOfBirth == DateOnly.Parse(input));
     }
@@ -80,7 +80,7 @@ public class PatronActionsTests
         string fieldNumber = "5";
         string input = "Test Address";
 
-        PatronActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
+        PatronPostActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
         
         Assert.True(testPatron.Address == input);
     }
@@ -92,7 +92,7 @@ public class PatronActionsTests
         string fieldNumber = "6";
         string input = "Test@test.com";
 
-        PatronActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
+        PatronPostActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
         
         Assert.True(testPatron.Email == input);
     }
@@ -104,7 +104,7 @@ public class PatronActionsTests
         string fieldNumber = "7";
         string input = "999 999-9999";
 
-        PatronActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
+        PatronPostActions.ApplyPatronUpdate(testPatron, fieldNumber, input);
         
         Assert.True(testPatron.PhoneNumber == input);
     }

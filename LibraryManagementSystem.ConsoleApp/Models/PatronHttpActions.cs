@@ -21,7 +21,7 @@ public static class PatronHttpActions
     }
 
     // GET BY ID
-    public static async Task<Patron> GetPatronByID(int id,HttpClient client, JsonSerializerOptions options)
+    public static async Task<Patron> GetPatronByID(int id, HttpClient client, JsonSerializerOptions options)
     {
         HttpResponseMessage singleResponse = await client.GetAsync($"/patrons/{id}");
 
@@ -90,15 +90,15 @@ public static class PatronHttpActions
     }
 
     // DELETE
-    public static async Task DeletePatron(int id, HttpClient client)
+    public static async Task DeletePatron(Patron patron, HttpClient client)
     {
         try
         {
-            HttpResponseMessage response = await client.DeleteAsync($"/patrons/{id}");
+            HttpResponseMessage response = await client.DeleteAsync($"/patrons/{patron.PatronID}");
 
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Successfully deleted patron with ID: {id}");
+                Console.WriteLine($"Successfully deleted patron with ID: {patron.PatronID}");
             }
             else
             {
