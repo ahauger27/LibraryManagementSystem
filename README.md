@@ -6,7 +6,7 @@ Updates:
 * Got SearchByPatronID() working again!
 
 ===================================
-CATEGOREIS:
+CATEGORIES:
 CAT 4: OF HIGHEST IMPORTANCE
 CAT 3: OF SECOND HIGHEST IMPORTANCE
 CAT 2: OF THIRD HIGHEST IMPORTANCE
