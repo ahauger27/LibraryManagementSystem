@@ -81,15 +81,14 @@ public static class PatronHttpActions
     }
 
     // PUT
-    public static async Task PutPatron(int id, HttpClient client, JsonSerializerOptions options)
+    public static async Task PutPatron(int id, Patron patron, HttpClient client, JsonSerializerOptions options)
     {
-        Patron patron = await GetPatronByID(id,client, options);
+        Patron patronToUpdate = await GetPatronByID(id,client, options);
         
-        if (patron != null)
+        if (patronToUpdate != null)
         {
-            Console.WriteLine($"Updating patron record for {patron.FullName()}");
+            Console.WriteLine($"Updating patron record for {patronToUpdate.FullName()}");
 
-            PatronActions.UpdatePatronInfo(patron);
             string patronJson = JsonSerializer.Serialize(patron, options);
             StringContent content = new(patronJson, System.Text.Encoding.UTF8, "application/json");
 

@@ -137,10 +137,19 @@ public class Program
                             Console.WriteLine("MENU TO UPDATE A PATRON");
                             
                             Console.Write("Enter the ID of the patron to update: ");
-                            string? idToUpdateString = Console.ReadLine();
+                            string? idToUpdateString = UserActions.StringInput();
+                            
                             if (int.TryParse(idToUpdateString, out int idToUpdate))
                             {
-                                await PatronHttpActions.PutPatron(idToUpdate, client, options);
+                                Patron patronToUpdate = await PatronHttpActions.GetPatronByID(idToUpdate, client, options);
+                            
+                                string fieldNumber = PatronActions.UpdatePatronInfo(patronToUpdate);
+                                Console.Write("Enter the updated information: ");
+                                string? input = UserActions.StringInput();
+
+                                PatronActions.ApplyPatronUpdate(patronToUpdate, fieldNumber, input);
+                            
+                                await PatronHttpActions.PutPatron(idToUpdate, patronToUpdate, client, options);
                             }
                             break;
 

@@ -103,7 +103,6 @@ public static class PatronActions
         return newPatron;
     }
 
-
     public static void ApplyPatronUpdate(Patron patron, string fieldNumber, string input)
     {
         switch (fieldNumber)
@@ -141,7 +140,7 @@ public static class PatronActions
                 break;
             
             case "8":
-                Console.WriteLine("Done");
+                Console.WriteLine("Returning to Menu...");
                 break;
                  
             default:
@@ -149,7 +148,7 @@ public static class PatronActions
         }        
     }
 
-    public static void UpdatePatronInfo(Patron patron)
+    public static string UpdatePatronInfo(Patron patron)
     {
         Console.WriteLine(
         $"""
@@ -167,9 +166,6 @@ public static class PatronActions
         );
 
         Console.Write("Which field do you want to update?: ");
-        string? input = UserActions.StringInput();
-
-
+        return UserActions.StringInput();
     }
-
 }
