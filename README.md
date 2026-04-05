@@ -1,4 +1,3 @@
-=========================
 LIBRARY MANAGEMENT SYSTEM
 =========================
 This app simulates a Library Management System, with Patron accounts, Item Records, and Circulation Services.
