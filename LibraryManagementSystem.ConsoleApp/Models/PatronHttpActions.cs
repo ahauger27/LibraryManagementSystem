@@ -5,37 +5,18 @@ namespace LibraryManagementSystem.ConsoleApp.Models;
 public static class PatronHttpActions
 {    
     // GET ALL
-    public static async Task GetPatrons(HttpClient client, JsonSerializerOptions options)
+    public static async Task<string> GetPatrons(HttpClient client)
     {
         HttpResponseMessage response = await client.GetAsync("/patrons");
-
-        var patrons = new List<Patron>();
+        
         if (response.IsSuccessStatusCode)
         {
-            string jsonResponse = await response.Content.ReadAsStringAsync();
-
-            patrons = JsonSerializer.Deserialize<List<Patron>>(jsonResponse, options);
+            return await response.Content.ReadAsStringAsync();   
         }
         else
         {
             Console.WriteLine($"Error: {response.StatusCode}");
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
-        }
-
-        if (patrons.Count == 0)
-        {
-            Console.WriteLine("No patrons found.");   
-        }
-        else
-        {
-            Console.WriteLine($"{Environment.NewLine}Patrons:");
-            Console.WriteLine("ID\t\tNAME");
-            Console.WriteLine("=================================");
-            
-            foreach (var patron in patrons)
-            {
-                Console.WriteLine($"{patron.PatronID}\t{patron.LastName}, {patron.FirstName}");
-            }
+            return await response.Content.ReadAsStringAsync();
         }
     }
 
