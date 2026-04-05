@@ -13,11 +13,10 @@ public static class PatronPostActions
     public static string InputPatronMiddleInitial()
     {
         string? middleInitial = "";
-        while (middleInitial.Length != 1)
+        while (string.IsNullOrEmpty(middleInitial))
         {
             Console.Write($"{Environment.NewLine}Enter the patron's MIDDLE INITIAL: ");
-            middleInitial = UserActions.StringInput();
-            
+            middleInitial = Console.ReadLine();
         }
         return middleInitial; 
     }

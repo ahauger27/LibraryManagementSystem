@@ -14,7 +14,6 @@ CAT 1: OF LEAST IMPORTANCE
 ===================================
 
 Next TODOS
-* Put SearchByPatronID in a contained, repeatable method
 * Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
 * Flesh out XUnit testing project
 * going to start ID at "00001" and increment

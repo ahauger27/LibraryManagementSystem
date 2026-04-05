@@ -20,7 +20,7 @@ public static class PatronAccountMenu
         Console.WriteLine($"PHONE NUMBER: {patron.PhoneNumber}");     
     }
 
-    public static async Task MenuLoop(Patron patron, HttpClient client)
+    public static async Task MenuLoop(Patron patron, HttpClient client, Processes session)
     {
         
         bool returnToPatronMenu = false;
@@ -41,7 +41,7 @@ public static class PatronAccountMenu
             Console.WriteLine("2. View Active Loans");
             Console.WriteLine("3. Update Patron Account");
             Console.WriteLine("4. Delete Patron Account");
-            Console.WriteLine("5. Return To Previous Menu");
+            Console.WriteLine("5. Return To Patron Menu");
 
             Console.WriteLine("");
             Console.Write("Please Make A Selection: ");
@@ -63,23 +63,27 @@ public static class PatronAccountMenu
                     break;
 
                 case "3":
-                    Console.WriteLine("UPDATING PATRON INFO");
+                    Console.WriteLine($"{Environment.NewLine}UPDATING PATRON INFO:");
                             
-                    // Console.Write("Enter the ID of the patron to update: ");
-                    // string? idToUpdateString = UserActions.StringInput();
+                    string fieldNumber = PatronPutActions.ChoosePatronInfoToUpdate(patron);
                     
-                    // if (int.TryParse(idToUpdateString, out int idToUpdate))
-                    // {
-                    //     Patron patronToUpdate = await PatronHttpActions.GetPatronByID(idToUpdate, client, run.JsonOptions);
-                    
-                    //     string fieldNumber = PatronPostActions.UpdatePatronInfo(patronToUpdate);
-                    //     Console.Write("Enter the updated information: ");
-                    //     string? input = UserActions.StringInput();
+                    if (fieldNumber == null)
+                    {
+                        break;
+                    }
 
-                    //     PatronPostActions.ApplyPatronUpdate(patronToUpdate, fieldNumber, input);
+                    Console.Write("Enter the Updated Information: ");
+                    string? input = Console.ReadLine();
+
+                    if (string.IsNullOrEmpty(input))
+                    {
+                        break;
+                    }
+
+                    PatronPutActions.ApplyPatronUpdateToAccount(patron, fieldNumber, input);
                     
-                    //     await PatronHttpActions.PutPatron(idToUpdate, patronToUpdate, client, run.JsonOptions);
-                    // }
+                    await PatronHttpActions.PutPatron(patron, client, session.JsonOptions);
+
                     break;
 
                 case "4":
