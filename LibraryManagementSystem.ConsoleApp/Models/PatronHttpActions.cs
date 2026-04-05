@@ -64,7 +64,7 @@ public static class PatronHttpActions
     // PUT
     public static async Task PutPatron(int id, Patron patron, HttpClient client, JsonSerializerOptions options)
     {
-        Patron patronToUpdate = await GetPatronByID(id,client, options);
+        Patron patronToUpdate = await GetPatronByID(id, client, options);
         
         if (patronToUpdate != null)
         {

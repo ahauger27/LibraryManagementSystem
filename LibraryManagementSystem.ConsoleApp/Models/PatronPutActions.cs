@@ -19,11 +19,8 @@ public static class PatronPutActions
                 break;
 
             case "4":
-                if (!IsValidDOB(input))
-                {
-                    DateOnly date = DateOnly.Parse(input);
-                    patron.DateOfBirth = date;
-                }
+                // COME BACK HERE
+                patron.DateOfBirth = PatronPostActions.InputPatronDOB();
                 break;
 
             case "5":
