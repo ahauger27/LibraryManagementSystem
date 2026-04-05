@@ -1,17 +1,12 @@
+=========================
+LIBRARY MANAGEMENT SYSTEM
+=========================
 This app simulates a Library Management System, with Patron accounts, Item Records, and Circulation Services.
 
 Updates:
 * Http get, and post work in the web api and in the console app!
 * Http DELETE by id now works!
 * Got SearchByPatronID() working again!
-
-===================================
-CATEGORIES:
-CAT 4: OF HIGHEST IMPORTANCE
-CAT 3: OF SECOND HIGHEST IMPORTANCE
-CAT 2: OF THIRD HIGHEST IMPORTANCE
-CAT 1: OF LEAST IMPORTANCE
-===================================
 
 Next TODOS
 * Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
