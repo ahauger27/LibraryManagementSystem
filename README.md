@@ -14,9 +14,7 @@ CAT 1: OF LEAST IMPORTANCE
 ===================================
 
 Next TODOS
-* Remove LibraryManagementSystem.Common and integrate into console app
 * Add CreatePatron with user inputs
-    IN PROGRESS, just need to finish the verification process of user inputs
 * Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
 * Flesh out XUnit testing project
 * Add PUT console operations with user inputs

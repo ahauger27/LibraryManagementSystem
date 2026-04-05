@@ -105,6 +105,7 @@ public class Program
                             break;
 
                         case "3": // 3. Add New Patron (WIP)
+                            
                             Console.WriteLine("MENU TO ADD A NEW PATRON");
 
                             Patron newPatron = PatronActions.CreateNewPatron();
@@ -118,6 +119,7 @@ public class Program
                             {
                                 Console.WriteLine("Unable to create patron account. Returning to main menu...");
                             }
+                            
                             break;
 
                         case "D":
