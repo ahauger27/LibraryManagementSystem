@@ -22,7 +22,7 @@ public static class PatronHttpActions
             Console.WriteLine(await response.Content.ReadAsStringAsync());
         }
 
-        if (patrons?.Count == 0)
+        if (patrons.Count == 0)
         {
             Console.WriteLine("No patrons found.");   
         }

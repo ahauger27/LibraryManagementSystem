@@ -6,8 +6,6 @@ namespace LibraryManagementSystem.Tests;
 
 public class PatronActionsTests
 {
-    public static Patron testPatron = new("John", "Doe", DateOnly.Parse("01/01/1900"), "W", "Main St", "John.Doe@gmail.com", "555 555-5555");
-
     [Theory]
     [InlineData("09/28/1996")]
     [InlineData("9/28/1996")]
