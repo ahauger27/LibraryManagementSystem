@@ -17,14 +17,10 @@ Next TODOS
     update patron accounts
     delete patron accounts
 * Find a better way to generate PatronId, because the way it works now doesn't generate ids, or they are not properly stored in the json, so can't search by id
-* Fix warnings CAT 1
 * Say why string input is invalid.
     Empty
     Wrong type of characters
     etc
-* When Updating Patron Information, ask if user wants to continue making changes or if they're done after changing something
-    right now, it is done after one change
-* Confirm that the user wants to actually delete the patron first before deleting
 * Fix Age display function, returns "System.Func`1[System.Int32]"
 
 Future TODOS
