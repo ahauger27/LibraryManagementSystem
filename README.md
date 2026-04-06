@@ -3,21 +3,28 @@ LIBRARY MANAGEMENT SYSTEM
 
 WHAT DOES THIS PROJECT DO?
 --------------------------
-This program will allow users to create , with Patron accounts, Item Records, and Circulation Services.
+This program acts as a way allow users in a public facing environment to access patron and item records, and circulate items to and from patrons.
+* Create, Retrieve, Update, and Delete Patron information and records.
+* View Catalog and Item records.
+* Circulation functionality for lending Items to Patrons.
 
-Updates:
+HOW TO RUN THIS PROJECT
+-----------------------
+
+
+LATEST UPDATES
+--------------
 * Http get, and post work in the web api and in the console app!
 * Http DELETE by id now works!
 * Got SearchByPatronID() working again!
 * Main Menu, Patron Search Menu, and Patron Account menu are functioning
 * Json Serializer can't use interfaces in deserialization, so I had to do away with the IItem interface
 
-Next TODOS
-* Can't seem to use enumerables in json deserialization, so look at refactoring Genre, Format, CircStatus in the Item Class
+WHAT'S NEXT?
+------------
+* Can't seem to use enumerables in json deserialization, so look at refactoring Genre, Format, CircStatus in the Item Class to strings
 * Need to add books
     either create a json file with book and item data, or connect to an api
-
-
 * Need to add book endpoints to api
 * Flesh out XUnit testing project
 * Check if Patron exists when Creating/Posting
