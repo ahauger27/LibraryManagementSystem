@@ -40,27 +40,26 @@ public static class PatronsMenu
 
                 case "2":
                     Console.Write("Enter Patron ID: ");
-                    string? idToSearchString = UserActions.StringInput();
+                    string? idToSearch = Console.ReadLine();
 
-                    if (int.TryParse(idToSearchString, out int idToSearch))
-                    {   
-                        Console.WriteLine("Loading Patron...");
+                    if (string.IsNullOrEmpty(idToSearch))
+                    {
+                        Console.WriteLine("Invalid ID Format.");
+                        break;
+                    }   
+                    
+                    Console.WriteLine("Loading Patron...");
 
-                        Patron patron = await PatronHttpActions.GetPatronByID(idToSearch, client, session.JsonOptions);
-                        
-                        if (patron != null)
-                        {
-                            await PatronAccountMenu.MenuLoop(patron, client, session);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Patron Does Not Exist...");
-                            break;
-                        }
+                    Patron patron = await PatronHttpActions.GetPatronByID(idToSearch, client, session.JsonOptions);
+                    
+                    if (patron != null)
+                    {
+                        await PatronAccountMenu.MenuLoop(patron, client, session);
                     }
                     else
                     {
-                        Console.WriteLine("Invalid ID format.");
+                        Console.WriteLine("Patron Does Not Exist...");
+                        break;
                     }
                     break;
 

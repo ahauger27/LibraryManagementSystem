@@ -20,7 +20,7 @@ public static class PatronGetActions
     public static void DisplayAllPatrons(List<Patron> patrons)
     {   
         Console.WriteLine($"{Environment.NewLine}PATRONS:");
-        Console.WriteLine("ID\t\tNAME");
+        Console.WriteLine("ID\tNAME");
         Console.WriteLine("=================================");
         
         foreach (var patron in patrons)

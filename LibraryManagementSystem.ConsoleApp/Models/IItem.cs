@@ -4,8 +4,8 @@ namespace LibraryManagementSystem.ConsoleApp.Models;
 
 public interface IItem
 {
-    private static int _nextItemNumber { get; set; }
-    public int ItemNumber { get; set; }
+    private static int _nextItemNumber;
+    public string ItemNumber { get; set; }
     public string Title { get; set; }
     public string AuthorName { get; set; }
     public Collection Genre { get; set; }
@@ -17,9 +17,6 @@ public interface IItem
     
     static IItem()
     {
-        Random random = new Random();
-        _nextItemNumber = random.Next(10000000, 20000000);
+        _nextItemNumber = 1;
     }
-    public void SetDueDate() {}
-    
 }

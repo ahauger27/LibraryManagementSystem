@@ -4,8 +4,8 @@ namespace LibraryManagementSystem.ConsoleApp.Models;
 
 public class Book : IItem
 {
-    private static int _nextItemNumber { get; set; }
-    public int ItemNumber { get; set; }
+    private static int _nextItemNumber;
+    public string ItemNumber { get; set; }
     public string Title { get; set; } = string.Empty;
     public string AuthorName { get; set; } = string.Empty;
     public Collection Genre { get ; set;}
@@ -17,6 +17,7 @@ public class Book : IItem
 
     public Book(string title, string author, Collection genre, Format format)
     {
+        ItemNumber = "1" + _nextItemNumber++.ToString("D4");
         Title = title;
         AuthorName = author;
         Genre = genre;
@@ -25,7 +26,7 @@ public class Book : IItem
 
     public void DisplayTitle()
     {
-        System.Console.WriteLine($"Title: {Title}");
+        Console.WriteLine($"Title: {Title}");
     }
 
     public void SetDueDate()

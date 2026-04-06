@@ -3,7 +3,7 @@
 public class Patron
 {
     private static int _nextPatronID;
-    public int PatronID { get; set; }
+    public string PatronID { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string MiddleInitial { get; set; }
@@ -15,8 +15,7 @@ public class Patron
 
     static Patron()
     {
-        Random random = new Random();
-        _nextPatronID = random.Next(10000000, 20000000);
+        _nextPatronID = 1;
     }
 
     public Patron
@@ -28,7 +27,7 @@ public class Patron
         string? Email = null,
         string? PhoneNumber = null)
     {
-        PatronID = _nextPatronID++;
+        PatronID = _nextPatronID++.ToString("D5");
         this.FirstName = FirstName;
         this.MiddleInitial = MiddleInitial;
         this.LastName = LastName;
@@ -58,7 +57,7 @@ public class Patron
 
     public string PrintPatronName()
     {
-        return $"{FullName()}";
+        return $"{FullName().ToUpper()}";
     }
 
     public void DisplayActiveLoans()

@@ -10,13 +10,6 @@ Updates:
 Next TODOS
 * Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
 * Flesh out XUnit testing project
-* going to start ID at "00001" and increment
-* Creating nice menu loop for users to:
-    get patron accounts
-    create patron accounts
-    update patron accounts
-    delete patron accounts
-* Find a better way to generate PatronId, because the way it works now doesn't generate ids, or they are not properly stored in the json, so can't search by id
 * Say why string input is invalid.
     Empty
     Wrong type of characters

@@ -11,13 +11,13 @@ public static class PatronAccountMenu
 
     public static void DisplayFullPatronAccountInfo(Patron patron)
     {
-        Console.WriteLine($"FIRST NAME: {patron.FirstName}");
-        Console.WriteLine($"MIDDLE INITIAL: {patron.MiddleInitial}");
-        Console.WriteLine($"LAST NAME: {patron.LastName}");
-        Console.WriteLine($"DATE OF BIRTH: {patron.DateOfBirth}");
-        Console.WriteLine($"ADDRESS: {patron.Address}");
-        Console.WriteLine($"EMAIL ADDRESS: {patron.Email}");
-        Console.WriteLine($"PHONE NUMBER: {patron.PhoneNumber}");     
+        Console.WriteLine($"First Name: \t{patron.FirstName}");
+        Console.WriteLine($"Middle Initial: {patron.MiddleInitial}");
+        Console.WriteLine($"Last Name: \t{patron.LastName}");
+        Console.WriteLine($"Date of Birth: \t{patron.DateOfBirth}");
+        Console.WriteLine($"Address: \t{patron.Address}");
+        Console.WriteLine($"Email Address: \t{patron.Email}");
+        Console.WriteLine($"Phone Number: \t{patron.PhoneNumber}");     
     }
 
     public static async Task MenuLoop(Patron patron, HttpClient client, Processes session)
@@ -51,19 +51,30 @@ public static class PatronAccountMenu
             switch (userChoice)
             {
                 case "1":
-                    Console.WriteLine($"{Environment.NewLine}ACCOUNT INFORMATION");
+                    Console.WriteLine("""
+                    ACCOUNT INFORMATION
+                    ===================
+                    """);
+
                     DisplayFullPatronAccountInfo(patron);
                     UserActions.PressKeyToContinue();
                     break;
 
                 case "2":
-                    Console.WriteLine($"{Environment.NewLine}ACTIVE LOANS:");
+                    Console.WriteLine("""
+                    ACTIVE LOANS
+                    ============
+                    """);
+
                     patron.DisplayActiveLoans();
                     UserActions.PressKeyToContinue();
                     break;
 
                 case "3":
-                    Console.WriteLine($"{Environment.NewLine}UPDATING PATRON INFO:");
+                    Console.WriteLine("""
+                    UPDATING PATRON INFORMATION
+                    ===========================
+                    """);
                             
                     string fieldNumber = PatronPutActions.ChoosePatronInfoToUpdate(patron);
                     

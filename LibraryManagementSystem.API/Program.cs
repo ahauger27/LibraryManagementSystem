@@ -20,7 +20,7 @@ app.MapGet("/patrons", async () => patrons)
     .WithName("GetPatrons")
     .Produces<List<Patron>>(statusCode: StatusCodes.Status200OK);
 
-app.MapGet("/patrons/{id}", (int id) =>
+app.MapGet("/patrons/{id}", (string id) =>
 {
     var patron = patrons?.FirstOrDefault(p => p.PatronID == id);
     if (patron != null)
@@ -52,7 +52,7 @@ app.MapPost("/patrons", (Patron newPatron) =>
     return Results.Created($"/patrons/{newPatron.PatronID}", newPatron);
 });
 
-app.MapPut("/patrons/{id}", ([FromRoute]int id,[FromBody] Patron inputPatron) =>
+app.MapPut("/patrons/{id}", ([FromRoute]string id,[FromBody] Patron inputPatron) =>
 {
     var existingPatron = patrons?.FirstOrDefault(p => p.PatronID == id);
 
@@ -72,7 +72,7 @@ app.MapPut("/patrons/{id}", ([FromRoute]int id,[FromBody] Patron inputPatron) =>
     return Results.Ok($"Patron with ID: {id}, updated successfully.");
 });
 
-app.MapDelete("/patrons/{id}", (int id) =>
+app.MapDelete("/patrons/{id}", (string id) =>
 {
     var patronToDelete = patrons?.FirstOrDefault(p => p.PatronID == id);
 
