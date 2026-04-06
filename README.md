@@ -6,9 +6,12 @@ Updates:
 * Http get, and post work in the web api and in the console app!
 * Http DELETE by id now works!
 * Got SearchByPatronID() working again!
+* Menus work
 
 Next TODOS
-* Check if Patron exists when Creating/Posting/Putting/Updating  CAT 2
+* need to add books
+    either create a json file with book and item data, or connect to an api
+* Check if Patron exists when Creating/Posting
 * Flesh out XUnit testing project
 * Say why string input is invalid.
     Empty
@@ -17,10 +20,7 @@ Next TODOS
 * Fix Age display function, returns "System.Func`1[System.Int32]"
 
 Future TODOS
-* need books
-    . either create a json file with book and item data, or connect to an api
 * need to add circulation service classes
-* Fix the IItem Format member
 
 Nice-to-haves
 * Create a script that will create random patrons so as not to need ai for this
