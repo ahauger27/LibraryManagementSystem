@@ -1,4 +1,6 @@
-namespace LibraryManagementSystem.ConsoleApp.Models;
+using LibraryManagementSystem.ConsoleApp.Models;
+
+namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public static class PatronPutActions
 {

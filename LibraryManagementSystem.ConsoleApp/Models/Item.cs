@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using LibraryManagementSystem.ConsoleApp.Resources;
 
 namespace LibraryManagementSystem.ConsoleApp.Models;
@@ -8,19 +9,26 @@ public class Item
     public string ItemNumber { get; set; }
     public string Title { get; set; } = string.Empty;
     public string AuthorName { get; set; } = string.Empty;
-    public string Genre { get ; set;}
-    public string Format { get; set; }
     public Patron? CurrentBorrower { get; set; }
-    public CircStatus CircStatus { get; set; } = CircStatus.In;
-    public DateTime LastCirculation { get; set; }
-    public DateTime DueDate { get; set; }
+    
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public Collection Genre { get ; set;}
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public Format Format { get; set; }
+    
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public CircStatus CircStatus { get; set; } = CircStatus.In;        
+    
+    public DateOnly LastCirculation { get; set; }
+    public DateOnly DueDate { get; set; }
 
     static Item()
     {
         _nextItemNumber = 1;
     }
     
-    public Item(string Title, string AuthorName, string Genre, string Format)
+    public Item(string Title, string AuthorName, Collection Genre, Format Format)
     {
         ItemNumber = "1" + _nextItemNumber++.ToString("D4");
         this.Title = Title;
@@ -36,7 +44,7 @@ public class Item
 
     public void SetDueDate()
     {
-        DateTime today = DateTime.Today;
+        DateOnly today = DateOnly.FromDateTime(DateTime.Today);
         DueDate = today.AddDays(21);
     }
 }

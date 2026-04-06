@@ -1,3 +1,6 @@
+using LibraryManagementSystem.ConsoleApp.Models;
+using LibraryManagementSystem.ConsoleApp.Resources;
+
 namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public static class Circulate
@@ -18,8 +21,8 @@ public static class Circulate
 
     public static void CheckInItem(Patron patron, Item item)
     {    
-        
-        //code here
+
+
     }
 
     public static void AddToActiveLoans(Patron patron, Item item)
@@ -32,9 +35,16 @@ public static class Circulate
         //code
     }
 
-    public static void GetItemCircStatus(Item item)
+    public static bool IsItemAvailable(Item item)
     {
-        //return circStatus;
+        if (item.CircStatus == CircStatus.In)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
   

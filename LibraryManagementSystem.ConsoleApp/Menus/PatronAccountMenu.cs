@@ -1,6 +1,7 @@
 using LibraryManagementSystem.ConsoleApp.Models;
+using LibraryManagementSystem.ConsoleApp.Services;
 
-namespace LibraryManagementSystem.ConsoleApp.Services;
+namespace LibraryManagementSystem.ConsoleApp.Menus;
 
 public static class PatronAccountMenu
 {

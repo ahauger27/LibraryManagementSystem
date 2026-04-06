@@ -1,6 +1,7 @@
 using System.Text.Json;
+using LibraryManagementSystem.ConsoleApp.Models;
 
-namespace LibraryManagementSystem.ConsoleApp.Models;
+namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public static class PatronGetActions
 {

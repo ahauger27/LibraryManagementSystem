@@ -1,4 +1,4 @@
-namespace LibraryManagementSystem.ConsoleApp.Services;
+namespace LibraryManagementSystem.ConsoleApp.Menus;
 
 public class CirculationMenu
 {

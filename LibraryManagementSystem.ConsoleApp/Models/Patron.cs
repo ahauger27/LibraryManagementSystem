@@ -11,7 +11,7 @@ public class Patron
     public string? Address { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
-    public List<IItem> ActiveLoans { get; } = new List<IItem>();
+    public List<Item> ActiveLoans { get; } = new List<Item>();
 
     static Patron()
     {
@@ -69,7 +69,7 @@ public class Patron
         else
         {
             Console.WriteLine($"{PrintPatronName()}'s current loans:");
-            foreach (IItem item in ActiveLoans)
+            foreach (Item item in ActiveLoans)
             {
                 Console.WriteLine($"-{item.Title}");
 
