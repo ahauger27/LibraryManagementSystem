@@ -13,8 +13,15 @@ var app = builder.Build();
 
 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-string jsonFile = File.ReadAllText("./Resources/patrons.json");
-var patrons = JsonSerializer.Deserialize<List<Patron>>(jsonFile, options);
+string patronJsonFile = File.ReadAllText("./Resources/patrons.json");
+string catalogJsonFile = File.ReadAllText("./Resources/catalog.json");
+
+var patrons = JsonSerializer.Deserialize<List<Patron>>(patronJsonFile, options);
+var catalog = JsonSerializer.Deserialize<List<Item>>(catalogJsonFile, options);
+
+app.MapGet("/catalog", async () => catalog)
+    .WithName("GetCatalog")
+    .Produces<List<Item>>(statusCode: StatusCodes.Status200OK);
 
 app.MapGet("/patrons", async () => patrons)
     .WithName("GetPatrons")

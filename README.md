@@ -7,12 +7,16 @@ Updates:
 * Http DELETE by id now works!
 * Got SearchByPatronID() working again!
 * Menus work
+* Can seem to use enumerables in json deserialization, so look at refactoring Genre, Format, CircStatus
 
 Next TODOS
-* need to add books
+* Need to add books
     either create a json file with book and item data, or connect to an api
-* Check if Patron exists when Creating/Posting
+
+
+* Need to add book endpoints to api
 * Flesh out XUnit testing project
+* Check if Patron exists when Creating/Posting
 * Say why string input is invalid.
     Empty
     Wrong type of characters

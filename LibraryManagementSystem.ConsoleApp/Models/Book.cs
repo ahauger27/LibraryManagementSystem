@@ -2,26 +2,31 @@ using LibraryManagementSystem.ConsoleApp.Resources;
 
 namespace LibraryManagementSystem.ConsoleApp.Models;
 
-public class Book : IItem
+public class Item
 {
     private static int _nextItemNumber;
     public string ItemNumber { get; set; }
     public string Title { get; set; } = string.Empty;
     public string AuthorName { get; set; } = string.Empty;
-    public Collection Genre { get ; set;}
-    public Format Format { get; set; }
+    public string Genre { get ; set;}
+    public string Format { get; set; }
     public Patron? CurrentBorrower { get; set; }
     public CircStatus CircStatus { get; set; } = CircStatus.In;
     public DateTime LastCirculation { get; set; }
     public DateTime DueDate { get; set; }
 
-    public Book(string title, string author, Collection genre, Format format)
+    static Item()
+    {
+        _nextItemNumber = 1;
+    }
+    
+    public Item(string Title, string AuthorName, string Genre, string Format)
     {
         ItemNumber = "1" + _nextItemNumber++.ToString("D4");
-        Title = title;
-        AuthorName = author;
-        Genre = genre;
-        Format = format;
+        this.Title = Title;
+        this.AuthorName = AuthorName;
+        this.Genre = Genre;
+        this.Format = Format;
     }
 
     public void DisplayTitle()
