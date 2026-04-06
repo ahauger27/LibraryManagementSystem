@@ -1,7 +1,7 @@
 using LibraryManagementSystem.ConsoleApp.Models;
 using LibraryManagementSystem.ConsoleApp.Services;
 
-namespace LibraryManagementSystem.Tests
+namespace LibraryManagementSystem.Tests;
 
 public class CirculationTests
 {

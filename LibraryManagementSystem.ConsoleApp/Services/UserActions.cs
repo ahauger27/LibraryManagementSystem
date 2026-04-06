@@ -1,4 +1,4 @@
-namespace LibraryManagementSystem.ConsoleApp.Models;
+namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public class UserActions
 {
