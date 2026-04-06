@@ -1,6 +1,6 @@
 namespace LibraryManagementSystem.ConsoleApp.Services;
 
-public static class Circulation
+public static class Circulate
 {
     public static void CheckOutItem(Patron patron, Item item)
     {
