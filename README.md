@@ -1,15 +1,19 @@
 LIBRARY MANAGEMENT SYSTEM
 =========================
-This app simulates a Library Management System, with Patron accounts, Item Records, and Circulation Services.
+
+WHAT DOES THIS PROJECT DO?
+--------------------------
+This program will allow users to create , with Patron accounts, Item Records, and Circulation Services.
 
 Updates:
 * Http get, and post work in the web api and in the console app!
 * Http DELETE by id now works!
 * Got SearchByPatronID() working again!
-* Menus work
-* Can seem to use enumerables in json deserialization, so look at refactoring Genre, Format, CircStatus
+* Main Menu, Patron Search Menu, and Patron Account menu are functioning
+* Json Serializer can't use interfaces in deserialization, so I had to do away with the IItem interface
 
 Next TODOS
+* Can't seem to use enumerables in json deserialization, so look at refactoring Genre, Format, CircStatus in the Item Class
 * Need to add books
     either create a json file with book and item data, or connect to an api
 
@@ -29,7 +33,7 @@ Future TODOS
 Nice-to-haves
 * Create a script that will create random patrons so as not to need ai for this
 
-The use of AI in this Project:
-
+THE USE OF AI IN THIS PROJECT
+-----------------------------
 I utilized Claude to create a json file containing dummy data for 200 library patron users. I opted to generate this file with AI rather than serializing this data by hand to save time upfront when testing early functionality.
 
