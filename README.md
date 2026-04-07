@@ -20,13 +20,12 @@ LATEST UPDATES
 * Main Menu, Patron Search Menu, and Patron Account menu are functioning
 * Json Serializer can't use interfaces in deserialization out of the box(removed for the time being)
 * Figured out how to incorporate Enums in json serialization, so added the enums for format, collection, and circstatus
+* Checkout is working, but is messy and needs to be cleaned up
 
 WHAT'S NEXT?
 ------------
-* Item CurrentBorrower isn't serialized properly right now, says 'null', need to check what's up    
-    may need to just use CurrentBorrowID
-      FOUND THE ISSUE:
-      Forgot to update the currentBorrower in the checkout method
+* Rework the check in logic
+* Clean up the checkout code
 * Need to Update a patron's account and item record when something is checked out, in, etc, otherwise nothing is saved in memory
 * Need to finish adding item lookup features
 * Need to implement checking in and out items
