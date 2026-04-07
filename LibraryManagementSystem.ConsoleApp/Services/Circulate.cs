@@ -16,6 +16,7 @@ public static class Circulate
         {
             AddToActiveLoans(patron, item);
             item.CircStatus = CircStatus.Out;
+            item.CurrentBorrowerID = patron.PatronID;
         }
     }
 
@@ -23,7 +24,7 @@ public static class Circulate
     {    
         item.CircStatus = CircStatus.In;
 
-        RemoveFromActiveLoans(item.CurrentBorrower, item);
+        RemoveFromActiveLoans("00000", item);
     }
 
     public static void AddToActiveLoans(Patron patron, Item item)
@@ -39,16 +40,16 @@ public static class Circulate
         }
     }
 
-    public static void RemoveFromActiveLoans(Patron patron, Item item)
+    public static void RemoveFromActiveLoans(string id, Item item)
     {
-        if (patron.ActiveLoans.Contains(item))
-        {
-            patron.ActiveLoans.Remove(item);
-        }
-        else
-        {
-            Console.WriteLine("This item is not in the patron's active loans");
-        }
+        // if (patron.ActiveLoans.Contains(item))
+        // {
+            // patron.ActiveLoans.Remove(item);
+        // }
+        // else
+        // {
+        //     Console.WriteLine("This item is not in the patron's active loans");
+        // }
     }
 
     public static bool IsItemAvailable(Item item)

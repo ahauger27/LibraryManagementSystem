@@ -9,7 +9,7 @@ public class Item
     public string ItemNumber { get; set; }
     public string Title { get; set; } = string.Empty;
     public string AuthorName { get; set; } = string.Empty;
-    public Patron? CurrentBorrower { get; set; }
+    public string? CurrentBorrowerID { get; set; }
     
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public Collection Genre { get ; set;}

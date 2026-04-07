@@ -17,6 +17,7 @@ public class Processes
     public void InitializeJsonSerializerOptions()
     {
         JsonOptions.PropertyNameCaseInsensitive = true;
+        // JsonOptions.ReferenceHandler = ReferenceHandler.Preserve;
     }
 
     public void End()

@@ -45,7 +45,7 @@ app.MapPut("/items/{id}", ([FromRoute]string id, [FromBody] Item inputItem) =>
     }
 
     existingItem.CircStatus = inputItem.CircStatus;
-    existingItem.CurrentBorrower = inputItem.CurrentBorrower;
+    existingItem.CurrentBorrowerID = inputItem.CurrentBorrowerID;
 
     return Results.Ok($"Item updated successfully");
 });
