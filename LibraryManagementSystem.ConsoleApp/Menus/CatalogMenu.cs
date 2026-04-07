@@ -9,19 +9,19 @@ public static class CatalogMenu
     {
         bool returnToMainMenu = false;
 
+        Console.WriteLine("""
+
+        CATALOG VIEWER
+        ==============
+
+        """);
+
+        Console.WriteLine("1. View All Items in Catalog");
+        Console.WriteLine("2. Search By Item Number");
+        Console.WriteLine("3. Return To Main Menu");
+
         while (!returnToMainMenu)
         {
-            Console.WriteLine("""
-
-            CATALOG MENU
-            ============
-
-            """);
-
-            Console.WriteLine("1. View All Items in Catalog");
-            Console.WriteLine("2. Search Item By Item Number");
-            Console.WriteLine("3. Return To Main Menu");
-
             Console.WriteLine("");
             Console.Write("Please Select An Option");
 
@@ -30,7 +30,7 @@ public static class CatalogMenu
             switch (userChoice)
             {
                 case "1":
-                    Console.WriteLine("Getting Catalog...");
+                    Console.WriteLine("Loading Catalog...");
 
                     string itemJson = await ItemHttpActions.GetItems(client);
                     List<Item> itemList = await ItemGetActions.CreateItemsListFromApi(itemJson, session.JsonOptions);
@@ -47,8 +47,7 @@ public static class CatalogMenu
                     break;
 
                 default:
-                    Console.WriteLine("INVALID OPTION: ");
-                    UserActions.PressKeyToContinue();
+                    Console.WriteLine("INVALID OPTION: Please Enter 1, 2, or 3");
                     break;
             }
         }

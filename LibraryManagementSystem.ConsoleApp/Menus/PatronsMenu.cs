@@ -7,9 +7,9 @@ public static class PatronsMenu
 {
     public static async Task MenuLoop(HttpClient client, Processes session)
     {
-        bool returnToMainMenu = false;
+        bool returnToPreviousMenu = false;
 
-        while (!returnToMainMenu)
+        while (!returnToPreviousMenu)
         {
             Console.WriteLine("""
 
@@ -84,7 +84,7 @@ public static class PatronsMenu
 
                 case "4":
                     Console.WriteLine("Returning To Main Menu...");
-                    returnToMainMenu = true;
+                    returnToPreviousMenu = true;
                     break;
 
                 default:

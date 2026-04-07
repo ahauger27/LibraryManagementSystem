@@ -38,4 +38,25 @@ public static class ItemHttpActions
             return null;
         }
     }
+
+    //PUT
+    public static async Task PutItem(Item item, HttpClient client, JsonSerializerOptions options)
+    {
+        if (item != null)
+        {
+            string itemJson = JsonSerializer.Serialize(item, options);
+            StringContent content = new(itemJson, System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PutAsync($"/items/{item.ItemNumber}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                Console.WriteLine($"Error: {response.StatusCode}");
+            }
+        }
+    }
 }

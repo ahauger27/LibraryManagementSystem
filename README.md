@@ -23,9 +23,11 @@ LATEST UPDATES
 
 WHAT'S NEXT?
 ------------
-* Need to add more books
+* Need to Update a patron's account and item record when something is checked out, in, etc, otherwise nothing is saved in memory
+* Need to finish adding item lookup features
+* Need to implement checking in and out items
+* Need to add more items
     either create a json file with book and item data, or connect to an api
-* Need to add book endpoints to api
 * Flesh out XUnit testing project
 * Check if Patron exists when Creating/Posting
 * Say why string input is invalid.

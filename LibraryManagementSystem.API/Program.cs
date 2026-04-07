@@ -35,6 +35,20 @@ app.MapGet("/items/{id}", (string id) =>
     }
 });
 
+app.MapPut("/items/{id}", ([FromRoute]string id, [FromBody] Item inputItem) =>
+{
+    var existingItem = items?.FirstOrDefault(i => i.ItemNumber == id);
+
+    if (existingItem == null)
+    {
+        return Results.NotFound($"Item with Item Number: {id} not found.");
+    }
+
+    existingItem.CircStatus = inputItem.CircStatus;
+    existingItem.CurrentBorrower = inputItem.CurrentBorrower;
+
+    return Results.Ok($"Item updated successfully");
+});
 
 app.MapGet("/patrons", async () => patrons)
     .WithName("GetPatrons")
@@ -88,6 +102,7 @@ app.MapPut("/patrons/{id}", ([FromRoute]string id,[FromBody] Patron inputPatron)
     existingPatron.Address = inputPatron.Address;
     existingPatron.Email = inputPatron.Email;
     existingPatron.PhoneNumber = inputPatron.PhoneNumber;  
+    existingPatron.ActiveLoans = inputPatron.ActiveLoans;
 
     return Results.Ok($"Patron with ID: {id}, updated successfully.");
 });

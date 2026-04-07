@@ -26,15 +26,16 @@ public static class PatronAccountMenu
         
         bool returnToPatronMenu = false;
 
+        Console.WriteLine("""
+
+            PATRON ACCOUNT MENU
+            ===================
+
+            """);
+
         while (!returnToPatronMenu)
         {
-            Console.WriteLine("""
-
-                PATRON ACCOUNT MENU
-                ===================
-
-                """);
-
+            Console.WriteLine("");
             DisplayBasicPatronAccountInfo(patron);
 
             Console.WriteLine("");
@@ -54,8 +55,9 @@ public static class PatronAccountMenu
             {
                 case "1":
                     Console.WriteLine("""
-                    ACCOUNT INFORMATION
-                    ===================
+
+                    ACCOUNT DETAILS
+                    ===============
                     """);
 
                     DisplayFullPatronAccountInfo(patron);
@@ -68,10 +70,29 @@ public static class PatronAccountMenu
                     =========
                     """);
 
-                    throw new NotImplementedException();
-                    Console.Write("Enter the Item Number of the Item you wish to check out: ");
+                    // throw new NotImplementedException();
+                    Console.Write("Enter the Item Number of the Item you wish to check out (XXXXX): ");
+                    string? itemNumberToSearch = Console.ReadLine();
 
-                    // Circulate.AddToActiveLoans
+                    if (string.IsNullOrEmpty(itemNumberToSearch))
+                    {
+                        Console.WriteLine("Invalid Item Number.");
+                        break;
+                    }   
+
+                    Console.WriteLine("Loading Item...");
+
+                    Item item = await ItemHttpActions.GetItemByID(itemNumberToSearch, client, session.JsonOptions);
+
+                    if (item != null)
+                    {
+                        Circulate.CheckOutItem(patron, item);
+                        Console.WriteLine($"SUCCESS: {item.Title} has been checked out to Patron with ID: {patron.PatronID}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Could Not Find Item Number {itemNumberToSearch}");
+                    }
                     break;
 
                 case "3":
