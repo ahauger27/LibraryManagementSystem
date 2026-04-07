@@ -65,13 +65,12 @@ public static class CirculationMenu
 
     public static async Task CheckInMenu(HttpClient client, Processes session)
     {
-        Console.WriteLine("");
-        Console.Write("CHECK IN: Enter Item Number: ");
-        
         bool returnToPreviousMenu = false;
 
         while (!returnToPreviousMenu)
         {
+            Console.WriteLine("");
+            Console.Write("CHECK IN: Enter Item Number: ");
             string? itemNumberToCheckIn = Console.ReadLine();
 
             if (string.IsNullOrEmpty(itemNumberToCheckIn))
@@ -101,39 +100,25 @@ public static class CirculationMenu
 
     public static async Task CheckOutMenu(HttpClient client, Processes session)
     {
-        Console.WriteLine("CHECKING OUT");
-        
         bool returnToPreviousMenu = false;
-
-        Console.Write("Enter Item Number: ");
         
-        while (!returnToPreviousMenu)
-        {
-            string? itemNumberToCheckIn = Console.ReadLine();
+        // while (!returnToPreviousMenu)
+        // {
+        //     Console.WriteLine("CHECKING OUT");
 
-            if (string.IsNullOrEmpty(itemNumberToCheckIn))
-            {
-                Console.WriteLine("INVALID INPUT");
-                Console.Write("Enter Item Number: ");
-                continue;
-            }
+            
 
-            Item item = await ItemHttpActions.GetItemByID(itemNumberToCheckIn!, client, session.JsonOptions);
-            if (item == null)
-            {   
-                Console.WriteLine("LOL didn't work");
-                break;
-            }
+            
 
-            try
-            {
-                Circulate.CheckInItem(item);
-            }
-            catch (NullReferenceException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        //     try
+        //     {
+        //         Circulate.CheckInItem(item);
+        //     }
+        //     catch (NullReferenceException ex)
+        //     {
+        //         Console.WriteLine(ex.Message);
+        //     }
+        // }
     }
 }
   

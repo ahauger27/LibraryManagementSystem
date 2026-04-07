@@ -23,6 +23,8 @@ LATEST UPDATES
 
 WHAT'S NEXT?
 ------------
+* Item CurrentBorrower isn't serialized properly right now, says 'null', need to check what's up    
+    may need to just use CurrentBorrowID
 * Need to Update a patron's account and item record when something is checked out, in, etc, otherwise nothing is saved in memory
 * Need to finish adding item lookup features
 * Need to implement checking in and out items
