@@ -39,10 +39,11 @@ public static class PatronAccountMenu
 
             Console.WriteLine("");
             Console.WriteLine("1. Display Patron Registration Details");
-            Console.WriteLine("2. View Active Loans");
-            Console.WriteLine("3. Update Patron Account");
-            Console.WriteLine("4. Delete Patron Account");
-            Console.WriteLine("5. Return To Patron Menu");
+            Console.WriteLine("2. Check Out Item");
+            Console.WriteLine("3. View Active Loans");
+            Console.WriteLine("4. Update Account Information");
+            Console.WriteLine("5. Delete Patron Account");
+            Console.WriteLine("6. Return To Patron Menu");
 
             Console.WriteLine("");
             Console.Write("Please Make A Selection: ");
@@ -63,6 +64,18 @@ public static class PatronAccountMenu
 
                 case "2":
                     Console.WriteLine("""
+                    CHECK OUT
+                    =========
+                    """);
+
+                    throw new NotImplementedException();
+                    Console.Write("Enter the Item Number of the Item you wish to check out: ");
+
+                    // Circulate.AddToActiveLoans
+                    break;
+
+                case "3":
+                    Console.WriteLine("""
                     ACTIVE LOANS
                     ============
                     """);
@@ -71,7 +84,7 @@ public static class PatronAccountMenu
                     UserActions.PressKeyToContinue();
                     break;
 
-                case "3":
+                case "4":
                     Console.WriteLine("""
                     UPDATING PATRON INFORMATION
                     ===========================
@@ -98,7 +111,7 @@ public static class PatronAccountMenu
 
                     break;
 
-                case "4":
+                case "5":
                     Console.WriteLine($"{Environment.NewLine}Delete This Patron Account? ({patron.LastName}, {patron.FirstName})");
                     Console.Write("CONFIRM 'Y/N': ");
 
@@ -123,7 +136,7 @@ public static class PatronAccountMenu
                     }
                     break;
                 
-                case "5":
+                case "6":
                     Console.WriteLine("Returning to Patron Search Menu...");
                     returnToPatronMenu = true;
                     break;

@@ -18,12 +18,12 @@ LATEST UPDATES
 * Http DELETE by id now works!
 * Got SearchByPatronID() working again!
 * Main Menu, Patron Search Menu, and Patron Account menu are functioning
-* Json Serializer can't use interfaces in deserialization, so I had to do away with the IItem interface
+* Json Serializer can't use interfaces in deserialization out of the box(removed for the time being)
+* Figured out how to incorporate Enums in json serialization, so added the enums for format, collection, and circstatus
 
 WHAT'S NEXT?
 ------------
-* Can't seem to use enumerables in json deserialization, so look at refactoring Genre, Format, CircStatus in the Item Class to strings
-* Need to add books
+* Need to add more books
     either create a json file with book and item data, or connect to an api
 * Need to add book endpoints to api
 * Flesh out XUnit testing project

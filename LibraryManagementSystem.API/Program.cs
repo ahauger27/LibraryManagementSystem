@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -13,15 +12,29 @@ var app = builder.Build();
 
 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
+string itemJsonFile = File.ReadAllText("./Resources/items.json");
 string patronJsonFile = File.ReadAllText("./Resources/patrons.json");
-string catalogJsonFile = File.ReadAllText("./Resources/catalog.json");
 
+var items = JsonSerializer.Deserialize<List<Item>>(itemJsonFile, options);
 var patrons = JsonSerializer.Deserialize<List<Patron>>(patronJsonFile, options);
-var catalog = JsonSerializer.Deserialize<List<Item>>(catalogJsonFile, options);
 
-app.MapGet("/catalog", async () => catalog)
-    .WithName("GetCatalog")
+app.MapGet("/items", async () => items)
+    .WithName("GetItems")
     .Produces<List<Item>>(statusCode: StatusCodes.Status200OK);
+
+app.MapGet("/items/{id}", (string id) =>
+{
+    var item = items?.FirstOrDefault(i => i.ItemNumber == id);
+    if (item != null)
+    {
+        return Results.Ok(item);
+    }
+    else
+    {
+        return Results.NotFound($"Item with Item Number: {id} not found.");
+    }
+});
+
 
 app.MapGet("/patrons", async () => patrons)
     .WithName("GetPatrons")

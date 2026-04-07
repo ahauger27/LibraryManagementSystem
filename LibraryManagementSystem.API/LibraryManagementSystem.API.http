@@ -28,12 +28,22 @@ Content-Type: application/json
 {
     "firstName": "Austin",
     "lastName": "Hauger",
-    "dateOfBirth": "1996-09-28T00:00:00"
+    "dateOfBirth": "1996-09-28"
 }
 
 ###
 
 DELETE http://localhost:5126/patrons/17760022
+Accept: application/json
+
+###
+
+GET http://localhost:5126/items
+Accept: application/json
+
+###
+
+GET http://localhost:5126/items/10001
 Accept: application/json
 
 ###

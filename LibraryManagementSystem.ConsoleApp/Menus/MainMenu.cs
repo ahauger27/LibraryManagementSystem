@@ -1,4 +1,3 @@
-using LibraryManagementSystem.ConsoleApp.Models;
 using LibraryManagementSystem.ConsoleApp.Services;
 
 namespace LibraryManagementSystem.ConsoleApp.Menus;
@@ -16,7 +15,7 @@ public static class MainMenu
 
             """);
             
-            Console.WriteLine("1. Open Patrons Menu (WIP)");
+            Console.WriteLine("1. Open Patrons Menu");
             Console.WriteLine("2. Open Catalog (WIP)");
             Console.WriteLine("3. Quit program (WIP)");
 
@@ -32,9 +31,10 @@ public static class MainMenu
                     break;
 
                 case "2": // 2. Open Catalog (WIP)
-                    //await CatalogMenu.MenuLoop(client)
                     Console.WriteLine("CATALOG");
                     Console.WriteLine("This feature is still in progress");
+                    
+                    await CatalogMenu.MenuLoop(session, client);
                     Console.WriteLine("Returning to Main Menu...");
                     UserActions.PressKeyToContinue();
                     break;
