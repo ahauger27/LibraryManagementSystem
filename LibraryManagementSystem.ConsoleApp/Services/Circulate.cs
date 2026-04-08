@@ -5,18 +5,20 @@ namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public static class Circulate
 {
-    public static void CheckOutItem(Patron patron, Item item)
+    public static bool CheckOutItem(Patron patron, Item item)
     {
         if (item.CircStatus != CircStatus.In)
         {
            Console.WriteLine("This item is unavailable to check out at this time.");
            Console.WriteLine($"Item Status: {item.CircStatus}");
+           return false;
         }
         else
         {
             AddToActiveLoans(patron, item);
             item.CircStatus = CircStatus.Out;
             item.CurrentBorrowerID = patron.PatronID;
+            return true;
         }
     }
 

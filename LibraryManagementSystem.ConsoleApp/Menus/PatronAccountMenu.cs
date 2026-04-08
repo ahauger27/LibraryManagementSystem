@@ -69,30 +69,38 @@ public static class PatronAccountMenu
                     CHECK OUT
                     =========
                     """);
-
-                    // throw new NotImplementedException();
-                    Console.Write("Enter the Item Number of the Item you wish to check out (XXXXX): ");
-                    string? itemNumberToSearch = Console.ReadLine();
-
-                    if (string.IsNullOrEmpty(itemNumberToSearch))
+                    
+                    try
                     {
-                        Console.WriteLine("Invalid Item Number.");
-                        break;
-                    }   
-
-                    Console.WriteLine("Loading Item...");
-
-                    Item item = await ItemHttpActions.GetItemByID(itemNumberToSearch, client, session.JsonOptions);
-
-                    if (item != null)
-                    {
-                        Circulate.CheckOutItem(patron, item);
-                        Console.WriteLine($"SUCCESS: {item.Title} has been checked out to Patron with ID: {patron.PatronID}");
+                        string? itemNumberToCheckOut = ItemGetActions.GetItemNumberFromUser();
+                        
+                        Console.WriteLine("Loading Item...");
+                        
+                        Item itemToCheckOut = await ItemHttpActions.GetItemByID(itemNumberToCheckOut, client, session.JsonOptions);
+                    
+                        if (itemToCheckOut == null)
+                        {   
+                            Console.WriteLine("This item number is not tied to an existing item.");
+                            break;
+                        }
+                        
+                        if (Circulate.CheckOutItem(patron, itemToCheckOut))
+                        {
+                            Console.WriteLine($"Checking out {itemToCheckOut.Title} to {patron.PrintPatronName()}.");
+                            
+                            await PatronHttpActions.PutPatron(patron, client, session.JsonOptions);
+                            await ItemHttpActions.PutItem(itemToCheckOut, client, session.JsonOptions);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Something went wrong, try again.");
+                        }
                     }
-                    else
+                    catch (NullReferenceException ex)
                     {
-                        Console.WriteLine($"Could Not Find Item Number {itemNumberToSearch}");
+                        Console.WriteLine(ex.Message);
                     }
+
                     break;
 
                 case "3":

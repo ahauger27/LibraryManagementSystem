@@ -5,6 +5,26 @@ namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public static class ItemGetActions
 {
+    public static string GetItemNumberFromUser()
+    {
+        Console.Write("Enter item number: ");
+
+        while (true)
+        {
+            string? itemNumberToCheckOut = Console.ReadLine();
+            if (string.IsNullOrEmpty(itemNumberToCheckOut))
+            {
+                Console.WriteLine("INVALID. Item number cannot be empty.");
+                Console.Write("Please enter the item number: ");
+                continue;
+            }
+            else
+            {
+                return itemNumberToCheckOut;
+            }
+        }
+    }
+    
     public static async Task<List<Item>> CreateItemsListFromApi(string jsonContent, JsonSerializerOptions options)
     {
         var items = JsonSerializer.Deserialize<List<Item>>(jsonContent, options);

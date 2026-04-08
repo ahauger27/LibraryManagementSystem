@@ -5,6 +5,27 @@ namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public static class PatronGetActions
 {
+    public static string GetPatronIDFromUser()
+    {
+        Console.Write("Enter patron ID to check out to: ");
+
+        string? patronIDToCheckOut = Console.ReadLine();
+
+        while (true)
+        {
+            if (string.IsNullOrEmpty(patronIDToCheckOut))
+            {
+                Console.WriteLine("INVALID. Patron ID cannot be empty.");
+                Console.Write("Please enter the patron's ID: ");
+                continue;
+            }
+            else
+            {
+                return patronIDToCheckOut;
+            }
+        }
+    }
+    
     public static async Task<List<Patron>> CreatePatronsListFromApi(string jsonContent, JsonSerializerOptions options)
     {
         // var patrons = new List<Patron>();

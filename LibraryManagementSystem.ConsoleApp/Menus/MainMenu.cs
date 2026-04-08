@@ -45,50 +45,8 @@ public static class MainMenu
                 
                 case "3":
                     Console.WriteLine("CHECK OUT");
-                    Console.WriteLine("This feature is still in progress");
 
-                    Console.Write("Enter Item Number: ");
-                    string? itemNumberToCheckOut = Console.ReadLine();
-
-                    if (string.IsNullOrEmpty(itemNumberToCheckOut))
-                    {
-                        Console.WriteLine("INVALID INPUT");
-                        Console.Write("Enter Item Number: ");
-                        continue;
-                    }
-
-                    Item itemToCheckOut = await ItemHttpActions.GetItemByID(itemNumberToCheckOut, client, session.JsonOptions);
                     
-                    if (itemToCheckOut == null)
-                    {   
-                        Console.WriteLine("Item doesn't exist");
-                        break;
-                    }
-
-                    Console.Write("Enter Patron ID: ");
-                    string? patronIDToCheckOut = Console.ReadLine();
-                    
-                    if (string.IsNullOrEmpty(patronIDToCheckOut))
-                    {
-                        Console.WriteLine("INVALID INPUT");
-                        Console.Write("Enter Patron ID: ");
-                        continue;
-                    }
-
-                    Patron? patron = await PatronHttpActions.GetPatronByID(patronIDToCheckOut, client, session.JsonOptions);
-
-                    if (patron == null)
-                    {   
-                        Console.WriteLine("Patron doesn't exist");
-                        break;
-                    }
-
-                    Circulate.CheckOutItem(patron, itemToCheckOut);
-
-                    await PatronHttpActions.PutPatron(patron, client, session.JsonOptions);
-                    await ItemHttpActions.PutItem(itemToCheckOut, client, session.JsonOptions);
-
-                    // await CirculationMenu.CheckOutMenu(client, session);
                     break;
 
                 case "4":
