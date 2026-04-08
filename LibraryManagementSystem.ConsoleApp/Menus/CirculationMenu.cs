@@ -43,7 +43,7 @@ public static class CirculationMenu
                     Item item = await ItemHttpActions.GetItemByID(itemNumberToCheckIn, client, session.JsonOptions);
                     if (item != null)
                     {
-                        Circulate.CheckInItem(item);
+                        // Circulate.CheckInItem(item);
                         
                     }
                     break;
@@ -89,7 +89,7 @@ public static class CirculationMenu
 
             try
             {
-                Circulate.CheckInItem(item);
+                // Circulate.CheckInItem(item);
             }
             catch (NullReferenceException ex)
             {

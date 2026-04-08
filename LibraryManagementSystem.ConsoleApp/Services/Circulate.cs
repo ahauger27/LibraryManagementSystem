@@ -20,11 +20,21 @@ public static class Circulate
         }
     }
 
-    public static void CheckInItem(Item item)
-    {    
-        item.CircStatus = CircStatus.In;
+    public static void CheckInItem(Patron patron, Item itemToCheckIn)
+    {
+        if (itemToCheckIn.CircStatus == CircStatus.In)
+        {
+            Console.WriteLine("This item was already marked 'In'");
+        }
+        
+        itemToCheckIn.CircStatus = CircStatus.In;
 
-        RemoveFromActiveLoans("00000", item);
+        // if (itemToCheckIn.CurrentBorrowerID != null)
+        // {
+        // }
+
+        RemoveFromActiveLoans(patron, itemToCheckIn.ItemNumber);
+        itemToCheckIn.CurrentBorrowerID = null;
     }
 
     public static void AddToActiveLoans(Patron patron, Item item)
@@ -40,16 +50,10 @@ public static class Circulate
         }
     }
 
-    public static void RemoveFromActiveLoans(string id, Item item)
+    public static void RemoveFromActiveLoans(Patron patron, string itemNumber)
     {
-        // if (patron.ActiveLoans.Contains(item))
-        // {
-            // patron.ActiveLoans.Remove(item);
-        // }
-        // else
-        // {
-        //     Console.WriteLine("This item is not in the patron's active loans");
-        // }
+        var itemToRemove = patron.ActiveLoans.FirstOrDefault(i => i.ItemNumber == itemNumber);
+        patron.ActiveLoans.Remove(itemToRemove);
     }
 
     public static bool IsItemAvailable(Item item)

@@ -11,7 +11,6 @@ This program acts as a way allow users in a public facing environment to access 
 HOW TO RUN THIS PROJECT
 -----------------------
 
-
 LATEST UPDATES
 --------------
 * Http get, and post work in the web api and in the console app!
@@ -21,29 +20,26 @@ LATEST UPDATES
 * Json Serializer can't use interfaces in deserialization out of the box(removed for the time being)
 * Figured out how to incorporate Enums in json serialization, so added the enums for format, collection, and circstatus
 * Checkout is working, but is messy and needs to be cleaned up
+* Checkin is working, but is messy and needs to be cleaned up
 
 WHAT'S NEXT?
 ------------
-* Rework the check in logic
+* Add error handling
+    * Say why string input is invalid.
+        Empty
+        Wrong type of characters
+        etc
+* Clean up the checkin code
 * Clean up the checkout code
-* Need to Update a patron's account and item record when something is checked out, in, etc, otherwise nothing is saved in memory
 * Need to finish adding item lookup features
-* Need to implement checking in and out items
 * Need to add more items
     either create a json file with book and item data, or connect to an api
 * Flesh out XUnit testing project
 * Check if Patron exists when Creating/Posting
-* Say why string input is invalid.
-    Empty
-    Wrong type of characters
-    etc
-* Fix Age display function, returns "System.Func`1[System.Int32]"
-
-Future TODOS
-* need to add circulation service classes
 
 Nice-to-haves
 * Create a script that will create random patrons so as not to need ai for this
+* Fix Age display function, returns "System.Func`1[System.Int32]"
 
 THE USE OF AI IN THIS PROJECT
 -----------------------------
