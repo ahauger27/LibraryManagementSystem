@@ -53,18 +53,10 @@ public static class Circulate
     public static void RemoveFromActiveLoans(Patron patron, string itemNumber)
     {
         var itemToRemove = patron.ActiveLoans.FirstOrDefault(i => i.ItemNumber == itemNumber);
-        patron.ActiveLoans.Remove(itemToRemove);
-    }
-
-    public static bool IsItemAvailable(Item item)
-    {
-        if (item.CircStatus == CircStatus.In)
+        
+        if (itemToRemove != null)
         {
-            return true;
-        }
-        else
-        {
-            return false;
+            patron.ActiveLoans.Remove(itemToRemove);
         }
     }
 }

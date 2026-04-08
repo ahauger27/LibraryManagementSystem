@@ -75,7 +75,7 @@ public static class MainMenu
                         continue;
                     }
 
-                    Patron patron = await PatronHttpActions.GetPatronByID(patronIDToCheckOut, client, session.JsonOptions);
+                    Patron? patron = await PatronHttpActions.GetPatronByID(patronIDToCheckOut, client, session.JsonOptions);
 
                     if (patron == null)
                     {   
@@ -93,6 +93,8 @@ public static class MainMenu
 
                 case "4":
                     Console.WriteLine("CHECKING IN");
+
+                    //CirculationMenu.CheckInMenu();
 
                     Console.Write("Enter Item Number: ");
                     string? itemNumberToCheckIn = Console.ReadLine();
@@ -114,9 +116,9 @@ public static class MainMenu
 
                     //Check if item is already marked in
 
-                    string patronIDToUpdate = itemToCheckIn.CurrentBorrowerID;
+                    string? patronIDToUpdate = itemToCheckIn.CurrentBorrowerID;
 
-                    Patron patronAccountToUpdate = await PatronHttpActions.GetPatronByID(patronIDToUpdate, client, session.JsonOptions);
+                    Patron? patronAccountToUpdate = await PatronHttpActions.GetPatronByID(patronIDToUpdate, client, session.JsonOptions);
 
                     if (patronAccountToUpdate == null)
                     {   

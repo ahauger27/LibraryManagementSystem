@@ -24,6 +24,7 @@ LATEST UPDATES
 
 WHAT'S NEXT?
 ------------
+* TEST THE UNHAPPY PATHS
 * Add error handling
     * Say why string input is invalid.
         Empty

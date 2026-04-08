@@ -21,8 +21,6 @@ public class PatronPostActionsTests
     public void IsValidDOB_ShouldFailWhenInvalid(string date)
     {
         Assert.False(PatronPostActions.IsValidDOB(date));
-    }
-
-    
+    }    
 }
 
