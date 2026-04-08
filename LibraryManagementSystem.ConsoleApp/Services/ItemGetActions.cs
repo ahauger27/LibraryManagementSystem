@@ -11,8 +11,8 @@ public static class ItemGetActions
 
         while (true)
         {
-            string? itemNumberToCheckOut = Console.ReadLine();
-            if (string.IsNullOrEmpty(itemNumberToCheckOut))
+            string? itemNumber = Console.ReadLine();
+            if (string.IsNullOrEmpty(itemNumber))
             {
                 Console.WriteLine("INVALID. Item number cannot be empty.");
                 Console.Write("Please enter the item number: ");
@@ -20,7 +20,7 @@ public static class ItemGetActions
             }
             else
             {
-                return itemNumberToCheckOut;
+                return itemNumber;
             }
         }
     }

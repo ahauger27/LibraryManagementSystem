@@ -37,9 +37,14 @@ public class Item
         this.Format = Format;
     }
 
-    public void DisplayTitle()
+    public string PrintTitle()
     {
-        Console.WriteLine($"Title: {Title}");
+        return Title.ToUpper();
+    }
+
+    public string PrintAuthor()
+    {
+        return AuthorName.ToUpper();
     }
 
     public void SetDueDate()

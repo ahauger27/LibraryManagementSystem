@@ -38,7 +38,28 @@ public static class CatalogMenu
                     break;
 
                 case "2":
-                    throw new NotImplementedException();
+                    string? itemNumberToSearch = ItemGetActions.GetItemNumberFromUser();
+
+                    try
+                    {
+                        Console.WriteLine("Loading item...");
+
+                        Item item = await ItemHttpActions.GetItemByID(itemNumberToSearch, client, session.JsonOptions);
+
+                        if (item == null)
+                        {
+                            Console.WriteLine("This item number is not tied to an existing item.");
+                            break;
+                        }
+
+                        await ItemRecordMenu.MenuLoop(item, client, session);
+                        break;
+
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                     break;
 
                 case "3":

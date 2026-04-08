@@ -86,7 +86,7 @@ public static class PatronAccountMenu
                         
                         if (Circulate.CheckOutItem(patron, itemToCheckOut))
                         {
-                            Console.WriteLine($"Checking out {itemToCheckOut.Title} to {patron.PrintPatronName()}.");
+                            Console.WriteLine($"Checked out \"{itemToCheckOut.Title.ToUpper()}\" to {patron.PrintPatronName()}.");
                             
                             await PatronHttpActions.PutPatron(patron, client, session.JsonOptions);
                             await ItemHttpActions.PutItem(itemToCheckOut, client, session.JsonOptions);
