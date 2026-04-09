@@ -93,6 +93,8 @@ public static class PatronAccountMenu
                             
                             await PatronHttpActions.PutPatron(patron, client, session.JsonOptions);
                             await ItemHttpActions.PutItem(itemToCheckOut, client, session.JsonOptions);
+
+                            UserActions.PressKeyToContinue();
                         }
                         else
                         {
