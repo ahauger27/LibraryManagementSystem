@@ -1,5 +1,6 @@
 using LibraryManagementSystem.ConsoleApp.Services;
 using LibraryManagementSystem.ConsoleApp.Models;
+using LibraryManagementSystem.ConsoleApp.Resources;
 
 namespace LibraryManagementSystem.ConsoleApp.Menus;
 
@@ -38,40 +39,41 @@ public static class MainMenu
                     break;
                 
                 case "3":
-                    Console.Write("Enter item number: ");
-                    string? itemNumberToCheckIn = Console.ReadLine();
-                    
-                    if (string.IsNullOrEmpty(itemNumberToCheckIn))
+                    try
                     {
-                        Console.WriteLine("INVALID INPUT");
-                        Console.Write("Enter 5 digit item number (xxxxx): ");
-                        continue;
-                    }
+                        string? itemNumberToCheckIn = ItemGetActions.GetItemNumberFromUser();
+                        
+                        Item itemToCheckIn = await ItemHttpActions.GetItemByID(itemNumberToCheckIn, client, session.JsonOptions);
                     
-                    Item itemToCheckIn = await ItemHttpActions.GetItemByID(itemNumberToCheckIn, client, session.JsonOptions);
-                    
-                    if (itemToCheckIn == null)
-                    {   
-                        Console.WriteLine("Item doesn't exist");
-                        break;
+                        if (!ItemGetActions.DoesItemExist(itemToCheckIn))
+                        {
+                            Console.WriteLine($"The item # {itemNumberToCheckIn} is not tied to an existing record.");
+                            break;
+                        }
+   
+                        //Check if item is already marked in
+                        if (itemToCheckIn.CircStatus == CircStatus.In)
+                        {
+                            Console.WriteLine("This item is already marked as \"IN\"");
+                            break;
+                        }
+
+                        string? patronIDToUpdate = itemToCheckIn.CurrentBorrowerID;
+
+                        Patron? patronAccountToUpdate = await PatronGetActions.TryToLoadPatronAccount(patronIDToUpdate, client, session);
+
+                        if (patronAccountToUpdate != null)
+                        {   
+                            Circulate.CheckInItem(patronAccountToUpdate, itemToCheckIn);
+
+                            await PatronHttpActions.PutPatron(patronAccountToUpdate, client, session.JsonOptions);
+                            await ItemHttpActions.PutItem(itemToCheckIn, client, session.JsonOptions);
+                        }
                     }
-
-                    //Check if item is already marked in
-
-                    string? patronIDToUpdate = itemToCheckIn.CurrentBorrowerID;
-
-                    Patron? patronAccountToUpdate = await PatronHttpActions.GetPatronByID(patronIDToUpdate, client, session.JsonOptions);
-
-                    if (patronAccountToUpdate == null)
-                    {   
-                        Console.WriteLine("Patron doesn't exist");
-                        break;
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
                     }
-
-                    Circulate.CheckInItem(patronAccountToUpdate, itemToCheckIn);
-
-                    await PatronHttpActions.PutPatron(patronAccountToUpdate, client, session.JsonOptions);
-                    await ItemHttpActions.PutItem(itemToCheckIn, client, session.JsonOptions);
                     break;
 
                 case "4":

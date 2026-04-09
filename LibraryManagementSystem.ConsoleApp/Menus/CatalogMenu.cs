@@ -38,8 +38,43 @@ public static class CatalogMenu
                     List<Item> itemList = await ItemGetActions.CreateItemsListFromApi(itemJson, session.JsonOptions);
                     ItemGetActions.DisplayAllItems(itemList);
                     
-                    UserActions.PressKeyToContinue();
-                    Console.Clear();
+                    Console.WriteLine("""
+                    
+                    OPTIONS
+                    1. View Single Item Record
+                    2. Return To Catalog Viewer
+
+                    """);
+                    
+                    Console.Write("Please select an option: ");
+
+                    string? userChoice2 = Console.ReadLine();
+
+                    switch (userChoice2)
+                    {
+                        case "1":
+                            string? itemIDToSelect = ItemGetActions.GetItemNumberFromUser();
+
+                            Item? itemToSelect = await ItemGetActions.TryToLoadItemRecord(itemIDToSelect, client, session);
+
+                            if (itemToSelect == null)
+                            {
+                                Console.WriteLine($"The ID \"{itemIDToSelect}\" is not tied to an existing record.");
+                                Console.WriteLine("Returning to menu..."); 
+                                UserActions.PressKeyToContinue();
+                                Console.Clear();  
+                            }
+                            else
+                            {
+                                await ItemRecordMenu.MenuLoop(itemToSelect, client, session);
+                            }
+                            break;
+
+                        default:
+                            Console.Clear();
+                            break;
+                            
+                    }
                     break;
 
                 case "2":

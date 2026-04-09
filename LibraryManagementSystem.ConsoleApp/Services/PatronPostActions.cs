@@ -13,18 +13,12 @@ public static class PatronPostActions
 
     public static string InputPatronMiddleInitial()
     {
-        string? middleInitial = "";
-        while (string.IsNullOrEmpty(middleInitial))
-        {
-            Console.Write($"{Environment.NewLine}Enter the patron's MIDDLE INITIAL: ");
-            middleInitial = Console.ReadLine();
-        }
-        return middleInitial; 
+        Console.Write($"{Environment.NewLine}Enter the patron's MIDDLE INITIAL: ");
+        return UserActions.StringInput(); 
     }
 
     public static string InputPatronLastName()
     {
-
         Console.Write($"{Environment.NewLine}Enter the patron's LAST NAME: ");
         return UserActions.StringInput();
     }

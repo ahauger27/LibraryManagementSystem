@@ -25,19 +25,13 @@ LATEST UPDATES
 
 WHAT'S NEXT?
 ------------
-* Creating a new patron makes their ID 00001 by default
+* Creating a new patron sometimes makes their ID 00001, even if that id already is in use
+* Date of Birth not updating...
 * TEST THE UNHAPPY PATHS
-* Add error handling
-    * Say why string input is invalid.
-        Empty
-        Wrong type of characters
-        etc
 * Clean up the checkin code
 * Clean up the checkout code
-* Need to finish adding item lookup features
 * Need to add more items
     either create a json file with book and item data, or connect to an api
-* Flesh out XUnit testing project
 * Check if Patron exists when Creating/Posting
 
 Nice-to-haves

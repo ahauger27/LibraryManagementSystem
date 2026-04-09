@@ -62,16 +62,9 @@ public class Patron
 
     public void DisplayActiveLoans()
     {
-        if (ActiveLoans.Count == 0)
+        foreach (Item item in ActiveLoans)
         {
-            Console.WriteLine($"{PrintPatronName()} has no current loans.");
-        }
-        else
-        {
-            foreach (Item item in ActiveLoans)
-            {
-                Console.WriteLine($"{item.ItemNumber}\t{item.PrintTitle()}");
-            }
+            Console.WriteLine($"{item.ItemNumber}\t{item.PrintTitle()}");
         }
     }
 }

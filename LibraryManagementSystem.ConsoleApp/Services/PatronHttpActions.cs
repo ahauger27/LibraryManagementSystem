@@ -47,18 +47,17 @@ public static class PatronHttpActions
         string newPatronJson = JsonSerializer.Serialize(newPatron);
         StringContent content = new(newPatronJson, System.Text.Encoding.UTF8, "application/json");
 
+        // Need to check if this patron already exists
+
         HttpResponseMessage response = await client.PostAsync($"/patrons", content);
 
         if (response.IsSuccessStatusCode)
         {
-            Console.WriteLine($"Successfully added new patron: {newPatron.FullName()}");
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"{jsonResponse}{Environment.NewLine}");
+            Console.WriteLine($"Successfully created new patron: {newPatron.PrintPatronName()}");
         }
         else
         {
             Console.WriteLine($"Error: {response.StatusCode}");
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
         }
     }
 

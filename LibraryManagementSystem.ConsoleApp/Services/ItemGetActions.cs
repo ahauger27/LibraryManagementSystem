@@ -24,6 +24,32 @@ public static class ItemGetActions
             }
         }
     }
+
+    public static async Task<Item?> TryToLoadItemRecord(string itemIDToSearch, HttpClient client, Processes session)
+    {
+        try
+        {
+            Item? itemToSearch = await ItemHttpActions.GetItemByID(itemIDToSearch, client, session.JsonOptions);
+            
+            return itemToSearch;
+        }
+        catch (NullReferenceException)
+        {
+            return null;
+        }
+    }
+
+    public static bool DoesItemExist(Item item)
+    {
+        if (item == null)
+        {   
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
     
     public static async Task<List<Item>> CreateItemsListFromApi(string jsonContent, JsonSerializerOptions options)
     {

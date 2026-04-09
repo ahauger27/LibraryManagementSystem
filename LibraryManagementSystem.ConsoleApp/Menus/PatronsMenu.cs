@@ -59,7 +59,7 @@ public static class PatronsMenu
 
                             if (patronToSelect == null)
                             {
-                                Console.WriteLine($"The ID \"{patronToSelect}\" is not tied to an existing patron.");
+                                Console.WriteLine($"The ID \"{patronIDToSelect}\" is not tied to an existing patron.");
                                 Console.WriteLine("Returning to menu..."); 
                                 UserActions.PressKeyToContinue();
                                 Console.Clear();  
@@ -73,8 +73,8 @@ public static class PatronsMenu
                         default:
                             Console.Clear();
                             break;
-                    }
 
+                    }
                     break;
 
                 case "2":
@@ -97,15 +97,15 @@ public static class PatronsMenu
 
                 case "3":
                     Console.Clear();
-                    Console.WriteLine("CREATE NEW PATRON RECORD");
+                    Console.WriteLine("CREATING NEW PATRON RECORD");
 
                     Patron newPatron = PatronPostActions.CreateNewPatron();
                     
                     if (newPatron != null)
                     {
                         await PatronHttpActions.PostNewPatron(newPatron, client);
-                        Console.WriteLine("Patron Account Created!");
-                        
+                        Console.WriteLine("Opening patron record...");
+                        UserActions.PressKeyToContinue();
                         await PatronAccountMenu.MenuLoop(newPatron, client, session);
                     }
                     else

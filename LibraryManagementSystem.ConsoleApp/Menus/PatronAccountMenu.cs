@@ -23,13 +23,12 @@ public static class PatronAccountMenu
 
     public static async Task MenuLoop(Patron patron, HttpClient client, Processes session)
     {
-        Console.Clear();
-        
         bool returnToPatronMenu = false;
 
         while (!returnToPatronMenu)
         {
-            Console.WriteLine("""
+            Console.Clear();
+            Console.WriteLine($"""
 
             PATRON RECORD
             =============
@@ -38,15 +37,18 @@ public static class PatronAccountMenu
 
             DisplayBasicPatronAccountInfo(patron);
 
-            Console.WriteLine("OPTIONS");
-            Console.WriteLine("1. Display Full Patron Record");
-            Console.WriteLine("2. Check Out Item");
-            Console.WriteLine("3. View Active Loans");
-            Console.WriteLine("4. Update Account Information");
-            Console.WriteLine("5. Delete Patron Account");
-            Console.WriteLine("6. Return To Patron Menu");
+            Console.WriteLine("""
+            
+            OPTIONS
+            1. Display Full Patron Record
+            2. Check Out Item
+            3. View Active Loans
+            4. Update Account Information
+            5. Delete Patron Account
+            6. Return To Patron Menu
 
-            Console.WriteLine("");
+            """);
+            
             Console.Write("Please select an option: ");
 
             string? userChoice = Console.ReadLine();
@@ -54,14 +56,18 @@ public static class PatronAccountMenu
             switch (userChoice)
             {
                 case "1":
-                    Console.WriteLine("""
+                    Console.Clear();
 
-                    ACCOUNT DETAILS
-                    ===============
+                    Console.WriteLine($"""
+
+                    ACCOUNT DETAILS FOR PATRON #{patron.PatronID}
+
                     """);
 
                     DisplayFullPatronAccountInfo(patron);
                     UserActions.PressKeyToContinue();
+
+                    Console.Clear();
                     break;
 
                 case "2":
@@ -101,26 +107,38 @@ public static class PatronAccountMenu
                     break;
 
                 case "3":
-                    Console.WriteLine($"""
+                    Console.Clear();
                     
-                    {patron.PrintPatronName()}'s ACTIVE LOANS
+                    if (patron.ActiveLoans.Count == 0)
+                    {
+                        Console.WriteLine($"{patron.PrintPatronName()} has no current loans.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"""
+                        
+                        {patron.PrintPatronName()}'s ACTIVE LOANS
+                        
+                        ITEM#   TITLE
+                        =========================================
+                        """);
+                        patron.DisplayActiveLoans();
+                    }
                     
-                    ITEM#   TITLE
-                    =========================================
-                    """);
-
-                    patron.DisplayActiveLoans();
                     UserActions.PressKeyToContinue();
+                    Console.Clear();
                     break;
 
                 case "4":
+                    Console.Clear();
+
                     Console.WriteLine("""
                     
                     UPDATING PATRON INFORMATION
                     ===========================
                     """);
                             
-                    string fieldNumber = PatronPutActions.ChoosePatronInfoToUpdate(patron);
+                    string? fieldNumber = PatronPutActions.ChoosePatronInfoToUpdate(patron);
                     
                     if (fieldNumber == null)
                     {
@@ -138,6 +156,9 @@ public static class PatronAccountMenu
                     PatronPutActions.ApplyPatronUpdateToAccount(patron, fieldNumber, input);
                     
                     await PatronHttpActions.PutPatron(patron, client, session.JsonOptions);
+
+                    // Check if successful
+                    //if (success)
 
                     break;
 

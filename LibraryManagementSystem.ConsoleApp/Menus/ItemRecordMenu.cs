@@ -29,12 +29,13 @@ public static class ItemRecordMenu
 
         while (!returnToCatalog)
         {
+            Console.Clear();
             Console.WriteLine("""
 
-                ITEM RECORD
-                ===========
+            ITEM RECORD
+            ===========
 
-                """);
+            """);
 
             DisplayBasicItemRecordInfo(item);
 

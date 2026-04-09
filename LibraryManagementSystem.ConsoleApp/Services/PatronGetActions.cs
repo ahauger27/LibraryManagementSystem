@@ -30,8 +30,6 @@ public static class PatronGetActions
     {
         try
         {
-            Console.WriteLine("Loading patron...");
-            
             Patron? patronToSearch = await PatronHttpActions.GetPatronByID(patronIDToSearch, client, session.JsonOptions);
             
             return patronToSearch;
