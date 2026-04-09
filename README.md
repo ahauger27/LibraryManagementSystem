@@ -26,10 +26,10 @@ LATEST UPDATES
 WHAT'S NEXT?
 ------------
 * Creating a new patron sometimes makes their ID 00001, even if that id already is in use
+* Clean up the checkin/checkout code
+    * Item check out/ check in not displying success/failure: 
 * Date of Birth not updating...
 * TEST THE UNHAPPY PATHS
-* Clean up the checkin code
-* Clean up the checkout code
 * Need to add more items
     either create a json file with book and item data, or connect to an api
 * Check if Patron exists when Creating/Posting
