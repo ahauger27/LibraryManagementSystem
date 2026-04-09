@@ -51,15 +51,18 @@ public static class ItemGetActions
         }
     }
     
-    public static async Task<List<Item>> CreateItemsListFromApi(string jsonContent, JsonSerializerOptions options)
+    public static async Task<List<Item>> CreateItemsListFromJson(string jsonContent, JsonSerializerOptions options)
     {
-        var items = JsonSerializer.Deserialize<List<Item>>(jsonContent, options);
+        var itemsList = JsonSerializer.Deserialize<List<Item>>(jsonContent, options);
         
-        if (items.Count == 0)
+        if (itemsList != null)
         {
-            Console.WriteLine("No items found.");   
+            return itemsList;
         }
-        return items;
+        else
+        {
+            return null;
+        }
     }
 
     public static void DisplayAllItems(List<Item> items)
@@ -73,31 +76,4 @@ public static class ItemGetActions
             Console.WriteLine($"{item.ItemNumber}\t{item.PrintTitle()}");
         }
     }
-
-    // public static Item GetItem()
-    // {
-    //      Console.Write("Enter Patron ID: ");
-    //                 string? idToSearch = Console.ReadLine();
-
-    //                 if (string.IsNullOrEmpty(idToSearch))
-    //                 {
-    //                     Console.WriteLine("Invalid ID Format.");
-    //                     break;
-    //                 }   
-                    
-    //                 Console.WriteLine("Loading Patron...");
-
-    //                 Patron patron = await PatronHttpActions.GetPatronByID(idToSearch, client, session.JsonOptions);
-                    
-    //                 if (patron != null)
-    //                 {
-    //                     await PatronAccountMenu.MenuLoop(patron, client, session);
-    //                 }
-    //                 else
-    //                 {
-    //                     Console.WriteLine("Patron Does Not Exist...");
-    //                     break;
-    //                 }
-    //                 break;
-    // }
 }

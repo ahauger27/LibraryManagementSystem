@@ -58,6 +58,12 @@ public static class MainMenu
                             break;
                         }
 
+                        if (itemToCheckIn.CurrentBorrowerID == null)
+                        {
+                            itemToCheckIn.CircStatus = CircStatus.In;
+                            break;
+                        }
+                        
                         string? patronIDToUpdate = itemToCheckIn.CurrentBorrowerID;
 
                         Patron? patronAccountToUpdate = await PatronGetActions.TryToLoadPatronAccount(patronIDToUpdate, client, session);

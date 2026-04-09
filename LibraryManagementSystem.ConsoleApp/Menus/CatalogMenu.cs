@@ -34,9 +34,24 @@ public static class CatalogMenu
                 case "1":
                     Console.WriteLine("Loading Catalog...");
 
-                    string itemJson = await ItemHttpActions.GetItems(client);
-                    List<Item> itemList = await ItemGetActions.CreateItemsListFromApi(itemJson, session.JsonOptions);
-                    ItemGetActions.DisplayAllItems(itemList);
+                    string? itemsJson = await ItemHttpActions.GetItems(client);
+                    
+                    if (itemsJson == null)
+                    {
+                        Console.WriteLine("Catalog unavailable");
+                        break;
+                    }
+
+                    List<Item> itemsList = await ItemGetActions.CreateItemsListFromJson(itemsJson, session.JsonOptions);
+
+                    if (itemsList == null)
+                    {
+                        Console.WriteLine("There are no items in the catalog");
+                    }
+                    else
+                    {
+                        ItemGetActions.DisplayAllItems(itemsList);
+                    }
                     
                     Console.WriteLine("""
                     

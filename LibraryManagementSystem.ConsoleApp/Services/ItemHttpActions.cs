@@ -5,7 +5,7 @@ namespace LibraryManagementSystem.ConsoleApp.Services;
 
 public static class ItemHttpActions
 {
-    public static async Task<string> GetItems(HttpClient client)
+    public static async Task<string?> GetItems(HttpClient client)
     {
         HttpResponseMessage response = await client.GetAsync("/items");
         
