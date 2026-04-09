@@ -68,11 +68,9 @@ public class Patron
         }
         else
         {
-            Console.WriteLine($"{PrintPatronName()}'s current loans:");
             foreach (Item item in ActiveLoans)
             {
-                Console.WriteLine($"-{item.Title}");
-
+                Console.WriteLine($"{item.ItemNumber}\t{item.PrintTitle()}");
             }
         }
     }

@@ -7,41 +7,47 @@ public static class ItemRecordMenu
 {
     public static void DisplayBasicItemRecordInfo(Item item)
     {
-        Console.WriteLine($"Title: {item.PrintTitle()} | Author: {item.PrintAuthor()}");
-        Console.WriteLine($"Item #: {item.ItemNumber} | Current Status: {item.CircStatus}");
+        Console.WriteLine($"Title:  {item.PrintTitle()}");
+        Console.WriteLine($"Item#:  {item.ItemNumber}");
+        Console.WriteLine($"Status: {item.CircStatus.ToString().ToUpper()}");
     }
 
     public static void DisplayFullItemRecordInfo(Item item)
     {
-        Console.WriteLine($"Title: {item.PrintTitle()}");
-        Console.WriteLine($"Author: {item.PrintTitle()}");
-        Console.WriteLine($"Title: {item.PrintTitle()}");
-        Console.WriteLine($"Title: {item.PrintTitle()}");
+        Console.WriteLine($"Item#: \t\t{item.ItemNumber}");
+        Console.WriteLine($"Title: \t\t{item.PrintTitle()}");
+        Console.WriteLine($"Author: \t{item.PrintAuthor()}");
+        Console.WriteLine($"Format: \t{item.Format.ToString().ToUpper()}");
+        Console.WriteLine($"Collection: \t{item.Genre.ToString().ToUpper()}");
+        Console.WriteLine($"Borrower ID: \t{item.CurrentBorrowerID}");
     }
 
     public static async Task MenuLoop(Item item, HttpClient client, Processes session)
     {
         bool returnToCatalog = false;
 
-        Console.WriteLine("""
-
-            ITEM RECORD
-            ===========
-
-            """);
 
         while (!returnToCatalog)
         {
-            Console.WriteLine("");
+            Console.WriteLine("""
+
+                ITEM RECORD
+                ===========
+
+                """);
+
             DisplayBasicItemRecordInfo(item);
 
-            Console.WriteLine("");
-            Console.WriteLine("1. Display Item Record Details");
-            Console.WriteLine("2. Check Out To Patron");
-            Console.WriteLine("3. Return To Catalog");
+            Console.WriteLine("""
 
-            Console.WriteLine("");
-            Console.Write("Please Make A Selection: ");
+            OPTIONS
+            1. Display Full Item Record
+            2. Check Out To Patron
+            3. Return To Catalog
+
+            """);
+
+            Console.Write("Please select an option: ");
 
             string? userChoice = Console.ReadLine();
         
@@ -49,19 +55,26 @@ public static class ItemRecordMenu
             {
                 case "1":
                     Console.WriteLine("""
+
                     FULL ITEM INFORMATION
                     =====================
                     """);
 
                     DisplayFullItemRecordInfo(item);
+                    UserActions.PressKeyToContinue();
                     break;
 
                 case "2":
-                    Console.WriteLine("""
-                    CHECK OUT
-                    =========
-                    """);
+                    Console.WriteLine("");
                     
+                    if (!Circulate.IsItemAvailable(item))
+                    {
+                        Console.WriteLine("This item is not available to check out at this time.");
+                        
+                        UserActions.PressKeyToContinue();
+                        break;
+                    }
+
                     try
                     {
                         string? patronIDToCheckOutTo = PatronGetActions.GetPatronIDFromUser();

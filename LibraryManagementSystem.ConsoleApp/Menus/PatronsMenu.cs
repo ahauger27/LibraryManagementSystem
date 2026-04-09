@@ -7,23 +7,24 @@ public static class PatronsMenu
 {
     public static async Task MenuLoop(HttpClient client, Processes session)
     {
+        Console.Clear();
+
         bool returnToPreviousMenu = false;
 
         while (!returnToPreviousMenu)
         {
             Console.WriteLine("""
 
-            PATRON MENU
-            ===========
+            PATRON VIEWER
+            =============
+
+            1. View All Patrons
+            2. Search Patron By ID
+            3. Create New Patron Record
+            4. Return To Main Menu
 
             """);
 
-            Console.WriteLine("1. View All Patrons");
-            Console.WriteLine("2. Search Patron By ID (WIP)");
-            Console.WriteLine("3. Create New Patron (WIP)");
-            Console.WriteLine("4. Return To Main Menu");
-
-            Console.WriteLine("");
             Console.Write("Please Select An Option: ");
 
             string? userChoice = Console.ReadLine();
@@ -31,41 +32,72 @@ public static class PatronsMenu
             switch (userChoice)
             {
                 case "1": 
-                    Console.WriteLine("Getting All Patrons...");
-                    UserActions.PressKeyToContinue();
+                    Console.WriteLine("Getting all patrons...");
 
                     string patronJson = await PatronHttpActions.GetPatrons(client);
                     List<Patron> patronList = await PatronGetActions.CreatePatronsListFromApi(patronJson, session.JsonOptions);
                     PatronGetActions.DisplayAllPatrons(patronList);
+
+                    Console.WriteLine("""
+                    
+                    OPTIONS
+                    1. View Single Patron Record
+                    2. Return To Patron Viewer
+
+                    """);
+
+                    Console.Write("Please select an option: ");
+
+                    string? userChoice2 = Console.ReadLine();
+
+                    switch (userChoice2)
+                    {
+                        case "1":
+                            string? patronIDToSelect = PatronGetActions.GetPatronIDFromUser();
+
+                            Patron? patronToSelect = await PatronGetActions.TryToLoadPatronAccount(patronIDToSelect, client, session);
+
+                            if (patronToSelect == null)
+                            {
+                                Console.WriteLine($"The ID \"{patronToSelect}\" is not tied to an existing patron.");
+                                Console.WriteLine("Returning to menu..."); 
+                                UserActions.PressKeyToContinue();
+                                Console.Clear();  
+                            }
+                            else
+                            {
+                                await PatronAccountMenu.MenuLoop(patronToSelect, client, session);
+                            }
+                            break;
+
+                        default:
+                            Console.Clear();
+                            break;
+                    }
+
                     break;
 
                 case "2":
-                    Console.Write("Enter Patron ID: ");
-                    string? idToSearch = Console.ReadLine();
+                    string? patronIDToSearch = PatronGetActions.GetPatronIDFromUser();
 
-                    if (string.IsNullOrEmpty(idToSearch))
-                    {
-                        Console.WriteLine("Invalid ID Format.");
-                        break;
-                    }   
-                    
-                    Console.WriteLine("Loading Patron...");
+                    Patron? patronToSearch = await PatronGetActions.TryToLoadPatronAccount(patronIDToSearch, client, session);
 
-                    Patron patron = await PatronHttpActions.GetPatronByID(idToSearch, client, session.JsonOptions);
-                    
-                    if (patron != null)
+                    if (patronToSearch == null)
                     {
-                        await PatronAccountMenu.MenuLoop(patron, client, session);
+                        Console.WriteLine($"The ID \"{patronIDToSearch}\" is not tied to an existing patron.");
+                        Console.WriteLine("Returning to menu..."); 
+                        UserActions.PressKeyToContinue();
+                        Console.Clear();  
                     }
                     else
                     {
-                        Console.WriteLine("Patron Does Not Exist...");
-                        break;
+                        await PatronAccountMenu.MenuLoop(patronToSearch, client, session);
                     }
                     break;
 
                 case "3":
-                    Console.WriteLine("MENU TO ADD A NEW PATRON");
+                    Console.Clear();
+                    Console.WriteLine("CREATE NEW PATRON RECORD");
 
                     Patron newPatron = PatronPostActions.CreateNewPatron();
                     
@@ -82,15 +114,14 @@ public static class PatronsMenu
                     }   
                     break; 
 
-                case "4":
-                    Console.WriteLine("Returning To Main Menu...");
+                case "4":                   
                     returnToPreviousMenu = true;
+                    Console.Clear();
                     break;
 
                 default:
-                    Console.WriteLine("INVALID OPTION: Please enter 1, 2, 3, or 4");
-                    UserActions.PressKeyToContinue();
-                    break;
+                    Console.Write("INVALID OPTION: Please enter 1, 2, 3, or 4: ");
+                    continue;
                 
             }
         }

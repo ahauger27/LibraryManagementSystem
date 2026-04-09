@@ -10,6 +10,7 @@ This program acts as a way allow users in a public facing environment to access 
 
 HOW TO RUN THIS PROJECT
 -----------------------
+Fork the repo from github to your computer, 
 
 LATEST UPDATES
 --------------
@@ -24,6 +25,7 @@ LATEST UPDATES
 
 WHAT'S NEXT?
 ------------
+* Creating a new patron makes their ID 00001 by default
 * TEST THE UNHAPPY PATHS
 * Add error handling
     * Say why string input is invalid.

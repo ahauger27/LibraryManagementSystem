@@ -61,5 +61,17 @@ public static class Circulate
             patron.ActiveLoans.Remove(itemToRemove);
         }
     }
+
+    public static bool IsItemAvailable(Item item)
+    {
+        if (item.CircStatus != CircStatus.In)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
   

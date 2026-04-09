@@ -14,19 +14,19 @@ public static class PatronPutActions
             $"""
 
             CURRENT PATRON INFORMATION
-            1. FIRST NAME: {patron.FirstName}
-            2. MIDDLE INITIAL: {patron.MiddleInitial}
-            3. LAST NAME: {patron.LastName}
-            4. DATE OF BIRTH: {patron.DateOfBirth}
-            5. ADDRESS: {patron.Address}
-            6. EMAIL: {patron.Email}
-            7. PHONE NUMBER: {patron.PhoneNumber}
+            1. First Name {patron.FirstName.ToUpper()}
+            2. Middle Initial: {patron.MiddleInitial}
+            3. Last Name: {patron.LastName}
+            4. Date of Birth: {patron.DateOfBirth}
+            5. Address: {patron.Address}
+            6. Email: {patron.Email}
+            7. Phone Number: {patron.PhoneNumber}
             8. GO BACK
             
             """
             );
 
-            Console.Write("Make a Selection: ");
+            Console.Write("Select a field to update: ");
             string? fieldNumber = Console.ReadLine();
 
             if (string.IsNullOrEmpty(fieldNumber) || !validChoices.Contains(fieldNumber))

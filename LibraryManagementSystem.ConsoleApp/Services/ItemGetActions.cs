@@ -38,13 +38,13 @@ public static class ItemGetActions
 
     public static void DisplayAllItems(List<Item> items)
     {   
-        Console.WriteLine($"{Environment.NewLine}ITEMS:");
-        Console.WriteLine("ITEM NUMBER\tTITLE");
+        Console.WriteLine("");
+        Console.WriteLine("ITEM#\tTITLE");
         Console.WriteLine("=================================");
         
         foreach (var item in items)
         {
-            Console.WriteLine($"{item.ItemNumber}\t{item.Title}");
+            Console.WriteLine($"{item.ItemNumber}\t{item.PrintTitle()}");
         }
     }
 

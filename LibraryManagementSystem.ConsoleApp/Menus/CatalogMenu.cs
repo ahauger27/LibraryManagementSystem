@@ -7,23 +7,25 @@ public static class CatalogMenu
 {
     public static async Task MenuLoop(Processes session, HttpClient client)
     {
+        Console.Clear();
+        
         bool returnToMainMenu = false;
-
-        Console.WriteLine("""
-
-        CATALOG VIEWER
-        ==============
-
-        """);
-
-        Console.WriteLine("1. View All Items in Catalog");
-        Console.WriteLine("2. Search By Item Number");
-        Console.WriteLine("3. Return To Main Menu");
 
         while (!returnToMainMenu)
         {
-            Console.WriteLine("");
-            Console.Write("Please Select An Option");
+            Console.WriteLine("""
+
+            CATALOG VIEWER
+            ==============
+
+            OPTIONS
+            1. View All Items in Catalog
+            2. Search By Item Number
+            3. Return To Main Menu
+
+            """);
+        
+            Console.Write("Please select An option: ");
 
             string? userChoice = Console.ReadLine();
 
@@ -35,6 +37,9 @@ public static class CatalogMenu
                     string itemJson = await ItemHttpActions.GetItems(client);
                     List<Item> itemList = await ItemGetActions.CreateItemsListFromApi(itemJson, session.JsonOptions);
                     ItemGetActions.DisplayAllItems(itemList);
+                    
+                    UserActions.PressKeyToContinue();
+                    Console.Clear();
                     break;
 
                 case "2":
@@ -63,7 +68,8 @@ public static class CatalogMenu
                     break;
 
                 case "3":
-                    Console.WriteLine("Returning To Main Menu...");
+                    Console.Clear();
+                    
                     returnToMainMenu = true;
                     break;
 

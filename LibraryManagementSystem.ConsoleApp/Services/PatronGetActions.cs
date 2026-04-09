@@ -1,5 +1,6 @@
 using System.Text.Json;
 using LibraryManagementSystem.ConsoleApp.Models;
+using LibraryManagementSystem.ConsoleApp.Menus;
 
 namespace LibraryManagementSystem.ConsoleApp.Services;
 
@@ -7,13 +8,12 @@ public static class PatronGetActions
 {
     public static string GetPatronIDFromUser()
     {
-        Console.Write("Enter patron ID to check out to: ");
-
-        string? patronIDToCheckOut = Console.ReadLine();
+        Console.Write("Enter patron ID: ");
 
         while (true)
         {
-            if (string.IsNullOrEmpty(patronIDToCheckOut))
+            string? patronIDToSearch = Console.ReadLine();
+            if (string.IsNullOrEmpty(patronIDToSearch))
             {
                 Console.WriteLine("INVALID. Patron ID cannot be empty.");
                 Console.Write("Please enter the patron's ID: ");
@@ -21,11 +21,26 @@ public static class PatronGetActions
             }
             else
             {
-                return patronIDToCheckOut;
+                return patronIDToSearch;
             }
         }
     }
     
+    public static async Task<Patron?> TryToLoadPatronAccount(string patronIDToSearch, HttpClient client, Processes session)
+    {
+        try
+        {
+            Console.WriteLine("Loading patron...");
+            
+            Patron? patronToSearch = await PatronHttpActions.GetPatronByID(patronIDToSearch, client, session.JsonOptions);
+            
+            return patronToSearch;
+        }
+        catch (NullReferenceException)
+        {
+            return null;
+        }
+    }
     public static async Task<List<Patron>> CreatePatronsListFromApi(string jsonContent, JsonSerializerOptions options)
     {
         // var patrons = new List<Patron>();
@@ -41,7 +56,7 @@ public static class PatronGetActions
 
     public static void DisplayAllPatrons(List<Patron> patrons)
     {   
-        Console.WriteLine($"{Environment.NewLine}PATRONS:");
+        Console.WriteLine("");
         Console.WriteLine("ID\tNAME");
         Console.WriteLine("=================================");
         

@@ -12,34 +12,34 @@ public static class PatronAccountMenu
 
     public static void DisplayFullPatronAccountInfo(Patron patron)
     {
-        Console.WriteLine($"First Name: \t{patron.FirstName}");
-        Console.WriteLine($"Middle Initial: {patron.MiddleInitial}");
-        Console.WriteLine($"Last Name: \t{patron.LastName}");
+        Console.WriteLine($"First Name: \t{patron.FirstName.ToUpper()}");
+        Console.WriteLine($"Middle Initial: {patron.MiddleInitial.ToUpper()}");
+        Console.WriteLine($"Last Name: \t{patron.LastName.ToUpper()}");
         Console.WriteLine($"Date of Birth: \t{patron.DateOfBirth}");
-        Console.WriteLine($"Address: \t{patron.Address}");
-        Console.WriteLine($"Email Address: \t{patron.Email}");
+        Console.WriteLine($"Address: \t{patron.Address.ToUpper()}");
+        Console.WriteLine($"Email Address: \t{patron.Email.ToLower()}");
         Console.WriteLine($"Phone Number: \t{patron.PhoneNumber}");     
     }
 
     public static async Task MenuLoop(Patron patron, HttpClient client, Processes session)
     {
+        Console.Clear();
         
         bool returnToPatronMenu = false;
 
-        Console.WriteLine("""
+        while (!returnToPatronMenu)
+        {
+            Console.WriteLine("""
 
-            PATRON ACCOUNT MENU
-            ===================
+            PATRON RECORD
+            =============
 
             """);
 
-        while (!returnToPatronMenu)
-        {
-            Console.WriteLine("");
             DisplayBasicPatronAccountInfo(patron);
 
-            Console.WriteLine("");
-            Console.WriteLine("1. Display Patron Registration Details");
+            Console.WriteLine("OPTIONS");
+            Console.WriteLine("1. Display Full Patron Record");
             Console.WriteLine("2. Check Out Item");
             Console.WriteLine("3. View Active Loans");
             Console.WriteLine("4. Update Account Information");
@@ -47,7 +47,7 @@ public static class PatronAccountMenu
             Console.WriteLine("6. Return To Patron Menu");
 
             Console.WriteLine("");
-            Console.Write("Please Make A Selection: ");
+            Console.Write("Please select an option: ");
 
             string? userChoice = Console.ReadLine();
 
@@ -65,16 +65,13 @@ public static class PatronAccountMenu
                     break;
 
                 case "2":
-                    Console.WriteLine("""
-                    CHECK OUT
-                    =========
-                    """);
+                    Console.WriteLine("");
                     
                     try
                     {
                         string? itemNumberToCheckOut = ItemGetActions.GetItemNumberFromUser();
                         
-                        Console.WriteLine("Loading Item...");
+                        Console.WriteLine("Loading item...");
                         
                         Item itemToCheckOut = await ItemHttpActions.GetItemByID(itemNumberToCheckOut, client, session.JsonOptions);
                     
@@ -104,9 +101,12 @@ public static class PatronAccountMenu
                     break;
 
                 case "3":
-                    Console.WriteLine("""
-                    ACTIVE LOANS
-                    ============
+                    Console.WriteLine($"""
+                    
+                    {patron.PrintPatronName()}'s ACTIVE LOANS
+                    
+                    ITEM#   TITLE
+                    =========================================
                     """);
 
                     patron.DisplayActiveLoans();
@@ -115,6 +115,7 @@ public static class PatronAccountMenu
 
                 case "4":
                     Console.WriteLine("""
+                    
                     UPDATING PATRON INFORMATION
                     ===========================
                     """);
@@ -166,7 +167,7 @@ public static class PatronAccountMenu
                     break;
                 
                 case "6":
-                    Console.WriteLine("Returning to Patron Search Menu...");
+                    Console.Clear();
                     returnToPatronMenu = true;
                     break;
 

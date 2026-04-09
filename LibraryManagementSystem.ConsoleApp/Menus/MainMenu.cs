@@ -15,15 +15,14 @@ public static class MainMenu
             MAIN MENU
             =========
 
+            OPTIONS
+            1. Patron Viewer
+            2. Catalog Viewer
+            3. Check In Item
+            4. Quit program
+            
             """);
             
-            Console.WriteLine("1. View Patrons");
-            Console.WriteLine("2. View Catalog (WIP)");
-            Console.WriteLine("3. Check Out (WIP)" );
-            Console.WriteLine("4. Check In Item");
-            Console.WriteLine("5. Quit program (WIP)");
-            
-            Console.WriteLine("");
             Console.Write("Please select an option: ");
             
             string? userChoice = Console.ReadLine();
@@ -34,33 +33,18 @@ public static class MainMenu
                     await PatronsMenu.MenuLoop(client, session);
                     break;
 
-                case "2": // 2. Open Catalog (WIP)
-                    Console.WriteLine("CATALOG");
-                    Console.WriteLine("This feature is still in progress");
-                    
+                case "2":
                     await CatalogMenu.MenuLoop(session, client);
-                    Console.WriteLine("Returning to Main Menu...");
-                    UserActions.PressKeyToContinue();
                     break;
                 
                 case "3":
-                    Console.WriteLine("CHECK OUT");
-
-                    
-                    break;
-
-                case "4":
-                    Console.WriteLine("CHECKING IN");
-
-                    //CirculationMenu.CheckInMenu();
-
-                    Console.Write("Enter Item Number: ");
+                    Console.Write("Enter item number: ");
                     string? itemNumberToCheckIn = Console.ReadLine();
                     
                     if (string.IsNullOrEmpty(itemNumberToCheckIn))
                     {
                         Console.WriteLine("INVALID INPUT");
-                        Console.Write("Enter Item Number: ");
+                        Console.Write("Enter 5 digit item number (xxxxx): ");
                         continue;
                     }
                     
@@ -90,13 +74,15 @@ public static class MainMenu
                     await ItemHttpActions.PutItem(itemToCheckIn, client, session.JsonOptions);
                     break;
 
-                case "5":
-                    Console.WriteLine("Shutting Down Program...");
+                case "4":
+                    Console.WriteLine("Shutting down program...");
                     session.End();
                     break;
 
                 default:
                     Console.WriteLine("INVALID OPTION: Please enter 1, 2, or 3.");
+                    UserActions.PressKeyToContinue();
+                    Console.Clear();
                     break;
             }
         } 

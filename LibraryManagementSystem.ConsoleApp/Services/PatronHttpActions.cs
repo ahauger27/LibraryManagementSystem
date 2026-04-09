@@ -35,8 +35,8 @@ public static class PatronHttpActions
         }
         else
         {
-            Console.WriteLine($"Error: {singleResponse.StatusCode}");
-            Console.WriteLine(await singleResponse.Content.ReadAsStringAsync());
+            // Console.WriteLine($"Error: {singleResponse.StatusCode}");
+            // Console.WriteLine(await singleResponse.Content.ReadAsStringAsync());
             return null;
         }
     }
