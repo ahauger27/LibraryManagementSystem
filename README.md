@@ -3,40 +3,39 @@ LIBRARY MANAGEMENT SYSTEM
 
 WHAT DOES THIS PROJECT DO?
 --------------------------
-This program acts as a way allow users in a public facing environment to access patron and item records, and circulate items to and from patrons.
-* Create, Retrieve, Update, and Delete Patron information and records.
+This program acts as a way track circulation of items to and from patrons in a 'library' setting. Currently, the items are all books, but could easily be updated to be anything: tools, clothing, or any other items.
+* Create, Retrieve, Update, and Delete patron records.
 * View Catalog and Item records.
-* Circulation functionality for lending Items to Patrons.
+* Circulation functionality for lending Items to Patrons, and checking these items back in.
 
-HOW TO RUN THIS PROJECT
+HOW TO USE THIS PROJECT
 -----------------------
-Fork the repo from github to your computer, 
+After forking and cloning the repo to your own machine, open the LibraryManagementSystem directory in VS Code or another IDE.
+
+In one terminal, run the following code to launch the web api:
+`dotnet run --project LibraryManagementSystem.API/LibraryManagementSystem.API.csproj`
+
+Open another terminal and run this code to launch the console application:
+`dotnet run --project LibraryManagementSystem.ConsoleApp/LibraryManagementSystem.ConsoleApp.csproj`
+
+From here, you can open the Patrons menu, look at the Catalog of items, or check in an item directly from the main menu.
+
+Items can be checked out while inside a Patron Record menu, or while in an Item Record menu.
+
+After viewing all patrons/items, I would recommend taking note of a few Patron IDs and Item Numbers to test out the circulation functions.
+(Ideally, there would be physical items with barcodes and the program would operate more fluidly with a scanner)
+
 
 LATEST UPDATES
 --------------
-* Http get, and post work in the web api and in the console app!
-* Http DELETE by id now works!
-* Got SearchByPatronID() working again!
-* Main Menu, Patron Search Menu, and Patron Account menu are functioning
-* Json Serializer can't use interfaces in deserialization out of the box(removed for the time being)
-* Figured out how to incorporate Enums in json serialization, so added the enums for format, collection, and circstatus
-* Checkout is working, but is messy and needs to be cleaned up
-* Checkin is working, but is messy and needs to be cleaned up
+* Menus are more cohesive after extensive testing
+* A fair amount of edge cases have been accounted for
+* 
 
 WHAT'S NEXT?
 ------------
 * Creating a new patron sometimes makes their ID 00001, even if that id already is in use
-* Clean up the checkin/checkout code
-    * Item check out/ check in not displying success/failure: 
-* Date of Birth not updating...
-* TEST THE UNHAPPY PATHS
-* Need to add more items
-    either create a json file with book and item data, or connect to an api
 * Check if Patron exists when Creating/Posting
-
-Nice-to-haves
-* Create a script that will create random patrons so as not to need ai for this
-* Fix Age display function, returns "System.Func`1[System.Int32]"
 
 THE USE OF AI IN THIS PROJECT
 -----------------------------
