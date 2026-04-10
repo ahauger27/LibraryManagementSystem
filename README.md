@@ -30,7 +30,6 @@ LATEST UPDATES
 --------------
 * Menus are more cohesive after extensive testing
 * A fair amount of edge cases have been accounted for
-* 
 
 WHAT'S NEXT?
 ------------
@@ -39,5 +38,7 @@ WHAT'S NEXT?
 
 THE USE OF AI IN THIS PROJECT
 -----------------------------
-I utilized Claude to create a json file containing dummy data for 200 library patron users. I opted to generate this file with AI rather than serializing this data by hand to save time upfront when testing early functionality.
+Needing a list of dummy patrons to test CRUD functionality, I used Claude to create the initial patron json file by referencing the custom Patron class I had created. The books were added later, and this json file was created by hand.
+
+Any other AI use consisted of debugging my project when I could not find the culprit for the error in the code my myself. In these cases, I always made sure to understand what the generated edits did before making any changes, opting to review the generated code and then implementing the changes myself.
 
