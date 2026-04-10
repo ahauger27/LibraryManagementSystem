@@ -37,7 +37,8 @@ public static class CatalogMenu
                     
                     if (itemsJson == null)
                     {
-                        Console.WriteLine("Catalog unavailable");
+                        Console.WriteLine("Catalog unavailable at this time.");
+                        UserActions.PressKeyToContinue();
                         break;
                     }
 

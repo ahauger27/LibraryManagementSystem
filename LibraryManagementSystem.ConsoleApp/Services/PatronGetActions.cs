@@ -39,7 +39,7 @@ public static class PatronGetActions
             return null;
         }
     }
-    public static async Task<List<Patron>?> CreatePatronsListFromApi(string jsonContent, JsonSerializerOptions options)
+    public static async Task<List<Patron>?> CreatePatronsListFromJson(string jsonContent, JsonSerializerOptions options)
     {
         // var patrons = new List<Patron>();
         

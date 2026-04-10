@@ -1,3 +1,4 @@
+using System.Text.Json;
 using LibraryManagementSystem.ConsoleApp.Models;
 using LibraryManagementSystem.ConsoleApp.Services;
 
@@ -34,16 +35,25 @@ public static class PatronsMenu
                     Console.Clear();
                     Console.WriteLine("Getting all patrons...");
 
-                    string patronJson = await PatronHttpActions.GetPatrons(client);
-                    List<Patron>? patronList = await PatronGetActions.CreatePatronsListFromApi(patronJson, session.JsonOptions);
-                    
-                    if (patronList is not null)
+                    try
                     {
-                        PatronGetActions.DisplayAllPatrons(patronList);
+                        string patronJson = await PatronHttpActions.GetPatrons(client);
+                        List<Patron>? patronList = await PatronGetActions.CreatePatronsListFromJson(patronJson, session.JsonOptions);
+                 
+                        if (patronList is not null)
+                        {
+                            PatronGetActions.DisplayAllPatrons(patronList);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No patrons found. Returning to last menu...");
+                            UserActions.PressKeyToContinue();
+                            break;
+                        }
                     }
-                    else
+                    catch (JsonException ex)
                     {
-                        Console.WriteLine("No patrons found. Returning to last menu...");
+                        Console.WriteLine(ex.Message);
                         UserActions.PressKeyToContinue();
                         break;
                     }
@@ -65,17 +75,25 @@ public static class PatronsMenu
                         case "1":
                             string? patronIDToSelect = PatronGetActions.GetPatronIDFromUser();
 
-                            Patron? patronToSelect = await PatronGetActions.TryToLoadPatronAccount(patronIDToSelect, client, session);
+                            try
+                            {
+                                Patron? patronToSelect = await PatronGetActions.TryToLoadPatronAccount(patronIDToSelect, client, session);
 
-                            if (patronToSelect == null)
-                            {
-                                Console.WriteLine($"The ID \"{patronIDToSelect}\" is not tied to an existing patron.");
-                                UserActions.PressKeyToContinue();
-                                Console.Clear();  
+                                if (patronToSelect == null)
+                                {
+                                    Console.WriteLine($"The ID \"{patronIDToSelect}\" is not tied to an existing patron.");
+                                    UserActions.PressKeyToContinue();
+                                    Console.Clear();  
+                                }
+                                else
+                                {
+                                    await PatronAccountMenu.MenuLoop(patronToSelect, client, session);
+                                }
                             }
-                            else
+                            catch (JsonException)
                             {
-                                await PatronAccountMenu.MenuLoop(patronToSelect, client, session);
+                                Console.WriteLine("An error occured, try again.");
+                                UserActions.PressKeyToContinue();
                             }
                             break;
                         
@@ -94,17 +112,25 @@ public static class PatronsMenu
                 case "2":
                     string? patronIDToSearch = PatronGetActions.GetPatronIDFromUser();
 
-                    Patron? patronToSearch = await PatronGetActions.TryToLoadPatronAccount(patronIDToSearch, client, session);
+                    try
+                    {                        
+                        Patron? patronToSearch = await PatronGetActions.TryToLoadPatronAccount(patronIDToSearch, client, session);
 
-                    if (patronToSearch == null)
-                    {
-                        Console.WriteLine($"The ID \"{patronIDToSearch}\" is not tied to an existing patron.");
-                        UserActions.PressKeyToContinue();
-                        Console.Clear();  
+                        if (patronToSearch == null)
+                        {
+                            Console.WriteLine($"The ID \"{patronIDToSearch}\" is not tied to an existing patron.");
+                            UserActions.PressKeyToContinue();
+                            Console.Clear();  
+                        }
+                        else
+                        {
+                            await PatronAccountMenu.MenuLoop(patronToSearch, client, session);
+                        }
                     }
-                    else
+                    catch (JsonException)
                     {
-                        await PatronAccountMenu.MenuLoop(patronToSearch, client, session);
+                        Console.WriteLine("An error occured, try again.");
+                        UserActions.PressKeyToContinue();
                     }
                     break;
 
@@ -117,7 +143,7 @@ public static class PatronsMenu
                     if (newPatron != null)
                     {
                         await PatronHttpActions.PostNewPatron(newPatron, client);
-                        Console.WriteLine("Opening patron record...");
+                        // Console.WriteLine("Opening patron record...");
                         UserActions.PressKeyToContinue();
                         await PatronAccountMenu.MenuLoop(newPatron, client, session);
                     }
