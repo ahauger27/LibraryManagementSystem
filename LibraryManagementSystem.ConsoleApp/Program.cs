@@ -11,8 +11,6 @@ public class Program
         session.Start();
 
         Console.WriteLine("""
-
-        
             =========================
             LIBRARY MANAGEMENT SYSTEM
             =========================

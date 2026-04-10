@@ -13,7 +13,6 @@ public static class CatalogMenu
         {
             Console.Clear();
             Console.WriteLine("""
-
             CATALOG VIEWER
             ==============
 
@@ -31,6 +30,7 @@ public static class CatalogMenu
             switch (userChoice)
             {
                 case "1":
+                    Console.Clear();
                     Console.WriteLine("Loading Catalog...");
 
                     string? itemsJson = await ItemHttpActions.GetItems(client);
@@ -41,7 +41,7 @@ public static class CatalogMenu
                         break;
                     }
 
-                    List<Item> itemsList = await ItemGetActions.CreateItemsListFromJson(itemsJson, session.JsonOptions);
+                    List<Item>? itemsList = await ItemGetActions.CreateItemsListFromJson(itemsJson, session.JsonOptions);
 
                     if (itemsList == null)
                     {
@@ -83,8 +83,13 @@ public static class CatalogMenu
                                 await ItemRecordMenu.MenuLoop(itemToSelect, client, session);
                             }
                             break;
+                        
+                        case "2":
+                            break;
 
                         default:
+                            Console.Write("INVALID INPUT: Please enter 1 or 2");
+                            UserActions.PressKeyToContinue();
                             Console.Clear();
                             break;
                             
@@ -98,10 +103,11 @@ public static class CatalogMenu
                     {
                         Console.WriteLine("Loading item...");
 
-                        Item item = await ItemHttpActions.GetItemByID(itemNumberToSearch, client, session.JsonOptions);
+                        Item? item = await ItemHttpActions.GetItemByID(itemNumberToSearch, client, session.JsonOptions);
 
                         if (item == null)
                         {
+                            UserActions.PressKeyToContinue();
                             break;
                         }
 
@@ -112,7 +118,9 @@ public static class CatalogMenu
                     catch (NullReferenceException ex)
                     {
                         Console.WriteLine(ex.Message);
+                        UserActions.PressKeyToContinue();
                     }
+                    UserActions.PressKeyToContinue();
                     break;
 
                 case "3":

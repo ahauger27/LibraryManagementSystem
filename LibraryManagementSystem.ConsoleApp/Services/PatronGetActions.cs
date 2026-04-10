@@ -39,15 +39,15 @@ public static class PatronGetActions
             return null;
         }
     }
-    public static async Task<List<Patron>> CreatePatronsListFromApi(string jsonContent, JsonSerializerOptions options)
+    public static async Task<List<Patron>?> CreatePatronsListFromApi(string jsonContent, JsonSerializerOptions options)
     {
         // var patrons = new List<Patron>();
         
         var patrons = JsonSerializer.Deserialize<List<Patron>>(jsonContent, options);
         
-        if (patrons.Count == 0)
+        if (patrons?.Count == 0)
         {
-            Console.WriteLine("No patrons found.");   
+            return null;
         }
         return patrons;
     }

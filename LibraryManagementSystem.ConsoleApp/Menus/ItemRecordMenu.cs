@@ -31,7 +31,6 @@ public static class ItemRecordMenu
         {
             Console.Clear();
             Console.WriteLine("""
-
             ITEM RECORD
             ===========
 
@@ -55,21 +54,20 @@ public static class ItemRecordMenu
             switch (userChoice)
             {
                 case "1":
+                    Console.Clear();
                     Console.WriteLine("""
-
-                    FULL ITEM INFORMATION
-                    =====================
+                    FULL ITEM RECORD
+                    ================
                     """);
 
                     DisplayFullItemRecordInfo(item);
                     UserActions.PressKeyToContinue();
                     break;
 
-                case "2":
-                    Console.WriteLine("");
-                    
+                case "2":                    
                     if (item.CircStatus == Resources.CircStatus.Out)
                     {
+                        Console.Clear();
                         Console.WriteLine("This item is not available to check out at this time.");
                         
                         UserActions.PressKeyToContinue();
@@ -87,6 +85,8 @@ public static class ItemRecordMenu
                         if (patronToCheckOutTo == null)
                         {   
                             Console.WriteLine("This id is not tied to an existing patron.");
+                            
+                            UserActions.PressKeyToContinue();
                             break;
                         }
                         
@@ -104,11 +104,15 @@ public static class ItemRecordMenu
                         else
                         {
                             Console.WriteLine("Something went wrong, try again.");
+
+                            UserActions.PressKeyToContinue();
                         }
                     }
                     catch (NullReferenceException ex)
                     {
                         Console.WriteLine(ex.Message);
+
+                        UserActions.PressKeyToContinue();
                     }
                     break;
 
@@ -118,8 +122,8 @@ public static class ItemRecordMenu
 
                 default:
                     Console.Write("INVALID INPUT: Please enter 1, 2, or 3");
-                    Console.Clear();
                     UserActions.PressKeyToContinue();
+                    Console.Clear();
                     break;
                     
             }

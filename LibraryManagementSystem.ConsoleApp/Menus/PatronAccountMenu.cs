@@ -17,8 +17,8 @@ public static class PatronAccountMenu
         Console.WriteLine($"Middle Initial: {patron.MiddleInitial.ToUpper()}");
         Console.WriteLine($"Last Name: \t{patron.LastName.ToUpper()}");
         Console.WriteLine($"Date of Birth: \t{patron.DateOfBirth}");
-        Console.WriteLine($"Address: \t{patron.Address.ToUpper()}");
-        Console.WriteLine($"Email Address: \t{patron.Email.ToLower()}");
+        Console.WriteLine($"Address: \t{patron.Address?.ToUpper()}");
+        Console.WriteLine($"Email Address: \t{patron.Email?.ToLower()}");
         Console.WriteLine($"Phone Number: \t{patron.PhoneNumber}");     
     }
 
@@ -30,10 +30,8 @@ public static class PatronAccountMenu
         {
             Console.Clear();
             Console.WriteLine($"""
-
             PATRON RECORD
             =============
-
             """);
 
             DisplayBasicPatronAccountInfo(patron);
@@ -58,10 +56,9 @@ public static class PatronAccountMenu
             {
                 case "1":
                     Console.Clear();
-
                     Console.WriteLine($"""
-
                     ACCOUNT DETAILS FOR PATRON #{patron.PatronID}
+                    =================================
 
                     """);
 
@@ -88,7 +85,7 @@ public static class PatronAccountMenu
                         
                         Console.WriteLine("Loading item...");
                         
-                        Item itemToCheckOut = await ItemHttpActions.GetItemByID(itemNumberToCheckOut, client, session.JsonOptions);
+                        Item? itemToCheckOut = await ItemHttpActions.GetItemByID(itemNumberToCheckOut, client, session.JsonOptions);
                     
                         if (itemToCheckOut == null)
                         {   
@@ -110,15 +107,6 @@ public static class PatronAccountMenu
                             Console.WriteLine($"\"{itemToCheckOut.Title.ToUpper()}\" could not be checked out.");
 
                         }
-
-                        // if (itemToCheckOut.CurrentBorrowerID == patron.PatronID)
-                        // {
-                                
-                        // }
-                        // else
-                        // {
-                        //     Console.WriteLine("No");
-                        // }
                     
                         UserActions.PressKeyToContinue();
                         break;
@@ -128,7 +116,6 @@ public static class PatronAccountMenu
                     {
                         Console.WriteLine(ex.Message);
                     }
-
                     break;
 
                 case "3":
@@ -141,7 +128,6 @@ public static class PatronAccountMenu
                     else
                     {
                         Console.WriteLine($"""
-                        
                         {patron.PrintPatronName()}'s ACTIVE LOANS
                         
                         ITEM#   TITLE
@@ -156,11 +142,10 @@ public static class PatronAccountMenu
 
                 case "4":
                     Console.Clear();
-
-                    Console.WriteLine("""
-                    
+                    Console.WriteLine(""" 
                     UPDATING PATRON INFORMATION
                     ===========================
+
                     """);
                             
                     string? fieldNumber = PatronPutActions.ChoosePatronInfoToUpdate(patron);
@@ -182,14 +167,13 @@ public static class PatronAccountMenu
                     
                     await PatronHttpActions.PutPatron(patron, client, session.JsonOptions);
 
-                    // Check if successful
-                    //if (success)
-
+                    Console.WriteLine("Patron account updated.");
+                    UserActions.PressKeyToContinue();
                     break;
 
                 case "5":
-                    Console.WriteLine($"{Environment.NewLine}Delete This Patron Account? ({patron.LastName}, {patron.FirstName})");
-                    Console.Write("CONFIRM 'Y/N': ");
+                    Console.WriteLine($"{Environment.NewLine}Delete This Patron Account? ({patron.PrintPatronName()})");
+                    Console.Write("CONFIRM? 'Y/N': ");
 
                     string? confirmation = Console.ReadLine();
 
@@ -218,7 +202,8 @@ public static class PatronAccountMenu
                     break;
 
                 default:
-                    Console.WriteLine("INVALID");
+                    Console.WriteLine("INVALID INPUT: Please select 1, 2, 3, 4, 5, or 6");
+                    UserActions.PressKeyToContinue();
                     break;
             }
         }

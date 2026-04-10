@@ -20,7 +20,7 @@ public static class ItemHttpActions
         }
     }
 
-    public static async Task<Item> GetItemByID(string id, HttpClient client, JsonSerializerOptions options)
+    public static async Task<Item?> GetItemByID(string id, HttpClient client, JsonSerializerOptions options)
     {
         HttpResponseMessage singleResponse = await client.GetAsync($"/items/{id}");
 

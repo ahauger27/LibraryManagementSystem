@@ -13,7 +13,6 @@ public static class MainMenu
         {
             Console.Clear();
             Console.WriteLine("""
-
             MAIN MENU
             =========
 
@@ -44,11 +43,10 @@ public static class MainMenu
                     {
                         string? itemNumberToCheckIn = ItemGetActions.GetItemNumberFromUser();
                         
-                        Item itemToCheckIn = await ItemHttpActions.GetItemByID(itemNumberToCheckIn, client, session.JsonOptions);
+                        Item? itemToCheckIn = await ItemHttpActions.GetItemByID(itemNumberToCheckIn, client, session.JsonOptions);
                     
-                        if (!ItemGetActions.DoesItemExist(itemToCheckIn))
+                        if (itemToCheckIn is null)
                         {
-                            Console.WriteLine($"The item # {itemNumberToCheckIn} is not tied to an existing record.");
                             UserActions.PressKeyToContinue();
                             break;
                         }
@@ -85,6 +83,7 @@ public static class MainMenu
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
+                        UserActions.PressKeyToContinue();
                     }
                     break;
 

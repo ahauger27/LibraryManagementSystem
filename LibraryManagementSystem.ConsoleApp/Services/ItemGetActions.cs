@@ -38,20 +38,8 @@ public static class ItemGetActions
             return null;
         }
     }
-
-    public static bool DoesItemExist(Item item)
-    {
-        if (item == null)
-        {   
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
     
-    public static async Task<List<Item>> CreateItemsListFromJson(string jsonContent, JsonSerializerOptions options)
+    public static async Task<List<Item>?> CreateItemsListFromJson(string jsonContent, JsonSerializerOptions options)
     {
         var itemsList = JsonSerializer.Deserialize<List<Item>>(jsonContent, options);
         
