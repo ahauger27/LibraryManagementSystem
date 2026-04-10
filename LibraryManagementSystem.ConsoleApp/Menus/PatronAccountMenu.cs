@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using LibraryManagementSystem.ConsoleApp.Models;
 using LibraryManagementSystem.ConsoleApp.Services;
 
@@ -76,6 +77,14 @@ public static class PatronAccountMenu
                     try
                     {
                         string? itemNumberToCheckOut = ItemGetActions.GetItemNumberFromUser();
+
+                        if (Circulate.DoesPatronAlreadyHaveItem(patron, itemNumberToCheckOut))
+                        {
+                            Console.WriteLine($"{patron.PrintPatronName()} already has this item on loan.");
+                            UserActions.PressKeyToContinue();
+                            Console.Clear();
+                            break;
+                        }
                         
                         Console.WriteLine("Loading item...");
                         
@@ -83,23 +92,37 @@ public static class PatronAccountMenu
                     
                         if (itemToCheckOut == null)
                         {   
-                            Console.WriteLine("This item number is not tied to an existing item.");
+                            UserActions.PressKeyToContinue();
                             break;
                         }
-                        
-                        if (Circulate.CheckOutItem(patron, itemToCheckOut))
+                    
+                        Circulate.CheckOutItem(patron, itemToCheckOut);
+
+                        if (patron.ActiveLoans.Contains(itemToCheckOut))
                         {
                             Console.WriteLine($"Checked out \"{itemToCheckOut.Title.ToUpper()}\" to {patron.PrintPatronName()}.");
                             
                             await PatronHttpActions.PutPatron(patron, client, session.JsonOptions);
                             await ItemHttpActions.PutItem(itemToCheckOut, client, session.JsonOptions);
-
-                            UserActions.PressKeyToContinue();
                         }
                         else
                         {
-                            Console.WriteLine("Something went wrong, try again.");
+                            Console.WriteLine($"\"{itemToCheckOut.Title.ToUpper()}\" could not be checked out.");
+
                         }
+
+                        // if (itemToCheckOut.CurrentBorrowerID == patron.PatronID)
+                        // {
+                                
+                        // }
+                        // else
+                        // {
+                        //     Console.WriteLine("No");
+                        // }
+                    
+                        UserActions.PressKeyToContinue();
+                        break;
+                    
                     }
                     catch (NullReferenceException ex)
                     {

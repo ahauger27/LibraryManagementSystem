@@ -68,7 +68,7 @@ public static class ItemRecordMenu
                 case "2":
                     Console.WriteLine("");
                     
-                    if (!Circulate.IsItemAvailable(item))
+                    if (item.CircStatus == Resources.CircStatus.Out)
                     {
                         Console.WriteLine("This item is not available to check out at this time.");
                         
@@ -90,12 +90,16 @@ public static class ItemRecordMenu
                             break;
                         }
                         
-                        if (Circulate.CheckOutItem(patronToCheckOutTo, item))
+                        Circulate.CheckOutItem(patronToCheckOutTo, item);
+
+                        if (patronToCheckOutTo.ActiveLoans.Contains(item))
                         {
                             Console.WriteLine($"Checked out \"{item.PrintTitle()}\" to {patronToCheckOutTo.PrintPatronName()}.");
                             
                             await PatronHttpActions.PutPatron(patronToCheckOutTo, client, session.JsonOptions);
                             await ItemHttpActions.PutItem(item, client, session.JsonOptions);
+
+                            UserActions.PressKeyToContinue();
                         }
                         else
                         {
@@ -110,6 +114,12 @@ public static class ItemRecordMenu
 
                 case "3":
                     returnToCatalog = true;
+                    break;
+
+                default:
+                    Console.Write("INVALID INPUT: Please enter 1, 2, or 3");
+                    Console.Clear();
+                    UserActions.PressKeyToContinue();
                     break;
                     
             }

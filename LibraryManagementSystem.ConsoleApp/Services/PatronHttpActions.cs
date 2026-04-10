@@ -68,20 +68,12 @@ public static class PatronHttpActions
         
         if (patron != null)
         {
-            Console.WriteLine($"Updating patron record for {patron.FullName()}");
-
             string patronJson = JsonSerializer.Serialize(patron, options);
             StringContent content = new(patronJson, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PutAsync($"/patrons/{patron.PatronID}", content);
 
-            if (response.IsSuccessStatusCode)
-            {
-                Console.WriteLine($"Successfully updated patron: {patron.PatronID}");
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"{jsonResponse}{Environment.NewLine}");
-            }
-            else
+            if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine($"Error: {response.StatusCode}");
                 Console.WriteLine(await response.Content.ReadAsStringAsync());

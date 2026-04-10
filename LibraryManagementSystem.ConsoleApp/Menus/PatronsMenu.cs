@@ -8,7 +8,6 @@ public static class PatronsMenu
     public static async Task MenuLoop(HttpClient client, Processes session)
     {
         Console.Clear();
-
         bool returnToPreviousMenu = false;
 
         while (!returnToPreviousMenu)
@@ -120,7 +119,9 @@ public static class PatronsMenu
                     break;
 
                 default:
-                    Console.Write("INVALID OPTION: Please enter 1, 2, 3, or 4: ");
+                    Console.Write("INVALID OPTION: Please enter 1, 2, 3, or 4");
+                    UserActions.PressKeyToContinue();
+                    Console.Clear();
                     continue;
                 
             }

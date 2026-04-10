@@ -7,12 +7,11 @@ public static class CatalogMenu
 {
     public static async Task MenuLoop(Processes session, HttpClient client)
     {
-        Console.Clear();
-        
         bool returnToMainMenu = false;
 
         while (!returnToMainMenu)
         {
+            Console.Clear();
             Console.WriteLine("""
 
             CATALOG VIEWER
@@ -103,7 +102,6 @@ public static class CatalogMenu
 
                         if (item == null)
                         {
-                            Console.WriteLine("This item number is not tied to an existing item.");
                             break;
                         }
 
@@ -124,7 +122,9 @@ public static class CatalogMenu
                     break;
 
                 default:
-                    Console.WriteLine("INVALID OPTION: Please Enter 1, 2, or 3");
+                    Console.Write("INVALID OPTION: Please Enter 1, 2, or 3");
+                    UserActions.PressKeyToContinue();
+                    Console.Clear();
                     break;
             }
         }

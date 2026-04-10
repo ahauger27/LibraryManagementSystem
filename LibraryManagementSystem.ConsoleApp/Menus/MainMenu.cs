@@ -11,6 +11,7 @@ public static class MainMenu
 
         while (session.RunStatus == true)
         {
+            Console.Clear();
             Console.WriteLine("""
 
             MAIN MENU
@@ -48,13 +49,14 @@ public static class MainMenu
                         if (!ItemGetActions.DoesItemExist(itemToCheckIn))
                         {
                             Console.WriteLine($"The item # {itemNumberToCheckIn} is not tied to an existing record.");
+                            UserActions.PressKeyToContinue();
                             break;
                         }
    
-                        //Check if item is already marked in
                         if (itemToCheckIn.CircStatus == CircStatus.In)
                         {
                             Console.WriteLine("This item is already marked as \"IN\"");
+                            UserActions.PressKeyToContinue();
                             break;
                         }
 
@@ -74,6 +76,10 @@ public static class MainMenu
 
                             await PatronHttpActions.PutPatron(patronAccountToUpdate, client, session.JsonOptions);
                             await ItemHttpActions.PutItem(itemToCheckIn, client, session.JsonOptions);
+
+                            Console.WriteLine($"Item #{itemToCheckIn.ItemNumber} checked in.");
+
+                            UserActions.PressKeyToContinue();
                         }
                     }
                     catch (Exception ex)
@@ -88,7 +94,7 @@ public static class MainMenu
                     break;
 
                 default:
-                    Console.WriteLine("INVALID OPTION: Please enter 1, 2, or 3.");
+                    Console.Write("INVALID OPTION: Please enter 1, 2, or 3");
                     UserActions.PressKeyToContinue();
                     Console.Clear();
                     break;

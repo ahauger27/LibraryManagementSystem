@@ -37,7 +37,7 @@ public class UserActions
     public static void PressKeyToContinue()
     {
         Console.WriteLine("");
-        Console.WriteLine("Press any key to continue... ");
-        Console.ReadKey();
+        Console.Write("Press any key to continue... ");
+        Console.ReadLine();
     }
 }

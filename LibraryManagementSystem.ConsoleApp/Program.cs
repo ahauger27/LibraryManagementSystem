@@ -24,6 +24,8 @@ public class Program
             BaseAddress = new Uri("http://localhost:5126")
         };
 
+        UserActions.PressKeyToContinue();
+
         await MainMenu.MenuLoop(session, client);                          
     }
 }
