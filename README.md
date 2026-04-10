@@ -12,19 +12,18 @@ HOW TO USE THIS PROJECT
 -----------------------
 After forking and cloning the repo to your own machine, open the LibraryManagementSystem directory in VS Code or another IDE.
 
-In one terminal, run the following code to launch the web api:
+In one terminal, run the following command to launch the web api:
 `dotnet run --project LibraryManagementSystem.API/LibraryManagementSystem.API.csproj`
 
-Open another terminal and run this code to launch the console application:
+Open another terminal and run this command to launch the console application:
 `dotnet run --project LibraryManagementSystem.ConsoleApp/LibraryManagementSystem.ConsoleApp.csproj`
 
 From here, you can open the Patrons menu, look at the Catalog of items, or check in an item directly from the main menu.
 
-Items can be checked out while inside a Patron Record menu, or while in an Item Record menu.
-
-After viewing all patrons/items, I would recommend taking note of a few Patron IDs and Item Numbers to test out the circulation functions.
+I would recommend viewing all patrons and items and taking note of a few Patron IDs and Item Numbers to test out the circulation functions.
 (Ideally, there would be physical items with barcodes and the program would operate more fluidly with a scanner)
 
+Items can be checked out while in a Patron Record menu, or while in an Item Record menu.
 
 LATEST UPDATES
 --------------
