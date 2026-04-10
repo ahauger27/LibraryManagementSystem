@@ -1,8 +1,50 @@
 [
   {
-    "Title": "The Lord of the Rings",
+    "Title": "The Hobbit",
     "AuthorName": "J.R.R. Tolkien",
     "Genre": "Fiction",
     "Format": "Hardcover"
+  },
+  {
+    "Title": "1984",
+    "AuthorName": "George Orwell",
+    "Genre": "ScienceFiction",
+    "Format": "Paperback"
+  },
+  {
+    "Title": "To Kill a Mockingbird",
+    "AuthorName": "Harper Lee",
+    "Genre": "Fiction",
+    "Format": "Paperback"
+  },
+  {
+    "Title": "The Great Gatsby",
+    "AuthorName": "F. Scott Fitzgerald",
+    "Genre": "Fiction",
+    "Format": "Hardcover"
+  },
+  {
+    "Title": "Moby Dick",
+    "AuthorName": "Herman Melville",
+    "Genre": "Fiction",
+    "Format": "Paperback"
+  },
+  {
+    "Title": "Their Eyes Were Watching God",
+    "AuthorName": "Zora Neale Hurston",
+    "Genre": "Fiction",
+    "Format": "Paperback"
+  },
+  {
+    "Title": "Beloved",
+    "AuthorName": "Toni Morrison",
+    "Genre": "Fiction",
+    "Format": "Hardcover"
+  },
+  {
+    "Title": "Coding For Dummies",
+    "AuthorName": "Nikhil Abraham",
+    "Genre": "NonFiction",
+    "Format": "Paperback"
   }
 ]
